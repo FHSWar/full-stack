@@ -1,9 +1,6 @@
-export const SUCCESS = '000000';
-export const FAILURE = '100000';
-export const ILLEGAL_USERNAME = '120001';
-export const ILLEGAL_PASSWORD = '120002';
-export const REGISRATION_FAILURE = '120003';
-export const USERNAME_EXIST = '120004';
-export const NOT_LOGGED_IN = '120005';
-export const CHANGE_PASSWORD_FAILURE = '130006';
-export const GET_USERNAME_FAILURE = '130007';
+export const SUCCESS = '200';
+export const FAILURE = '400';
+export const UNAUTHORIZED = '401';
+export const FORBIDDEN = '403';
+export const INTERNAL_ERROR = '500';
+export const OVERTIME = '504';
