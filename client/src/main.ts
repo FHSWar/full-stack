@@ -5,7 +5,7 @@ import 'element-plus/dist/index.css';
 import app from './app.vue';
 
 createApp(app)
-  .use(ElementPlus, {
-    locale: zhCn,
-  })
-  .mount('#app');
+	.use(ElementPlus, {
+		locale: zhCn
+	})
+	.mount('#app');
