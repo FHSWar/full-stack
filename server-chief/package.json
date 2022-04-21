@@ -1,0 +1,30 @@
+{
+  "name": "server-chief",
+  "author": "fhswar",
+  "description": "server-chief",
+  "license": "ISC",
+  "keywords": [
+    "koa"
+  ],
+  "version": "1.0.0",
+  "scripts": {
+    "dev": "nodemon src/app.ts",
+    "lint": "eslint --fix --ext .js,.vue,.ts src"
+  },
+  "dependencies": {
+    "@koa/cors": "^3.3.0",
+    "koa": "^2.13.4"
+  },
+  "devDependencies": {
+    "@types/koa": "^2.13.4",
+    "@types/koa__cors": "^3.3.0",
+    "@types/node": "^17.0.25",
+    "@typescript-eslint/eslint-plugin": "^5.20.0",
+    "@typescript-eslint/parser": "^5.20.0",
+    "eslint": "^8.13.0",
+    "eslint-config-airbnb-base": "^15.0.0",
+    "eslint-plugin-import": "^2.26.0",
+    "nodemon": "^2.0.15",
+    "typescript": "^4.6.3"
+  }
+}

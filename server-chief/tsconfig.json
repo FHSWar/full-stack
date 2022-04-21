@@ -1,0 +1,9 @@
+{
+    "compilerOptions": {
+        "rootDir": "./src",
+        "outDir": "./build",
+        "lib": ["ESNext", "DOM"],
+        "strict": true,
+        "esModuleInterop": true
+    }
+}
