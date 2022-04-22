@@ -5,9 +5,11 @@ import axios from 'axios';
 const value1 = ref('');
 
 axios.get('http://127.0.0.1:9000/').then((res) => console.log('9000', res));
-// axios.get('http://127.0.0.1:9001/').then((res) => console.log('9001', res));
-// This starter template is using Vue 3 <script setup> SFCs
-// Check out https://vuejs.org/api/sfc-script-setup.html#script-setup
+
+/* const source = new EventSource('http://localhost:9000/sse');
+source.onopen = () => console.log('Connected');
+source.onerror = console.error;
+source.onmessage = console.log; */
 </script>
 
 <template>
