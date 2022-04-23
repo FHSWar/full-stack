@@ -9,7 +9,7 @@ router.get('/sse', async (ctx) => {
 	// ctx.request.socket.setTimeout(0);
 	// ctx.req.socket.setNoDelay(true);
 	// ctx.req.socket.setKeepAlive(true);
-
+	console.log('what??`');
 	ctx.set({
 		'Content-Type': 'text/event-stream',
 		'Cache-Control': 'no-cache',
@@ -27,8 +27,10 @@ router.get('/sse', async (ctx) => {
 
 	stream.on('close', () => {
 		clearInterval(interval);
+		console.log('close');
 	});
-	// 用了 next 就报错了
+
+	// 用了 next 前端就报错了
 	// await next().catch(() => { ctx.body = ctx.state.mwCalled; });
 });
 

@@ -1,19 +1,20 @@
 {
-  "name": "ui-auto",
+  "name": "ui-auto-monorepo",
+  "private": true,
   "version": "1.0.0",
   "description": "ui-auto",
+  "keywords": ["koa", "vue3", "typescript"],
+  "license": "ISC",
+  "workspaces": ["client", "server-chief", "server-worker", "shared"],
+  "engines": {
+    "node": ">=16.14.2"
+  },
   "scripts": {
     "dev": "npm-run-all --parallel dev:*",
-    "init": "npm-run-all --parallel init:*",
     "dev:client": "cd client && npm run dev",
     "dev:server-chief": "cd server-chief && npm run dev",
-    "dev:server-worker": "cd server-worker && npm run dev",
-    "install:client": "cd client && npm i",
-    "install:server-chief": "cd server-chief && npm i",
-    "install:server-worker": "cd server-worker && npm i"
+    "dev:server-worker": "cd server-worker && npm run dev"
   },
-  "keywords": [],
-  "license": "ISC",
   "devDependencies": {
     "npm-run-all": "^4.1.5"
   }

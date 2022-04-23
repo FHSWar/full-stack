@@ -6,10 +6,10 @@ const value1 = ref('');
 
 axios.get('http://127.0.0.1:9000/').then((res) => console.log('9000', res));
 
-/* const source = new EventSource('http://localhost:9000/sse');
+const source = new EventSource('http://localhost:9000/sse');
 source.onopen = () => console.log('Connected');
 source.onerror = console.error;
-source.onmessage = console.log; */
+source.onmessage = console.log;
 </script>
 
 <template>
