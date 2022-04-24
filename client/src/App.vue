@@ -4,7 +4,8 @@ import axios from 'axios';
 
 const value1 = ref('');
 
-axios.get('http://127.0.0.1:9000/').then((res) => console.log('9000', res));
+// axios.get('http://127.0.0.1:9000/').then((res) => console.log('9000', res));
+axios.get('http://127.0.0.1:9000/test').then((res) => console.log('test', res));
 
 const source = new EventSource('http://localhost:9000/sse');
 source.onopen = () => console.log('Connected');

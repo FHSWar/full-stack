@@ -22,6 +22,9 @@ module.exports = {
 		'global-require': 'off', // 要求require出现在顶层中
 		'import/extensions': 'off', // 关闭第三方插件校验
 		'import/no-unresolved': 'off',
+		'import/no-extraneous-dependencies': 'off',
+		'import/prefer-default-export': 'off',
+		'import/no-dynamic-require': 'off', // 为了编写路由方便，需要动态 require
 		indent: ['error', 'tab', { SwitchCase: 1 }], // 使用tab，间距对switch特异用2两个tab处理
 		'max-len': ['error', { code: 120 }], // 代码长度不超过120
 		'no-bitwise': 'off', // 检查未定义先设置为off

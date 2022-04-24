@@ -1,11 +1,22 @@
 {
   "name": "ui-auto-monorepo",
+  "author": "fhswar",
+  "email": "fhswar0504@163.com",
   "private": true,
   "version": "1.0.0",
   "description": "ui-auto",
-  "keywords": ["koa", "vue3", "typescript"],
+  "keywords": [
+    "koa",
+    "vue3",
+    "typescript"
+  ],
   "license": "ISC",
-  "workspaces": ["client", "server-chief", "server-worker", "shared"],
+  "workspaces": [
+    "client",
+    "server-chief",
+    "server-worker",
+    "shared"
+  ],
   "engines": {
     "node": ">=16.14.2"
   },

@@ -1,11 +1,8 @@
 {
   "name": "server-chief",
-  "author": "fhswar",
   "description": "server-chief",
   "license": "ISC",
-  "keywords": [
-    "koa"
-  ],
+  "keywords": ["koa"],
   "version": "1.0.0",
   "scripts": {
     "dev": "nodemon app.ts",

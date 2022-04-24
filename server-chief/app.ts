@@ -1,13 +1,12 @@
 import Koa from 'koa';
 import cors from '@koa/cors';
-import router from './src/router';
+import { STATUS } from 'shared';
+import { useRouter } from './router';
 import './src/web-socket';
 
+console.log('STATUS.SUCCESS', STATUS.SUCCESS);
 const app = new Koa();
-app.use(cors()).use(router.routes());
-
-app.use((ctx) => {
-	ctx.body = 'Hello Koa from chief';
-});
+app.use(cors());
+useRouter(app);
 
 app.listen(9000);

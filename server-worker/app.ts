@@ -1,11 +1,10 @@
 import Koa from 'koa';
 import cors from '@koa/cors';
-import {test} from 'shared'
-import './src/router';
-import './src/web-socket';
+import './router';
+import './web-socket';
 
 const app = new Koa();
-console.log(test, 'test')
+
 app.use(cors());
 
 app.use((ctx) => {

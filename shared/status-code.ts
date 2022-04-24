@@ -1,0 +1,8 @@
+export const STATUS = {
+	SUCCESS: '200',
+	FAILURE: '400',
+	UNAUTHORIZED: '401',
+	FORBIDDEN: '403',
+	INTERNAL_ERROR: '500',
+	OVERTIME: '504'
+} as const;
