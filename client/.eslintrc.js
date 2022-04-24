@@ -34,6 +34,7 @@ module.exports = {
 		'no-undef': 'off',
 		'no-param-reassign': 0,
 		'no-restricted-syntax': 'off', // 允许 for...of 之类的语法
+		'no-unused-expressions': 'off', // 优雅三元可以有
 		'object-curly-spacing': ['error', 'always'], // {}头尾留空格
 		'prefer-destructuring': 'off',
 		quotes: ['error', 'single'], // 单引号String

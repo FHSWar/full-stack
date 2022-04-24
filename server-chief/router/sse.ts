@@ -1,13 +1,11 @@
 import { PassThrough } from 'stream';
-import Router from '@koa/router';
-
-const router = new Router();
+import router from './config';
 
 router.get('/sse', async (ctx) => {
-	// 这个不加也能跑
+	/* // 这个不加也能跑
 	ctx.request.socket.setTimeout(0);
 	ctx.req.socket.setNoDelay(true);
-	ctx.req.socket.setKeepAlive(true);
+	ctx.req.socket.setKeepAlive(true); */
 	ctx.set({
 		'Content-Type': 'text/event-stream',
 		'Cache-Control': 'no-cache',
@@ -29,7 +27,7 @@ router.get('/sse', async (ctx) => {
 	});
 
 	// 用了 next 前端就报错了
-	// await next().catch(() => { ctx.body = ctx.state.mwCalled; });
+	// await next();
 });
 
 export default router;

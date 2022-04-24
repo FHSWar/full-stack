@@ -1,6 +1,6 @@
-import Router from '@koa/router';
+import router from './config';
 
-const router = new Router();
+console.log('global STATUS SUCCESS', STATUS.SUCCESS);
 
 router.get('/test', (ctx, next) => {
 	ctx.body = 'test';
