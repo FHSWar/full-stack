@@ -10,7 +10,7 @@ const checkIsDir = (name:string, root:string = __dirname) => statSync(join(root,
 
 // 获取符合条件的所有文件路径
 export const getFileRecursively = (
-	dirPath:string,
+	rootDirPath:string,
 	toIgnoreDirArr:shouldIgnoreDirArr,
 	getDefault: boolean = false
 ) => {
@@ -38,7 +38,7 @@ export const getFileRecursively = (
 				.forEach((item) => getFiles(`${innerDir}/${item}`, layer));
 		}
 	};
-	getFiles(dirPath, 0);
+	getFiles(rootDirPath, 0);
 
 	if (getDefault) return filePathArr.map((filePath) => require(filePath).default);
 	return filePathArr.map((filePath) => require(filePath));
