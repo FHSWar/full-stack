@@ -1,5 +1,3 @@
-import router from './config';
-
 console.log('global STATUS SUCCESS', STATUS.SUCCESS);
 
 router.get('/test', (ctx, next) => {

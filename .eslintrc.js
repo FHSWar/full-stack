@@ -21,6 +21,7 @@ module.exports = {
 		'func-names': 'off', // 允许匿名函数
 		'global-require': 'off', // 要求require出现在顶层中
 		'import/extensions': 'off', // 关闭第三方插件校验
+		'import/no-dynamic-require': 'off',
 		'import/no-unresolved': 'off',
 		'import/prefer-default-export': 'off',
 		indent: ['error', 'tab', { SwitchCase: 1 }], // 使用tab，间距对switch特异用2两个tab处理
