@@ -14,10 +14,7 @@ export const useLogger = (prefix: string, root: string) => {
 	log4js.configure({
 		appenders: {
 			console: {
-				type: 'stdout', // 控制台输出
-				layout: {
-					type: 'colored' // 使用color模式让控制台输出分类更加鲜明
-				}
+				type: 'stdout' // 控制台输出
 			},
 			file: {
 				type: 'file',
