@@ -8,6 +8,7 @@ const toIgnoreDirArr = [{ layer: 1, nameArr: ['config'] }];
 
 // 通过动态引入路由文件，免去手动注册的步骤，方便开发
 export const useRouter = (app:KoaInstance) => {
-	const routerFileArr = getFileRecursively(__dirname, toIgnoreDirArr, true);
+	const routerFileArr = getFileRecursively(__dirname, toIgnoreDirArr, true)
+		.filter((item) => item !== undefined);
 	routerFileArr.forEach((splitRouter) => app.use(splitRouter.routes()));
 };

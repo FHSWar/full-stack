@@ -7,7 +7,7 @@
   ],
   "version": "1.0.0",
   "scripts": {
-    "dev": "nodemon app.ts",
+    "dev": "node build/server-chief/app.js",
     "lint": "eslint --fix --ext .js,.vue,.ts src"
   },
   "dependencies": {
