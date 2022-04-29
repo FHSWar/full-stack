@@ -1,7 +1,7 @@
 const fs = require('fs');
 
 const str = 'post-script可以在git pull之后触发';
-console.log(str, 'wow');
+console.log(str, 'again');
 
 fs.readFile('./test.js', 'utf8', (err, data) => {
 	if (err) {
