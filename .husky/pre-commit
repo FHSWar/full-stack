@@ -1,5 +1,2 @@
 #!/bin/sh
 "$(dirname "$0")/_/husky.sh"
-
-echo "just merged"
-node script/test.js
