@@ -3,4 +3,3 @@
 
 echo "post-merge"
 node script/post-merge.js
-exit 0
