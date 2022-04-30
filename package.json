@@ -44,6 +44,9 @@
     ],
     "server-worker/**/*.{js,ts}": [
       "npm run lint:worker"
+    ],
+    "shared/**/*.{js,ts}": [
+      "npm run lint:shared"
     ]
   },
   "husky": {
