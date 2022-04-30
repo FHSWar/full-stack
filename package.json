@@ -25,10 +25,30 @@
     "dev:client": "cd client && npm run dev",
     "dev:server-chief": "cd server-chief && npm run dev",
     "dev:server-worker": "cd server-worker && npm run dev",
+    "lint": "npm-run-all --parallel lint:*",
+    "lint:chief": "cd server-chief && npm run lint",
+    "lint:worker": "cd server-worker && npm run lint",
+    "lint:shared": "cd shared && npm run lint",
     "prepare": "husky install"
   },
+  "dependencies": {
+    "deasync": "^0.1.26"
+  },
   "devDependencies": {
-    "npm-run-all": "^4.1.5",
-    "husky": "^7.0.0"
+    "husky": "^7.0.0",
+    "npm-run-all": "^4.1.5"
+  },
+  "lint-staged": {
+    "server-chief": [
+      "eslint . --fix", "git add"
+    ],
+    "server-worker": [
+      "eslint . --fix", "git add"
+    ]
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "lint-staged"
+    }
   }
 }

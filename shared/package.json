@@ -4,6 +4,9 @@
   "description": "internal utils shared across packages",
   "main": "./index.ts",
   "license": "ISC",
+  "scripts": {
+    "lint": "eslint --fix --ext .js,.ts ./"
+  },
   "dependencies": {
     "log4js": "^6.4.6"
   },

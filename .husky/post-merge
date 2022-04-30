@@ -2,3 +2,5 @@
 . "$(dirname "$0")/_/husky.sh"
 
 echo "post-merge"
+node script/post-merge.js
+exit 0
