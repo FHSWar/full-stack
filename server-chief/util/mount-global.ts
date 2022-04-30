@@ -10,5 +10,3 @@ global.router = router;
 global.Schema = Schema;
 global.STATUS = STATUS;
 global.wss = wss;
-
-console.log('mount-global worked');
