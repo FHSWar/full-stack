@@ -10,7 +10,6 @@ export const useLogger = (prefix: string, root: string) => {
 		root.split('/').at(-2) as string,
 		'logger'
 	);
-	console.log('getFilename', getFilename());
 	log4js.configure({
 		appenders: {
 			console: {

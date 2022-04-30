@@ -3,6 +3,7 @@
         "outDir": "./build",
         "strict": true,
         "esModuleInterop": true,
+        "baseUrl": ".",
         "paths": {
             "shared": ["../shared"]
         }
