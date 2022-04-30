@@ -40,10 +40,10 @@
   },
   "lint-staged": {
     "server-chief": [
-      "eslint . --fix", "git add"
+      "npm run lint:chief"
     ],
     "server-worker": [
-      "eslint . --fix", "git add"
+      "npm run lint:worker"
     ]
   },
   "husky": {
