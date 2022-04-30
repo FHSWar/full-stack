@@ -7,6 +7,8 @@ import router from './router';
 import app from './app.vue';
 
 createApp(app)
-	.use(ElementPlus, { locale: zhCn })
+	.use(ElementPlus, {
+		locale: zhCn
+	})
 	.use(router)
 	.mount('#app');

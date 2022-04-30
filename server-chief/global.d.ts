@@ -1,5 +1,6 @@
 /* eslint-disable */
 import Application from 'koa';
+import { Context } from 'koa';
 import Router from '@koa/router';
 import WebSocket from 'ws';
 import { Schema } from 'mongoose';
@@ -14,6 +15,7 @@ declare global {
     var router: Router<Application.DefaultState, Application.DefaultContext>;
     var Schema: SCHEMA_TYPE;
     var STATUS: STATUS_TYPE;
+    var toCliect: (ctx: Context, content:any, status?:number) => void;
     var wss: WebSocket.Server<WebSocket.WebSocket>
 }
 

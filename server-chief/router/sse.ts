@@ -1,6 +1,6 @@
 import { PassThrough } from 'stream';
 
-router.get('/sse', async (ctx) => {
+router.get('sse', async (ctx) => {
 	/* // 这个不加也能跑
 	ctx.request.socket.setTimeout(0);
 	ctx.req.socket.setNoDelay(true);

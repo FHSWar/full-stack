@@ -1,16 +1,18 @@
-export const Person = new Schema({
+import { model } from 'mongoose';
+
+const User = model('User', new Schema({
 	username: {
 		type: String,
 		unique: true,
-		require: true
+		required: true
 	},
 	password: {
 		type: String,
-		require: true
+		required: true
 	},
-	email: {
+	permission: {
 		type: String,
-		unique: true,
-		require: true
+		default: 'developer'
 	}
-});
+}));
+export default User;

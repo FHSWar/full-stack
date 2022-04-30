@@ -5,7 +5,11 @@
         "esModuleInterop": true,
         "baseUrl": ".",
         "paths": {
-            "shared": ["../shared"]
+            "shared": ["../shared"],
+            "model": ["model"] 
         }
+    },
+    "ts-node": {
+        "require": ["tsconfig-paths/register"]
     }
 }
