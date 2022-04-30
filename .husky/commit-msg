@@ -1,16 +1,4 @@
 #!/bin/sh
 . "$(dirname "$0")/_/husky.sh"
 
-RED='\033[0;31m'
-NC='\033[0m' # No Color
-
-if ! head -1 "$1" | grep -qE "^((feat|fix|chore|docs|test|style|refactor|perf|build|ci|revert))(\(.+?\))?: .{1,}$"; then
-    echo "${RED}提交无效！${NC} 正确格式是：卡片编号 提交类型: 提交信息" >&2
-    exit 1
-fi
-if ! head -1 "$1" | grep -qE "^.{1,88}$"; then
-    echo "${RED}Aborting commit.${NC} Your commit message is too long." >&2
-    exit 1
-fi
-
-npx --no-install commitlint --edit ""
+echo "commit-msg"
