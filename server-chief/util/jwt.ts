@@ -1,6 +1,6 @@
 import Koa from 'koa';
 import jwt from 'koa-jwt';
-import { sign } from 'jsonwebtoken';
+import { sign, verify } from 'jsonwebtoken';
 import { secretKey } from 'config';
 
 // 自定义对状态码为401的处理，必须return
@@ -32,4 +32,5 @@ export const useJWT = (app:Koa) => {
 	}));
 };
 
-export const generateToken = (payload:any = {}) => sign(payload, secretKey, { expiresIn: '4h' });
+export const generateToken = (payload:any = {}) => sign(payload, secretKey, { expiresIn: '7d' });
+export const verifyToken = (payload:any = {}) => verify(payload, secretKey);

@@ -1,3 +1,16 @@
+<script lang="ts" setup>
+import { ref } from 'vue';
+import loginView from './login-view.vue';
+
+const activeName = ref('login');
+const showRegister = ref(false);
+
+const handleClick = () => {
+	if (activeName.value === 'register') showRegister.value = true;
+};
+
+</script>
+
 <template>
   <div class="login__wrapper">
     <el-tabs
@@ -15,19 +28,6 @@
     </el-tabs>
   </div>
 </template>
-
-<script lang="ts" setup>
-import { ref } from 'vue';
-import loginView from './login-view.vue';
-
-const activeName = ref('login');
-const showRegister = ref(false);
-
-const handleClick = () => {
-	if (activeName.value === 'register') showRegister.value = true;
-};
-
-</script>
 
 <style lang="scss" scoped>
 .login {

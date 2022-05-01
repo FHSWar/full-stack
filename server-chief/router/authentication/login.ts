@@ -12,7 +12,6 @@ router.post('auth/login', async (ctx, next) => {
 		return;
 	}
 
-	console.log('username, password', username, password);
 	const userExist = await User.findOne({ username });
 	if (userExist) {
 		toCliect(ctx, '密码不正确', STATUS.FORBIDDEN);

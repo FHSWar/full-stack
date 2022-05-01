@@ -9,7 +9,7 @@
             "config": ["config"], 
             "model": ["model"], 
             "router": ["router"],
-            "util": ["util/"] 
+            "@util": ["util"] 
         }
     },
     "extends": "@tsconfig/node16/tsconfig.json",

@@ -1,9 +1,8 @@
 // logger.info('logger 文件在 shared 项目中');
 // logger.trace('global STATUS SUCCESS', STATUS.SUCCESS);
 
-// logger.
 router.get('test', (ctx, next) => {
-	ctx.body = 'test';
+	toCliect(ctx, '顺利测试一个！');
 	next();
 });
 

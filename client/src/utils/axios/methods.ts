@@ -23,7 +23,6 @@ export const get = (
 	return new Promise((resolve, reject) => {
 		axios(config as extendedAxiosRequestConfig)
 			.then((res) => {
-				console.log('get res', JSON.stringify(res, null, 4));
 				resolve(res);
 			})
 			.catch((error) => {
@@ -46,7 +45,6 @@ export const post = (
 	return new Promise((resolve, reject) => {
 		axios(config as extendedAxiosRequestConfig)
 			.then((res) => {
-				console.log('res', res);
 				resolve(res);
 			})
 			.catch((error) => {
