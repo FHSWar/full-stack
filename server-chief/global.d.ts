@@ -15,7 +15,7 @@ declare global {
     var router: Router<Application.DefaultState, Application.DefaultContext>;
     var Schema: SCHEMA_TYPE;
     var STATUS: STATUS_TYPE;
-    var toCliect: (ctx: Context, content:any, status?:number) => void;
+    var toCliect: (ctx: Context, content:any, status?:STATUS_TYPE[keyof STATUS_TYPE]) => void;
     var wss: WebSocket.Server<WebSocket.WebSocket>
 }
 

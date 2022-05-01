@@ -11,7 +11,8 @@ const router = new Router({
 const toCliect = (
 	ctx: Context,
 	content: any,
-	status:number = STATUS.SUCCESS
+	status:typeof STATUS[keyof typeof STATUS] = STATUS.SUCCESS
+
 ) => {
 	ctx.status = status;
 	if (typeof content === 'string' || content === undefined) {
