@@ -14,7 +14,8 @@ switch (env.NODE_ENV) {
 		database = 'mongodb://localhost/fhswar';
 		break;
 	default:
-		throw new Error('错误的环境设置');
+		database = 'mongodb://localhost/fhswar';
+		// throw new Error('错误的环境设置');
 }
 
 export { database };

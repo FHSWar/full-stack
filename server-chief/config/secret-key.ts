@@ -14,7 +14,8 @@ switch (env.NODE_ENV) {
 		secretKey = 'shared-secret';
 		break;
 	default:
-		throw new Error('错误的环境设置');
+		secretKey = 'shared-secret';
+		// throw new Error('错误的环境设置');
 }
 
 export { secretKey };
