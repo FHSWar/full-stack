@@ -10,7 +10,7 @@ router.post('auth/register', async (ctx, next) => {
 	const user = await User.findOne({ username });
 
 	if (user) {
-		toCliect(ctx, '改名称已被使用', STATUS.FORBIDDEN);
+		toCliect(ctx, '该名称已被使用', STATUS.FORBIDDEN);
 		return;
 	}
 

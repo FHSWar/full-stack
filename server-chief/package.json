@@ -7,7 +7,7 @@
   ],
   "version": "1.0.0",
   "scripts": {
-    "dev": "nodemon app.ts",
+    "dev": "cross-env NODE_ENV=development nodemon app.ts",
     "lint": "eslint --fix --ext .js,.ts ./",
     "pm2": "pm2 start ./build/server-chief/app.js --node-args=\"-r ts-node/register/transpile-only -r tsconfig-paths/register\"",
     "prd": "tsc && npm run pm2"
@@ -15,6 +15,7 @@
   "dependencies": {
     "@koa/cors": "^3.3.0",
     "@koa/router": "^10.1.1",
+    "@tsconfig/node16": "^1.0.2",
     "jsonwebtoken": "^8.5.1",
     "koa": "^2.13.4",
     "koa-bodyparser": "^4.3.0",
@@ -35,6 +36,7 @@
     "@types/ws": "^8.5.3",
     "@typescript-eslint/eslint-plugin": "^5.20.0",
     "@typescript-eslint/parser": "^5.20.0",
+    "cross-env": "^7.0.3",
     "eslint": "^8.13.0",
     "eslint-config-airbnb-base": "^15.0.0",
     "eslint-plugin-import": "^2.26.0",

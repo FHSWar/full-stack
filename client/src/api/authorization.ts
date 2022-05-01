@@ -1,3 +1,5 @@
+// import { post } from 'utils';
+import { post } from 'utils';
 import Axios from 'axios';
 
 const axiosConfig = {
@@ -13,20 +15,12 @@ type User = {
     checkPassword?: string
 }
 
-export const login = (params: User) => {
-	axios
-		.post('auth/login', params)
-		.then((res) => console.log('9000', res))
-		.catch((err) => {
-			console.log('register err', err.response.data);
-		});
+export const login = async (params: User) => {
+	const res = await post('auth/login', params, { useLoading: true, useMessage: true });
+	console.log('login res', res);
 };
 
-export const register = (params: User) => {
-	axios
-		.post('auth/register', params)
-		.then((res) => console.log('9000', res))
-		.catch((err) => {
-			console.log('register err', err.response.data);
-		});
+export const register = async (params: User) => {
+	const res = await post('auth/register', params, { useLoading: true, useMessage: true });
+	console.log('register res', res);
 };

@@ -46,10 +46,6 @@ module.exports = {
 		'no-unused-expressions': 'off', // 优雅三元可以有
 		'object-curly-spacing': ['error', 'always'], // {}头尾留空格
 		'object-curly-newline': ['error', {
-			ObjectExpression: 'always',
-			ObjectPattern: {
-				multiline: true
-			},
 			ImportDeclaration: 'never',
 			ExportDeclaration: {
 				multiline: true, minProperties: 6

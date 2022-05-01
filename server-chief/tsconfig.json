@@ -6,9 +6,13 @@
         "baseUrl": ".",
         "paths": {
             "shared": ["../shared"],
-            "model": ["model"] 
+            "config": ["config"], 
+            "model": ["model"], 
+            "router": ["router"],
+            "util": ["util/"] 
         }
     },
+    "extends": "@tsconfig/node16/tsconfig.json",
     "ts-node": {
         "require": ["tsconfig-paths/register"]
     }

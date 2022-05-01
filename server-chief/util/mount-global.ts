@@ -22,9 +22,11 @@ const toCliect = (
 	}
 };
 
-global.logger = useLogger('chief', __dirname);
-global.router = router;
-global.Schema = Schema;
-global.STATUS = STATUS;
-global.toCliect = toCliect;
-global.wss = wss;
+export const mountGlobal = () => {
+	global.logger = useLogger('chief', __dirname);
+	global.router = router;
+	global.Schema = Schema;
+	global.STATUS = STATUS;
+	global.toCliect = toCliect;
+	global.wss = wss;
+};
