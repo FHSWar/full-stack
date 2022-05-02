@@ -1,5 +1,5 @@
-import Login from '../views/login/tab-card.vue';
-import Home from '../views/main-entry.vue';
+import Login from '../views/login/index.vue';
+import Home from '../views/layout/index.vue';
 
 export const routes = [
 	{

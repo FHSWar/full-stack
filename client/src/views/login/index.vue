@@ -1,6 +1,6 @@
 <script lang="ts" setup>
 import { ref } from 'vue';
-import loginView from './login-view.vue';
+import loginView from './login-form.vue';
 
 const activeName = ref('login');
 const showRegister = ref(false);

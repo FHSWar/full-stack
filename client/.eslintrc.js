@@ -60,9 +60,6 @@ module.exports = {
 				max: 5
 			}
 		}],
-		'vue/multi-word-component-names': ['error', {
-			ignores: ['index']
-		}]
-
+		'vue/multi-word-component-names': 'off'
 	}
 };
