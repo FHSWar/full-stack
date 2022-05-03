@@ -1,38 +1,65 @@
 <script lang="ts" setup>
-import { computed } from 'vue';
+import { useRouter } from 'vue-router';
+import { useStore } from '@/stores';
 
 type MenuTree = {
-  id: string,
-  title: string,
-  children: MenuTree,
-  icon?: string // 用不了 keyof typeof Icons
-}[]
+    children: MenuTree
+    icon?: string // 用不了 keyof typeof Icons
+    id: string
+    page?: string
+    pid: string
+    title: string
+}[];
+type MenuList = Omit<MenuTree, 'children'>
 
 const props = defineProps<{
-  sideMenuTree: MenuTree
+  asideMenuList: MenuList // 摊平的，方便找
+  asideMenuTree: MenuTree // 组装好的，渲染用
 }>();
 
-const noChildren = computed(() => props.sideMenuTree.filter((item): boolean => item.children.length === 0));
-const hasChildren = computed(() => props.sideMenuTree.filter((item) => item.children.length > 0));
-
-const clickMenu = (menu:any) => {
-	console.log('menumenu', menu);
+const router = useRouter();
+const findParentChain = (leafId: string):MenuTree => {
+	const result:MenuTree = [];
+	const handler = (id: string) => {
+		const menuItem = props.asideMenuList.find((item) => item.id === id) as MenuList[number];
+		result.unshift(menuItem);
+		if (menuItem.pid !== '') handler(menuItem.pid);
+	};
+	handler(leafId);
+	return result;
+};
+const clickMenu = ({ page, id }: Omit<MenuList[number], 'icon'|'pid'|'title'|'children'>) => {
+	if (page) router.push({ name: page });
+	useStore().breadcrumb = findParentChain(id);
 };
 </script>
 
 <template>
-  <el-menu-item v-for="{icon, id, title} in noChildren" :index="id" :key="id">
-    <useIcon :icon="icon" />
-    <template #title>
-      <span @click="clickMenu({icon, id, title})">{{ title }}</span>
-    </template>
-  </el-menu-item>
-  <el-sub-menu v-for="{children, id, title} in hasChildren" :key="id" :index="id">
-    <template #title>
-      <span @click="clickMenu({id, title})">{{ title }}</span>
-    </template>
-    <menu-tree :side-menu-tree="children" />
-  </el-sub-menu>
+  <template v-for="{children, icon, id, page, title} in asideMenuTree" :key="id">
+    <el-menu-item v-if="children.length === 0" :index="id">
+      <template #title>
+        <span class="menu-tree__item" @click="clickMenu({id, page})">
+          <use-icon v-if="icon" :icon="icon" />
+          {{ title }}
+        </span>
+      </template>
+    </el-menu-item>
+    <el-sub-menu v-else :index="id">
+      <template #title>
+        <span class="menu-tree__item" @click="clickMenu({id, page})">
+          <use-icon v-if="icon" :icon="icon" />
+          {{ title }}
+        </span>
+      </template>
+      <menu-tree :aside-menu-tree="children" :aside-menu-list="asideMenuList" />
+    </el-sub-menu>
+  </template>
 </template>
+
 <style lang="scss" scoped>
+.menu-tree {
+  &__item {
+    width: 100%;
+  }
+}
 </style>

@@ -1,7 +1,9 @@
+import { RouteRecordRaw } from 'vue-router';
 import Login from '../views/login/index.vue';
 import Home from '../views/layout/index.vue';
+import { mainPanelRoutes } from './main-panel';
 
-export const routes = [
+export const routes:RouteRecordRaw[] = [
 	{
 		path: '/',
 		redirect: '/home'
@@ -14,6 +16,7 @@ export const routes = [
 	{
 		path: '/home',
 		name: 'home',
-		component: Home
+		component: Home,
+		children: mainPanelRoutes
 	}
 ];

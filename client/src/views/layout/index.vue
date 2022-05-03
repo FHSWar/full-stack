@@ -1,29 +1,29 @@
 <script lang="ts" setup>
+import { computed, ref } from 'vue';
 import layoutAside from './aside/index.vue';
-// import { test } from '@/api/authorization';
+import breadcrumb from './header/breadcrumb.vue';
 
-// const testToken = async () => {
-// const res = await test({ a: 1, b: 2, c: 3 });
-// console.log('testToken', res);
-// };
+// 控制Expand图片翻转，并收展侧边栏
+const isExpand = ref(true);
+const deg = computed(() => (isExpand.value ? '180deg' : '0'));
+const asideWidth = computed(() => (isExpand.value ? '200px' : '60px'));
+const toggleAside = () => { isExpand.value = !isExpand.value; };
 </script>
 
 <template>
   <el-container class="common-layout">
-    <el-header class="common-layout__header">
-      帅炸顶栏
-    </el-header>
-
-    <el-container>
-      <el-aside width="200px" class="common-layout__aside">
+    <transition>
+      <el-aside :width="asideWidth" class="common-layout__aside">
         <layout-aside />
-
-        <!-- <el-button type="primary" @click="testToken">
-          测试token
-        </el-button> -->
       </el-aside>
+    </transition>
+    <el-container>
+      <el-header class="common-layout__header">
+        <use-icon class="common-layout__toggle" icon="Expand" @click="toggleAside" />
+        <breadcrumb class="common-layout__breadcrumb" />
+      </el-header>
       <el-main class="common-layout__main">
-        不得了的仪表盘
+        <router-view />
       </el-main>
     </el-container>
   </el-container>
@@ -31,18 +31,28 @@ import layoutAside from './aside/index.vue';
 
 <style lang="scss">
 .common-layout {
-    width: 100%;
     height: 100%;
     &__aside {
-      // background-color: green;
+      transition: width 0.2s ease-in-out
+    }
+    &__toggle {
+      position: relative;
+      top: 50%;
+      transform: translateY(-50%) rotateY(v-bind("deg"));
+      font-size: 24px;
     }
     &__header {
-      width: 100%;
-      background-color: red;
+      position: relative;
+    }
+    &__breadcrumb {
+      position: absolute;
+      left: 60px;
+      top: 52%;
+      transform: translateY(-50%);
     }
     &__main {
       color: white;
-      background-color: blue;
+      background-color: #E6A23C;
     }
 }
 </style>

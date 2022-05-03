@@ -10,7 +10,7 @@ import app from '@/app.vue';
 import { useIcon } from '@/components/use-icon';
 
 createApp(app)
-	.component('useIcon', useIcon)
+	.component('use-icon', useIcon)
 	.use(ElementPlus, {
 		locale: zhCn
 	})
