@@ -1,9 +1,18 @@
 import { defineStore } from 'pinia';
-import type { MenuList } from '@/types';
+import type { MenuList, ThemeConfig } from '@/types';
+import { getLocal, setLocal } from '@/utils';
+
+let themeConfig:ThemeConfig;
+themeConfig = getLocal('themeConfig') as ThemeConfig;
+if (themeConfig === null) {
+	themeConfig = { isAsideMenuCollapse: false };
+	setLocal('themeConfig', themeConfig);
+}
 
 export const useStore = defineStore('common', {
 	state: () => ({
-		token: localStorage.getItem('token') || '',
-		breadcrumb: [] as MenuList
+		themeConfig,
+		breadcrumb: [] as MenuList,
+		token: localStorage.getItem('token') as string || ''
 	})
 });

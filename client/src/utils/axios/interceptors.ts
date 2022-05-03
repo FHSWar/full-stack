@@ -1,7 +1,8 @@
 import { ElLoading, ElMessage } from 'element-plus';
-import { extendedAxiosRequestConfig } from 'utils';
+import { extendedAxiosRequestConfig } from '@/utils';
 import { router } from '@/router';
 import { useStore } from '@/stores';
+import { setLocal } from '@/utils/commucate-local-storage';
 import axios from './config';
 
 type LoadingInstanceType = ReturnType<typeof ElLoading.service>;
@@ -67,7 +68,7 @@ axios.interceptors.response.use(
 		const { msg } = data;
 		if (msg === 'jwt expired') {
 			// 这样就不用手动清除了，jwt过期就会回到login页面
-			localStorage.setItem('token', '');
+			setLocal('token', '');
 			// 这里没法用 useRouter 返回的实例
 			router.push({ name: 'login' });
 		}

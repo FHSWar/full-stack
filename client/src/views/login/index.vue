@@ -35,7 +35,6 @@ const handleClick = () => {
     position: relative;
     width: 100%;
     height: 100%;
-    background-color: #409EFF;
   }
   &__container {
     position: absolute;

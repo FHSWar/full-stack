@@ -1,4 +1,9 @@
-type MenuTree = {
+export type ShallowObject = {
+  [key:string]: string|number|boolean
+}
+export type LocalStorageValue = string|number|boolean|ShallowObject
+
+export type MenuTree = {
   children: MenuTree
   icon?: string // 用不了 keyof typeof Icons
   id: string
@@ -6,6 +11,8 @@ type MenuTree = {
   pid: string
   title: string
 }[];
-type MenuList = Omit<MenuTree, 'children'>
+export type MenuList = Omit<MenuTree, 'children'>
 
-export type { MenuList, MenuTree };
+export type ThemeConfig = {
+  isAsideMenuCollapse: boolean
+}

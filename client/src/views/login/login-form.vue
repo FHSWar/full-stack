@@ -4,6 +4,7 @@ import { useRouter } from 'vue-router';
 import type { FormInstance } from 'element-plus';
 import { login, register } from '@/api/authorization';
 import { useStore } from '@/stores';
+import { setLocal } from '@/utils';
 
 const props = defineProps({
 	showDoubleCheck: {
@@ -23,7 +24,7 @@ const handleLogin = async (params: typeof form) => {
 	const suc:any = await login(params);
 	const token:string = `Bearer ${suc.token}`;
 	useStore().token = token;
-	localStorage.setItem('token', token);
+	setLocal('token', token);
 	router.push({ name: 'home' });
 };
 
