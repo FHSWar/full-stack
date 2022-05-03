@@ -1,16 +1,7 @@
 <script lang="ts" setup>
 import { useRouter } from 'vue-router';
 import { useStore } from '@/stores';
-
-type MenuTree = {
-    children: MenuTree
-    icon?: string // 用不了 keyof typeof Icons
-    id: string
-    page?: string
-    pid: string
-    title: string
-}[];
-type MenuList = Omit<MenuTree, 'children'>
+import type { MenuList, MenuTree } from '@/types';
 
 const props = defineProps<{
   asideMenuList: MenuList // 摊平的，方便找
@@ -18,8 +9,8 @@ const props = defineProps<{
 }>();
 
 const router = useRouter();
-const findParentChain = (leafId: string):MenuTree => {
-	const result:MenuTree = [];
+const findParentChain = (leafId: string):MenuList => {
+	const result:MenuList = [];
 	const handler = (id: string) => {
 		const menuItem = props.asideMenuList.find((item) => item.id === id) as MenuList[number];
 		result.unshift(menuItem);
@@ -59,7 +50,7 @@ const clickMenu = ({ page, id }: Omit<MenuList[number], 'icon'|'pid'|'title'|'ch
 <style lang="scss" scoped>
 .menu-tree {
   &__item {
-    width: 100%;
+    // width: 100%;
   }
 }
 </style>

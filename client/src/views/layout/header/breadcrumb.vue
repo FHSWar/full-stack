@@ -8,14 +8,13 @@ const breadcrumb = computed(() => useStore().breadcrumb);
 
 <template>
   <el-breadcrumb :separator-icon="ArrowRight">
-    <el-breadcrumb-item :to="{ name: 'home' }">
-      首页
-    </el-breadcrumb-item>
-    <template v-for="{id, page, title} in breadcrumb" :key="id">
+    <template v-for="{icon, id, page, title} in breadcrumb" :key="id">
       <el-breadcrumb-item v-if="page" :to="{ name: page }">
+        <use-icon v-if="icon" :icon="icon" />
         {{ title }}
       </el-breadcrumb-item>
       <el-breadcrumb-item v-else>
+        <use-icon v-if="icon" :icon="icon" />
         {{ title }}
       </el-breadcrumb-item>
     </template>

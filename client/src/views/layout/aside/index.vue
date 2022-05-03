@@ -1,16 +1,8 @@
 <script lang="ts" setup>
 import menuTree from './menu-tree.vue';
+import type { MenuList, MenuTree } from '@/types';
 import { test } from '@/api/authorization';
 
-type MenuTree = {
-    children: MenuTree
-    icon?: string // 用不了 keyof typeof Icons
-    id: string
-    page?: string
-    pid: string
-    title: string
-}[];
-type MenuList = Omit<MenuTree, 'children'>
 const testToken = async () => {
 	const res = await test({ a: 1, b: 2, c: 3 });
 	console.log('testToken', res);

@@ -6,7 +6,7 @@ import breadcrumb from './header/breadcrumb.vue';
 // 控制Expand图片翻转，并收展侧边栏
 const isExpand = ref(true);
 const deg = computed(() => (isExpand.value ? '180deg' : '0'));
-const asideWidth = computed(() => (isExpand.value ? '200px' : '60px'));
+const asideWidth = computed(() => (isExpand.value ? '200px' : '0px'));
 const toggleAside = () => { isExpand.value = !isExpand.value; };
 </script>
 
