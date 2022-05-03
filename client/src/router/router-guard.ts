@@ -1,4 +1,4 @@
-import { createRouter, createWebHistory } from 'vue-router';
+import { createRouter, createWebHistory, NavigationGuardNext, RouteLocationNormalized } from 'vue-router';
 import { useStore } from '@/stores';
 import { routes } from './routes';
 
@@ -9,7 +9,7 @@ const router = createRouter({
 	routes
 });
 
-router.beforeEach((to, from, next) => {
+const ifToLogin = (to: RouteLocationNormalized, next:NavigationGuardNext) => {
 	if (!store) store = useStore();
 
 	if (to.path === '/login') {
@@ -19,5 +19,12 @@ router.beforeEach((to, from, next) => {
 	} else {
 		next();
 	}
+};
+const maintainVisitedRoutes = (to:RouteLocationNormalized) => {
+	console.log('maintainVisitedRoutes', to);
+};
+router.beforeEach((to, _, next) => { ifToLogin(to, next); });
+router.afterEach((to) => {
+	maintainVisitedRoutes(to);
 });
 export { router };

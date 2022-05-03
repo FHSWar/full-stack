@@ -1,4 +1,4 @@
-export const sideMenuList = [
+export const dynamicSideMenuList = [
 	{
 		title: '流程',
 		id: '1',

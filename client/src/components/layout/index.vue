@@ -1,7 +1,7 @@
 <script lang="ts" setup>
-import layoutAside from './aside/index.vue';
-import breadcrumb from './header/breadcrumb.vue';
-
+import LayoutAside from './aside/index.vue';
+import Breadcrumb from './header/breadcrumb.vue';
+import TabsBar from './header/tabs-bar.vue';
 </script>
 
 <template>
@@ -14,6 +14,9 @@ import breadcrumb from './header/breadcrumb.vue';
       <el-header class="common-layout__header">
         <breadcrumb class="common-layout__breadcrumb" />
       </el-header>
+      <el-header class="common-layout__header">
+        <tabs-bar />
+      </el-header>
       <el-main class="common-layout__main">
         <router-view />
       </el-main>
@@ -25,15 +28,17 @@ import breadcrumb from './header/breadcrumb.vue';
 .common-layout {
     height: 100%;
     &__header {
-      position: relative;
+      line-height: var(--el-header-height);
+      &:first-of-type {
+        border-bottom: var(--el-border-width) var(--el-border-style) var(--el-border-color-light);
+        background-color: var(--el-fill-color-light);
+      }
     }
     &__breadcrumb {
-      position: absolute;
-      top: 52%;
-      transform: translateY(-50%);
+      line-height: var(--el-header-height);
     }
     &__main {
-      background-color: #f0f2f5;
+      background-color: var(--el-fill-color);
     }
 }
 </style>

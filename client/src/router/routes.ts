@@ -1,3 +1,6 @@
+/*
+	name一定要唯一！
+*/
 import { RouteRecordRaw } from 'vue-router';
 import Login from '../views/login/index.vue';
 import Home from '@/components/layout/index.vue';
@@ -16,6 +19,7 @@ export const routes:RouteRecordRaw[] = [
 	{
 		path: '/home',
 		name: 'home',
+		redirect: '/',
 		component: Home,
 		children: mainPanelRoutes
 	}

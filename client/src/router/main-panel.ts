@@ -1,9 +1,15 @@
 import { RouteRecordRaw } from 'vue-router';
-import One from '@/views/test/one.vue';
-import Two from '@/views/test/two.vue';
-import Three from '@/views/test/three.vue';
+import HomePage from '@/views/home-page.vue';
+import One from '@/views/one.vue';
+import Two from '@/views/two.vue';
+import Three from '@/views/three.vue';
 
 export const mainPanelRoutes:RouteRecordRaw[] = [
+	{
+		path: '',
+		// main-panel的默认页面
+		component: HomePage
+	},
 	{
 		path: 'one',
 		name: 'one',

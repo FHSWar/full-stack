@@ -2,8 +2,7 @@
 import { test } from '@/api/authorization';
 
 const testToken = async () => {
-	const res = await test({ a: 1, b: 2, c: 3 });
-	console.log('testToken', res);
+	await test({ a: 1, b: 2, c: 3 });
 };
 </script>
 
