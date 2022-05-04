@@ -21,10 +21,13 @@ const ifToLogin = (to: RouteLocationNormalized, next:NavigationGuardNext) => {
 	}
 };
 const maintainVisitedRoutes = (to:RouteLocationNormalized) => {
-	console.log('maintainVisitedRoutes', to);
+	if (to.name === undefined) return;
+	const currentRouteConfig = store.breadcrumb.find((item) => item.page === to.name);
+	if (currentRouteConfig && !store.visitedRoutes.find((item) => item.page === currentRouteConfig.page)) {
+		store.visitedRoutes.push(currentRouteConfig);
+	}
 };
+
 router.beforeEach((to, _, next) => { ifToLogin(to, next); });
-router.afterEach((to) => {
-	maintainVisitedRoutes(to);
-});
+router.afterEach((to) => { maintainVisitedRoutes(to); });
 export { router };

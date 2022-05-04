@@ -5,9 +5,9 @@ export type LocalStorageValue = string|number|boolean|ShallowObject
 
 export type MenuTree = {
   children: MenuTree
-  icon?: string // 用不了 keyof typeof Icons
+  icon?: string // 用不了keyof typeof Icons
   id: string
-  page?: string
+  page?: string // 就是路由的name
   pid: string
   title: string
 }[];

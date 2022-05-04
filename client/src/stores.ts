@@ -14,6 +14,6 @@ export const useStore = defineStore('common', {
 		themeConfig,
 		breadcrumb: [] as MenuList,
 		token: localStorage.getItem('token') as string || '',
-		visitedRoutes: []
+		visitedRoutes: [] as MenuList
 	})
 });
