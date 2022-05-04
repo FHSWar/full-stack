@@ -1,27 +1,16 @@
 <script lang="ts" setup>
 import { useRouter } from 'vue-router';
 import { useStore } from '@/stores';
+import { findMenuListChain } from '@/utils';
 import type { MenuList, MenuTree } from '@/types';
 
-const props = defineProps<{
-  asideMenuList: MenuList // 摊平的，方便找
-  asideMenuTree: MenuTree // 组装好的，渲染用
-}>();
+defineProps<{asideMenuTree: MenuTree}>();
 
 const router = useRouter();
-const findParentChain = (leafId: string):MenuList => {
-	const result:MenuList = [];
-	const handler = (id: string) => {
-		const menuItem = props.asideMenuList.find((item) => item.id === id) as MenuList[number];
-		result.unshift(menuItem);
-		if (menuItem.pid !== '') handler(menuItem.pid);
-	};
-	handler(leafId);
-	return result;
-};
+
 const clickMenu = ({ page, id }: Omit<MenuList[number], 'icon'|'pid'|'title'|'children'>) => {
 	if (page) router.push({ name: page });
-	useStore().breadcrumb = findParentChain(id);
+	useStore().breadcrumb = findMenuListChain(id);
 };
 </script>
 
@@ -42,7 +31,7 @@ const clickMenu = ({ page, id }: Omit<MenuList[number], 'icon'|'pid'|'title'|'ch
           {{ title }}
         </span>
       </template>
-      <menu-tree :aside-menu-tree="children" :aside-menu-list="asideMenuList" />
+      <menu-tree :aside-menu-tree="children" />
     </el-sub-menu>
   </template>
 </template>

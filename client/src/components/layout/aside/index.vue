@@ -10,6 +10,7 @@ import { dynamicSideMenuList } from '@/mock';
 const isCollapse = ref(false);
 const deg = computed(() => (isCollapse.value ? '180deg' : '0'));
 const store = useStore();
+
 watchEffect(() => {
 	store.themeConfig.isAsideMenuCollapse = isCollapse.value;
 	setLocal('themeConfig', isCollapse.value, 'isAsideMenuCollapse');
@@ -17,11 +18,12 @@ watchEffect(() => {
 
 const toggleAside = () => { isCollapse.value = !isCollapse.value; };
 
-const assembleTree = (data: MenuList) => {
+type MenuListMountChildren = MenuList&{children: MenuList[]}
+const assembleTree = (data: MenuListMountChildren) => {
 	const map: any = {};
 	data.forEach((item) => {
 		map[item.id] = item;
-		item!.children = [];
+		(item as any).children = [];
 	});
 
 	const roots: MenuTree = [];
@@ -36,8 +38,9 @@ const assembleTree = (data: MenuList) => {
 	return roots;
 };
 
-const dynamicRoutes = assembleTree(dynamicSideMenuList as MenuList);
-const sideMenuList = [...constantRoutes, ...dynamicSideMenuList];
+const dynamicRoutes = assembleTree(dynamicSideMenuList as MenuListMountChildren);
+
+store.menuList = [...constantRoutes, ...dynamicSideMenuList];
 const sideMenu = [...constantRoutes, ...dynamicRoutes];
 </script>
 
@@ -45,7 +48,7 @@ const sideMenu = [...constantRoutes, ...dynamicRoutes];
   <el-scrollbar class="aside-menu__wrapper">
     <!-- 一个侧边菜单只应有一个el-menu作为根，不应该被递归到 -->
     <el-menu class="aside-menu__magic-trick" :default-openeds="[]" :collapse="isCollapse">
-      <menu-tree :aside-menu-tree="sideMenu" :aside-menu-list="(sideMenuList as MenuList)" />
+      <menu-tree :aside-menu-tree="sideMenu" />
       <el-menu-item class="aside-menu__footer" index="footer-menu-item">
         <use-icon class="aside-menu__toggle-icon" icon="Expand" @click="toggleAside" />
       </el-menu-item>

@@ -1,45 +1,71 @@
 <script lang="ts" setup>
-import { computed, ref } from 'vue';
+import { computed, ref, watchEffect } from 'vue';
 import { useRouter } from 'vue-router';
 import { TabsPaneContext } from 'element-plus';
 import { useStore } from '@/stores';
+import { constantRoutes } from '@/router/constant';
+import { findMenuListChain } from '@/utils';
+import { MenuList } from '@/types';
 
-// 暂时不想复杂了，首页固定够用
-const constantTabs = [{ title: '首页', page: 'home' }];
-
-const store = useStore();
-const visitedRoutes = computed(() => {
-	const dynamicTabs = store.visitedRoutes.map(({ title, page }) => ({ title, page }));
-	return [...constantTabs, ...dynamicTabs];
-});
+// 固定的页面不可关闭
 const tabClosable = computed(() => {
-	const constantTabNameArr = constantTabs.map(({ page }) => page);
+	const constantTabNameArr = constantRoutes.map(({ page }) => page);
 	return (tabName:string) => {
 		if (constantTabNameArr.includes(tabName)) return false;
 		return true;
 	};
 });
 
-const editableTabsValue = ref('home');
+const store = useStore();
+// 访问过的页面
+const visitedRoutes = computed(() => {
+	const dynamicTabs = store.visitedRoutes.map(({ title, page }) => ({ title, page }));
+	return [...constantRoutes, ...dynamicTabs];
+});
+
+// 当前访问页面应高亮，prev作为fallback
+let prevEditableTab = constantRoutes.at(-1)!.page;
+const activeTabName = ref(prevEditableTab);
+const maintainActiveTab = (pageName: string|undefined) => {
+	const currentPage = pageName;
+	if (currentPage) {
+		prevEditableTab = currentPage;
+		activeTabName.value = currentPage;
+		return;
+	}
+	activeTabName.value = prevEditableTab;
+};
+watchEffect(() => maintainActiveTab(store.breadcrumb.at(-1)?.page));
+// 面包屑应该是active tab对应的祖先路径
+const maintainBreadCrumb = (tabName: string) => {
+	const menuItem = store.menuList.find((item) => item.page === tabName) as MenuList[number];
+	store.breadcrumb = findMenuListChain(menuItem.id);
+};
+
+// 点击tab跳转，点击叉号去除对应tab并维护路由跳转
 const router = useRouter();
 const tabClick = (tab:TabsPaneContext) => {
 	// page一定维护字符串
-	router.push({ name: tab.paneName as string });
+	const tabName = tab.paneName as string;
+
+	maintainBreadCrumb(tabName);
+	router.push({ name: tabName });
 };
 const tabRemove = (tabName:string) => {
 	const pageIndexInVisitedRoutes = store.visitedRoutes.findIndex(({ page }) => page === tabName);
 	store.visitedRoutes = store.visitedRoutes.filter(({ page }) => page !== tabName);
 
+	let targetPage: string;
+	const fallbackPage = constantRoutes[0].page as string;
+	targetPage = fallbackPage;
+
 	if (pageIndexInVisitedRoutes >= 1) {
-		const targetPage = store.visitedRoutes[pageIndexInVisitedRoutes - 1].page;
-		router.push({ name: targetPage });
-		editableTabsValue.value = targetPage as string;
-		return;
+		const targetMenuItem = store.visitedRoutes[pageIndexInVisitedRoutes - 1];
+		if (targetMenuItem.page) targetPage = targetMenuItem.page;
 	}
 
-	const fallbackPage = constantTabs.at(-1)!.page;
-	router.push({ name: fallbackPage });
-	editableTabsValue.value = fallbackPage;
+	maintainActiveTab(targetPage);
+	router.push({ name: targetPage });
 };
 </script>
 
@@ -47,7 +73,7 @@ const tabRemove = (tabName:string) => {
   <el-tabs
     class="tabs-bar__wrapper"
     type="card"
-    v-model="editableTabsValue"
+    v-model="activeTabName"
     @tab-click="tabClick"
     @tab-remove="tabRemove"
   >

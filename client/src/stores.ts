@@ -13,6 +13,7 @@ export const useStore = defineStore('common', {
 	state: () => ({
 		themeConfig,
 		breadcrumb: [] as MenuList,
+		menuList: [] as MenuList,
 		token: localStorage.getItem('token') as string || '',
 		visitedRoutes: [] as MenuList
 	})

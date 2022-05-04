@@ -3,6 +3,7 @@ export type ShallowObject = {
 }
 export type LocalStorageValue = string|number|boolean|ShallowObject
 
+// 组装好的，渲染用
 export type MenuTree = {
   children: MenuTree
   icon?: string // 用不了keyof typeof Icons
@@ -11,7 +12,14 @@ export type MenuTree = {
   pid: string
   title: string
 }[];
-export type MenuList = Omit<MenuTree, 'children'>
+// 摊平的，方便后端存
+export type MenuList = {
+  icon?: string
+  id: string
+  page?: string
+  pid: string
+  title: string
+}[];
 
 export type ThemeConfig = {
   isAsideMenuCollapse: boolean

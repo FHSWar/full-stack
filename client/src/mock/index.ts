@@ -1,4 +1,6 @@
-export const dynamicSideMenuList = [
+import type { MenuList } from '@/types';
+
+export const dynamicSideMenuList:MenuList = [
 	{
 		title: '流程',
 		id: '1',
