@@ -1,5 +1,6 @@
 <script lang="ts" setup>
 import { computed, ref, watchEffect } from 'vue';
+import sideHeader from './header.vue';
 import menuTree from './menu-tree.vue';
 import type { MenuList, MenuTree } from '@/types';
 import { useStore } from '@/stores';
@@ -46,6 +47,7 @@ const sideMenu = [...constantRoutes, ...dynamicRoutes];
 
 <template>
   <el-scrollbar class="aside-menu__wrapper">
+    <sideHeader />
     <!-- 一个侧边菜单只应有一个el-menu作为根，不应该被递归到 -->
     <el-menu class="aside-menu__magic-trick" :default-openeds="[]" :collapse="isCollapse">
       <menu-tree :aside-menu-tree="sideMenu" />
@@ -58,15 +60,12 @@ const sideMenu = [...constantRoutes, ...dynamicRoutes];
 </template>
 
 <style lang="scss" scoped>
-.demo {
-
-}
 .aside-menu {
 	// https://juejin.cn/post/6844903815527956494#comment
 	&__magic-trick {
-		height: 100vh;
 		&:not(.el-menu--collapse) {
 			width: 300px;
+			flex: auto;
 		}
 	}
 	&__footer {

@@ -93,10 +93,7 @@ const tabRemove = (tabName:string) => {
     &__wrapper {
         --tab-item-height: 32px;
 
-        width: calc(100% - 90px);
-        height: var(--tab-item-height);
-
-		:deep(.el-tabs__nav-next, .el-tabs__nav-prev) {
+		.el-tabs__nav-next, .el-tabs__nav-prev {
 			height: var(--tab-item-height);
 			line-height: var(--tab-item-height);
 		}

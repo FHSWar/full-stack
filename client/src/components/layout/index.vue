@@ -7,7 +7,7 @@ import TabsBar from './header/tabs-bar.vue';
 <template>
   <el-container class="common-layout">
     <el-aside width="initial" class="common-layout__aside">
-      <layout-aside class="transition-box" />
+      <layout-aside />
     </el-aside>
 
     <el-container>
@@ -31,6 +31,13 @@ import TabsBar from './header/tabs-bar.vue';
 <style lang="scss">
 .common-layout {
     height: 100%;
+    &__aside {
+      .el-scrollbar__view {
+        height: 100%;
+        display: flex;
+        flex-direction: column;
+      }
+    }
     &__header {
       line-height: var(--el-header-height);
       &:first-of-type {
