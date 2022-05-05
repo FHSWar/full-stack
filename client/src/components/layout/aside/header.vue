@@ -1,10 +1,23 @@
+<script lang="ts" setup>
+import { computed } from 'vue';
+import { useStore } from '@/stores';
+
+const store = useStore();
+const showHeaderTitle = computed(() => !store.themeConfig.isAsideMenuCollapse);
+</script>
+
 <template>
   <el-header class="side-bar__header">
     <use-icon icon="Setting" />
     <use-icon icon="Tools" />
-    <h1>后台系统</h1>
+    <transition name="el-fade-in">
+      <h1 v-show="showHeaderTitle">
+        后台系统
+      </h1>
+    </transition>
   </el-header>
 </template>
+
 <style lang="scss" scoped>
 .side-bar {
     &__header {
@@ -17,14 +30,14 @@
             &:first-of-type {
                 font-size: 24px;
                 bottom: 16px;
-                left: 28px;
+                left: 16px;
                 animation: gearRotateAntiClockWise 6s linear 0.1s infinite;
                 transform-origin: 50% 50%;
             }
             &:nth-of-type(2) {
                 font-size: var(--el-font-size-large);
                 top: 10px;
-                left: 42px;
+                left: 30px;
                 transform: rotate(15deg);
                 animation: gearRotateClockWise 6s linear 0.2s infinite;
                 transform-origin: 50% 50%;
@@ -32,7 +45,7 @@
         }
         h1 {
             position: absolute;
-            left: 68px;
+            left: 56px;
             line-height: var(--el-header-height);
             color: var(--el-text-color-regular);
         }

@@ -63,6 +63,8 @@ const sideMenu = [...constantRoutes, ...dynamicRoutes];
 .aside-menu {
 	// https://juejin.cn/post/6844903815527956494#comment
 	&__magic-trick {
+		// 收起时菜单也应该竖向撑满
+		height: 100%;
 		&:not(.el-menu--collapse) {
 			width: 300px;
 			flex: auto;
