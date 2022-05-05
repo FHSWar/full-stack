@@ -26,6 +26,7 @@ const visitedRoutes = computed(() => {
 // 当前访问页面应高亮，prev作为fallback
 let prevEditableTab = constantRoutes.at(-1)!.page;
 const activeTabName = ref(prevEditableTab);
+
 const maintainActiveTab = (pageName: string|undefined) => {
 	const currentPage = pageName;
 	if (currentPage) {
@@ -35,12 +36,14 @@ const maintainActiveTab = (pageName: string|undefined) => {
 	}
 	activeTabName.value = prevEditableTab;
 };
-watchEffect(() => maintainActiveTab(store.breadcrumb.at(-1)?.page));
 // 面包屑应该是active tab对应的祖先路径
-const maintainBreadCrumb = (tabName: string) => {
+const maintainBreadCrumb = (tabName: string|undefined) => {
 	const menuItem = store.menuList.find((item) => item.page === tabName) as MenuList[number];
 	store.breadcrumb = findMenuListChain(menuItem.id);
 };
+
+watchEffect(() => maintainActiveTab(store.breadcrumb.at(-1)?.page));
+watchEffect(() => maintainBreadCrumb(activeTabName.value)); // 菜单栏，面包屑和tab栏要相互维护状态，有点点费劲。
 
 // 点击tab跳转，点击叉号去除对应tab并维护路由跳转
 const router = useRouter();

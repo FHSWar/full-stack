@@ -8,9 +8,13 @@ import { setLocal } from '@/utils';
 import { constantRoutes } from '@/router/constant';
 import { dynamicSideMenuList } from '@/mock';
 
-const isCollapse = ref(false);
-const deg = computed(() => (isCollapse.value ? '180deg' : '0'));
 const store = useStore();
+// 用全局状态的值来做初始化
+const initIsCollapase = store.themeConfig.isAsideMenuCollapse;
+const isCollapse = ref(initIsCollapase);
+const deg = computed(() => (isCollapse.value ? '180deg' : '0'));
+// 全局的面包屑用constantRoutes做兜底，必有id可用
+const activePageId = computed(() => store.breadcrumb.at(-1)!.id);
 
 watchEffect(() => {
 	store.themeConfig.isAsideMenuCollapse = isCollapse.value;
@@ -49,13 +53,17 @@ const sideMenu = [...constantRoutes, ...dynamicRoutes];
   <el-scrollbar class="aside-menu__wrapper">
     <sideHeader />
     <!-- 一个侧边菜单只应有一个el-menu作为根，不应该被递归到 -->
-    <el-menu class="aside-menu__magic-trick" :default-openeds="[]" :collapse="isCollapse">
+    <el-menu
+      class="aside-menu__magic-trick"
+      :default-active="activePageId"
+      :default-openeds="[]"
+      :collapse="isCollapse"
+    >
       <menu-tree :aside-menu-tree="sideMenu" />
       <el-menu-item class="aside-menu__footer" index="footer-menu-item">
         <use-icon class="aside-menu__toggle-icon" icon="Expand" @click="toggleAside" />
       </el-menu-item>
     </el-menu>
-    <footer />
   </el-scrollbar>
 </template>
 

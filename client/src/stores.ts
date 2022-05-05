@@ -1,6 +1,7 @@
 import { defineStore } from 'pinia';
-import type { MenuList, ThemeConfig } from '@/types';
 import { getLocal, setLocal } from '@/utils';
+import { constantRoutes } from '@/router/constant';
+import type { MenuList, ThemeConfig } from '@/types';
 
 let themeConfig:ThemeConfig;
 themeConfig = getLocal('themeConfig') as ThemeConfig;
@@ -12,7 +13,7 @@ if (themeConfig === null) {
 export const useStore = defineStore('common', {
 	state: () => ({
 		themeConfig,
-		breadcrumb: [] as MenuList,
+		breadcrumb: constantRoutes as MenuList,
 		menuList: [] as MenuList,
 		token: localStorage.getItem('token') as string || '',
 		visitedRoutes: [] as MenuList

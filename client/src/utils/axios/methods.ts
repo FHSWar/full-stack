@@ -28,7 +28,7 @@ export const get = (
 			})
 			.catch((error) => {
 				if (options.handleError) return reject(error);
-				console.log('silent get error', error.toString());
+				console.warn('silent get error', error.toString());
 			});
 	});
 };
@@ -51,7 +51,7 @@ export const post = (
 			})
 			.catch((error) => {
 				if (options.handleError) return reject(error);
-				console.log('silent post error', error.toString());
+				console.warn('silent post error', error.toString());
 			});
 	});
 };
