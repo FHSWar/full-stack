@@ -74,7 +74,7 @@ axios.interceptors.response.use(
 		}
 		ElMessage.error(msg);
 
-		return data;
+		return Promise.reject(error.toString());
 	}
 );
 

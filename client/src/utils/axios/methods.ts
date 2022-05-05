@@ -3,7 +3,8 @@ import axios from './interceptors';
 
 type Options = {
 	useLoading?: boolean,
-	useMessage?: boolean
+	useMessage?: boolean,
+	handleError?: boolean
 };
 const defaultOption = { useLoading: false, useMessage: false } as const;
 
@@ -26,7 +27,8 @@ export const get = (
 				resolve(res);
 			})
 			.catch((error) => {
-				reject(error);
+				if (options.handleError) return reject(error);
+				console.log('silent get error', error.toString());
 			});
 	});
 };
@@ -48,7 +50,8 @@ export const post = (
 				resolve(res);
 			})
 			.catch((error) => {
-				reject(error);
+				if (options.handleError) return reject(error);
+				console.log('silent post error', error.toString());
 			});
 	});
 };
