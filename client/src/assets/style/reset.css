@@ -6,8 +6,6 @@ body,div,p,h1,h2,h3,h4,h5,h6,ul,li,dl,dt,a,input,button,textarea,select{
 }
 html,body{
     font-family:Helvetica Neue,Helvetica,Arial,Microsoft Yahei,Hiragino Sans GB,Heiti SC,WenQuanYi Micro Hei,sans-serif;
-    color: #333333;
-    min-width: 1226px;
     font-size: 14px;
 }
 a{
@@ -15,9 +13,6 @@ a{
 }
 ul,li{
     list-style: none;
-}
-input{
-    font: normal;
 }
 input:focus,a:focus{
     outline: none;
