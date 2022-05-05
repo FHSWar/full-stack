@@ -45,9 +45,6 @@ import TabsBar from './header/tabs-bar.vue';
         background-color: var(--el-fill-color-light);
       }
     }
-    &__breadcrumb {
-      line-height: var(--el-header-height);
-    }
     &__main {
       background-color: var(--el-fill-color);
     }
