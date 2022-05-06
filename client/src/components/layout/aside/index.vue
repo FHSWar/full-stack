@@ -12,7 +12,7 @@ const store = useStore();
 // 用全局状态的值来做初始化
 const initIsCollapase = store.themeConfig.isAsideMenuCollapse;
 const isCollapse = ref(initIsCollapase);
-const deg = computed(() => (isCollapse.value ? '180deg' : '0'));
+const deg = computed(() => (isCollapse.value ? '0' : '180deg'));
 // 全局的面包屑用constantRoutes做兜底，必有id可用
 const activePageId = computed(() => store.breadcrumb.at(-1)!.id);
 
