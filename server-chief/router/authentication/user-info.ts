@@ -21,13 +21,23 @@ router.get('auth/userInfo', async (ctx, next) => {
 
 // 用户自己只能改名字和头像
 router.post('auth/updateSelfInfo', async (ctx, next) => {
-	const { um, username } = ctx.request.body;
+	const {
+		um,
+		username,
+		oldPassword,
+		password
+	} = ctx.request.body;
 
 	const userInfo = await User.findOne({ um });
 
 	if (userInfo) {
 		userInfo.username = username;
-		await User.updateOne({ um }, userInfo);
+		if (oldPassword) {
+			userInfo.password = password;
+			await User.updateOne({ um, password: oldPassword }, userInfo);
+		} else {
+			await User.updateOne({ um }, userInfo);
+		}
 
 		toCliect(ctx, {
 			token: generateToken({

@@ -3,6 +3,7 @@ import { reactive, ref, toRaw } from 'vue';
 import { getUserInfo, updateSelfInfo } from '@/api/authorization';
 import { useStore } from '@/stores';
 import { setLocal } from '@/utils';
+import editPasswordDialog from './edit-password-dialog.vue';
 
 const { editable, userInfo } = await getUserInfo() as any;
 const emit = defineEmits(['update:modelValue']);
@@ -45,10 +46,21 @@ const edit = async () => {
 		emit('update:modelValue');
 	}
 };
+
+const showEditPasswordBool = ref(false);
+const showEditPassword = () => { showEditPasswordBool.value = true; };
+const closeDialog = () => {
+	showEditPasswordBool.value = false;
+	emit('update:modelValue');
+};
+const fromChild = (str: string) => {
+	showEditPasswordBool.value = false;
+	if (str === 'closeParent') emit('update:modelValue');
+};
 </script>
 
 <template>
-  <el-dialog width="30%">
+  <el-dialog width="30%" @close="closeDialog">
     <div class="dialog__wrapper">
       <el-avatar :size="50" :src="'https://cube.elemecdn.com/3/7c/3ea6beec64369c2642b92c6726f1epng.png'" />
       <el-form
@@ -69,11 +81,18 @@ const edit = async () => {
         </el-form-item>
       </el-form>
       <div class="dialog__footer">
+        <el-button @click="showEditPassword">
+          修改密码
+        </el-button>
         <el-button type="primary" @click="edit">
           {{ disabled ? '编辑': '确认' }}
         </el-button>
       </div>
     </div>
+    <edit-password-dialog
+      :model-value="showEditPasswordBool"
+      @update:model-value="fromChild"
+    />
   </el-dialog>
 </template>
 
@@ -86,7 +105,7 @@ const edit = async () => {
     width: 100%;
     .el-avatar {
       position: relative;
-      bottom: 12px;
+      bottom: 16px;
     }
     .el-form {
       width: 88%;

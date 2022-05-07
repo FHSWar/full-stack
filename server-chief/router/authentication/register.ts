@@ -3,9 +3,7 @@ import { User } from 'model/user';
 const umRegex = /^[a-zA-Z][a-zA-Z0-9-]*[0-9]$/;
 
 router.post('auth/register', async (ctx, next) => {
-	const {
-		username, umNo, password, checkPassword
-	} = ctx.request.body;
+	const { username, umNo, password } = ctx.request.body;
 	if (!username) {
 		toCliect(ctx, '无效提交', STATUS.FAILURE);
 		return;
@@ -18,7 +16,7 @@ router.post('auth/register', async (ctx, next) => {
 		return;
 	}
 
-	if (password !== checkPassword || !umRegex.test(umNo)) {
+	if (!umRegex.test(umNo)) {
 		toCliect(ctx, '无效提交', STATUS.FAILURE);
 		return;
 	}

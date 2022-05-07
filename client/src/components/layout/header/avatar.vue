@@ -8,7 +8,7 @@ import { useStore } from '@/stores';
 
 const showDialogBool = ref(false);
 const showDialog = async () => { showDialogBool.value = true; };
-const fromChild = () => { showDialogBool.value = false; };
+const closeDialog = () => { showDialogBool.value = false; };
 
 const router = useRouter();
 const store = useStore();
@@ -62,8 +62,9 @@ const menuList = [
   </el-popover>
   <Suspense>
     <user-info-dialog
+      v-if="showDialogBool"
       :model-value="showDialogBool"
-      @update:model-value="fromChild"
+      @update:model-value="closeDialog"
     />
   </Suspense>
 </template>

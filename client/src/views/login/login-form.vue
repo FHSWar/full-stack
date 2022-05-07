@@ -75,18 +75,10 @@ const validatePass2 = (rule: any, value: any, callback: any) => {
 	}
 };
 const rules = reactive({
-	username: [{
-		validator: validateName, trigger: 'blur'
-	}],
-	umNo: [{
-		validator: validateUM, trigger: 'blur'
-	}],
-	password: [{
-		validator: validatePass, trigger: 'blur'
-	}],
-	checkPassword: [{
-		validator: validatePass2, trigger: 'blur'
-	}]
+	username: [{ validator: validateName, trigger: 'blur' }],
+	umNo: [{ validator: validateUM, trigger: 'blur' }],
+	password: [{ validator: validatePass, trigger: 'blur' }],
+	checkPassword: [{ validator: validatePass2, trigger: 'blur' }]
 });
 const submitForm = (formEl: FormInstance | undefined, isRegister:boolean = false) => {
 	if (!formEl) return;
