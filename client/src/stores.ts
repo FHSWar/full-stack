@@ -1,21 +1,15 @@
 import { defineStore } from 'pinia';
-import { getLocal, setLocal } from '@/utils';
 import { constantRoutes } from '@/router/constant';
-import type { MenuList, ThemeConfig } from '@/types';
-
-let themeConfig:ThemeConfig;
-themeConfig = getLocal('themeConfig') as ThemeConfig;
-if (themeConfig === null) {
-	themeConfig = { isAsideMenuCollapse: false };
-	setLocal('themeConfig', themeConfig);
-}
+import type { MenuList } from '@/types';
+import init from '@/utils/init-state-from-local';
 
 export const useStore = defineStore('common', {
 	state: () => ({
-		themeConfig,
+		themeConfig: init.themeConfig,
+		token: init.token,
+		userInfo: init.userInfo,
 		breadcrumb: constantRoutes as MenuList,
 		menuList: [] as MenuList,
-		token: localStorage.getItem('token') as string || '',
 		visitedRoutes: [] as MenuList
 	})
 });

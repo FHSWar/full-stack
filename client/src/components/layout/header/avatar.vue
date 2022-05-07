@@ -1,15 +1,20 @@
 <script lang="ts" setup>
-import { ref } from 'vue';
+import { computed, ref } from 'vue';
 import { useRouter } from 'vue-router';
 import { UserFilled } from '@element-plus/icons-vue';
 import { setLocal } from '@/utils';
 import userInfoDialog from './user-info-dialog.vue';
+import { useStore } from '@/stores';
 
 const showDialogBool = ref(false);
 const showDialog = async () => { showDialogBool.value = true; };
 const fromChild = () => { showDialogBool.value = false; };
 
 const router = useRouter();
+const store = useStore();
+
+const username = computed(() => store.userInfo.username);
+
 const logout = () => {
 	setLocal('token', '');
 	router.push({ name: 'login' });
@@ -40,7 +45,7 @@ const menuList = [
     <template #reference>
       <div class="popover__avatar">
         <el-avatar :icon="UserFilled" />
-        <span class="popover__username">123</span>
+        <span class="popover__username">{{ username }}</span>
       </div>
     </template>
     <div class="popover__container">

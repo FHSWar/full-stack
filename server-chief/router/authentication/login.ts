@@ -6,7 +6,7 @@ router.post('auth/login', async (ctx, next) => {
 	const passwordCorrect = await User.findOne({ username, password });
 	if (passwordCorrect) {
 		toCliect(ctx, {
-			token: generateToken({ username, password }),
+			token: generateToken({ username, password, um: passwordCorrect.um }),
 			message: '已登陆'
 		});
 		return;

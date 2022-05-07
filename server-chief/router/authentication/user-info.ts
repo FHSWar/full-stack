@@ -1,15 +1,16 @@
 import { IUser, User } from 'model/user';
-import { verifyToken } from '@util';
+import { generateToken, verifyToken } from '@util';
 
 router.get('auth/userInfo', async (ctx, next) => {
 	const { header } = ctx;
-	const { username, password } = verifyToken(header.authorization?.replace('Bearer ', '')) as IUser;
+	const { um, username, password } = verifyToken(header.authorization?.replace('Bearer ', '')) as IUser;
 	const userInfo = await User.findOne({ username, password });
 	if (userInfo) {
 		toCliect(ctx, {
 			editable: ['username'],
 			userInfo: {
 				username: userInfo.username,
+				um,
 				permission: userInfo?.permission
 			}
 		});
@@ -20,7 +21,23 @@ router.get('auth/userInfo', async (ctx, next) => {
 
 // 用户自己只能改名字和头像
 router.post('auth/updateSelfInfo', async (ctx, next) => {
-	console.log('auth/updateSelfInfo', ctx.request.body);
-	toCliect(ctx, 'okok');
+	const { um, username } = ctx.request.body;
+
+	const userInfo = await User.findOne({ um });
+
+	if (userInfo) {
+		userInfo.username = username;
+		await User.updateOne({ um }, userInfo);
+
+		toCliect(ctx, {
+			token: generateToken({
+				username,
+				um: userInfo.um,
+				password: userInfo.password
+			}),
+			message: '用户信息已更新'
+		});
+	}
+
 	next();
 });

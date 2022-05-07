@@ -44,11 +44,11 @@ axios.interceptors.response.use(
 	(response) => {
 		const { config, data } = response;
 
-		if ((config as extendedAxiosRequestConfig).useLoading) {
+		if ((config as extendedAxiosRequestConfig)?.useLoading) {
 			loadingCount--;
 			if (loadingCount === 0) endLoading();
 		}
-		if ((config as extendedAxiosRequestConfig).useMessage) {
+		if ((config as extendedAxiosRequestConfig)?.useMessage) {
 			const { message } = data;
 			ElMessage.success(message);
 		}
@@ -59,7 +59,7 @@ axios.interceptors.response.use(
 		if (!error.response) return error;
 		const { config, data } = error.response;
 
-		if ((config as extendedAxiosRequestConfig).useLoading) {
+		if ((config as extendedAxiosRequestConfig)?.useLoading) {
 			loadingCount--;
 			if (loadingCount === 0) endLoading();
 		}

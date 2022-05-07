@@ -10,6 +10,10 @@ interface IUser {
 const userSchema = new Schema<IUser>({
 	username: {
 		type: String,
+		required: true
+	},
+	um: {
+		type: String,
 		unique: true,
 		required: true
 	},

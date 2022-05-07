@@ -24,3 +24,9 @@ export type MenuList = {
 export type ThemeConfig = {
   isAsideMenuCollapse: boolean
 }
+
+export type UserInfo = {
+  username: string
+  um: string
+  permission: string
+}
