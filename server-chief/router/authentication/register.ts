@@ -1,4 +1,4 @@
-import User from 'model/user';
+import { User } from 'model/user';
 
 router.post('auth/register', async (ctx, next) => {
 	const { username, password, checkPassword } = ctx.request.body;

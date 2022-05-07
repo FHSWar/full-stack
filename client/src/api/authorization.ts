@@ -10,4 +10,12 @@ export const login = (params: User) => post('auth/login', params, { useLoading: 
 
 export const register = (params: User) => post('auth/register', params, { useLoading: true, useMessage: true });
 
-export const test = (params: any) => get('test', params, { useMessage: true });
+export const getUserInfo = () => get('auth/userInfo', { useMessage: true });
+
+export const updateSelfInfo = (params: User) => post(
+	'auth/updateSelfInfo',
+	params,
+	{ useLoading: true, useMessage: true }
+);
+
+export const testToken = (params: any) => get('test', params, { useMessage: true });

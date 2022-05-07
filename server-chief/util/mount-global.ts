@@ -16,7 +16,7 @@ const toCliect = (
 ) => {
 	ctx.status = status;
 	if (typeof content === 'string' || content === undefined) {
-		ctx.body = { msg: content || '默认返回' };
+		ctx.body = { message: content || '默认返回' };
 	} else {
 		ctx.body = content;
 	}

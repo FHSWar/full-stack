@@ -1,14 +1,14 @@
 <script lang="ts" setup>
-import { test } from '@/api/authorization';
+import { testToken } from '@/api/authorization';
 
-const testToken = async () => {
-	await test({ a: 1, b: 2, c: 3 });
+const test = async () => {
+	await testToken({ a: 1, b: 2, c: 3 });
 };
 </script>
 
 <template>
   test1
-  <el-button type="primary" @click="testToken">
+  <el-button type="primary" @click="test">
     测试token
   </el-button>
 </template>

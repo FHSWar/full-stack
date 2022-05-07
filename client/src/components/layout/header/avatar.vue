@@ -1,12 +1,15 @@
 <script lang="ts" setup>
+import { ref } from 'vue';
 import { useRouter } from 'vue-router';
 import { UserFilled } from '@element-plus/icons-vue';
 import { setLocal } from '@/utils';
+import userInfoDialog from './user-info-dialog.vue';
+
+const showDialogBool = ref(false);
+const showDialog = async () => { showDialogBool.value = true; };
+const fromChild = () => { showDialogBool.value = false; };
 
 const router = useRouter();
-const showDialog = () => {
-	console.log('show dialog');
-};
 const logout = () => {
 	setLocal('token', '');
 	router.push({ name: 'login' });
@@ -52,6 +55,12 @@ const menuList = [
       </p>
     </div>
   </el-popover>
+  <Suspense>
+    <user-info-dialog
+      :model-value="showDialogBool"
+      @update:model-value="fromChild"
+    />
+  </Suspense>
 </template>
 
 <style lang="scss" scoped>

@@ -49,8 +49,8 @@ axios.interceptors.response.use(
 			if (loadingCount === 0) endLoading();
 		}
 		if ((config as extendedAxiosRequestConfig).useMessage) {
-			const { msg } = data;
-			ElMessage.success(msg);
+			const { message } = data;
+			ElMessage.success(message);
 		}
 
 		return data;
@@ -65,14 +65,14 @@ axios.interceptors.response.use(
 		}
 
 		// 错误一定弹
-		const { msg } = data;
-		if (msg === 'jwt expired') {
+		const { message } = data;
+		if (message === 'jwt expired') {
 			// 这样就不用手动清除了，jwt过期就会回到login页面
 			setLocal('token', '');
 			// 这里没法用 useRouter 返回的实例
 			router.push({ name: 'login' });
 		}
-		ElMessage.error(msg);
+		ElMessage.error(message || error.toString());
 
 		return Promise.reject(error.toString());
 	}

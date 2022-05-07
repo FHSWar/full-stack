@@ -1,4 +1,4 @@
-import User from 'model/user';
+import { User } from 'model/user';
 import { generateToken } from 'util/jwt';
 
 router.post('auth/login', async (ctx, next) => {
@@ -7,7 +7,7 @@ router.post('auth/login', async (ctx, next) => {
 	if (passwordCorrect) {
 		toCliect(ctx, {
 			token: generateToken({ username, password }),
-			msg: '已登陆'
+			message: '已登陆'
 		});
 		return;
 	}

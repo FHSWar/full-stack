@@ -10,8 +10,7 @@ const toIgnoreDirArr = [{ layer: 1, nameArr: ['config'] }];
 export const useRouter = (app:KoaInstance) => {
 	const routerFileArr = getFileRecursively(__dirname, toIgnoreDirArr, true)
 		.filter((item) => item !== undefined);
-
-	routerFileArr.forEach((splitRouter) => app.use(splitRouter.routes()));
+	app.use(routerFileArr.at(-1).routes());
+	// console.log('routerFileArr', routerFileArr[0] === routerFileArr[1]);
+	// routerFileArr.forEach((splitRouter) => app.use(splitRouter.routes()));
 };
-
-// export
