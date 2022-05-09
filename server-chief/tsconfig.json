@@ -7,8 +7,8 @@
         "paths": {
             "shared": ["../shared"],
             "config": ["config"], 
+            "controller": ["controller"],
             "model": ["model"], 
-            "router": ["router"],
             "@util": ["util"] 
         }
     },

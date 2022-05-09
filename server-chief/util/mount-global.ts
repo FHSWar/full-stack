@@ -1,6 +1,6 @@
 import { Context } from 'koa';
 import Router from '@koa/router';
-import { Schema } from 'mongoose';
+import { model, Schema } from 'mongoose';
 import { STATUS, useLogger } from 'shared';
 import wss from './web-socket';
 
@@ -24,6 +24,7 @@ const toCliect = (
 
 export const mountGlobal = () => {
 	global.logger = useLogger('chief', __dirname);
+	global.model = model;
 	global.router = router;
 	global.Schema = Schema;
 	global.STATUS = STATUS;

@@ -1,5 +1,3 @@
-import { model } from 'mongoose';
-
 interface IUser {
 	avatar?: string // 图片地址
 	username: string
