@@ -19,3 +19,14 @@ export const updateSelfInfo = (params: User) => post(
 );
 
 export const testToken = (params: any) => get('test', params, { useMessage: true });
+
+export const imgBaseUrl = 'http://localhost:9000';
+export const uploadAvatar = (params: User) => post(
+	'upload/avatar',
+	params,
+	{
+		useLoading: true,
+		useMessage: true,
+		useFormData: true
+	}
+);

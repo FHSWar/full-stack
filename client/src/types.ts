@@ -26,6 +26,7 @@ export type ThemeConfig = {
 }
 
 export type UserInfo = {
+  avatar: string
   username: string
   um: string
   permission: string

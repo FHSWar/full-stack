@@ -1,12 +1,12 @@
 import { User } from 'model/user';
 import { generateToken } from 'util/jwt';
 
-router.post('auth/login', async (ctx, next) => {
+router.post('auth/login', async (ctx) => {
 	const { username, password } = ctx.request.body;
 	const passwordCorrect = await User.findOne({ username, password });
 	if (passwordCorrect) {
 		toCliect(ctx, {
-			token: generateToken({ username, password, um: passwordCorrect.um }),
+			token: generateToken({ username, um: passwordCorrect.um }),
 			message: '已登陆'
 		});
 		return;
@@ -19,8 +19,6 @@ router.post('auth/login', async (ctx, next) => {
 	}
 
 	toCliect(ctx, '用户不存在', STATUS.FAILURE);
-
-	next();
 });
 
 export default router;

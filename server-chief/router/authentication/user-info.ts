@@ -1,26 +1,25 @@
 import { IUser, User } from 'model/user';
 import { generateToken, verifyToken } from '@util';
 
-router.get('auth/userInfo', async (ctx, next) => {
+router.get('auth/userInfo', async (ctx) => {
 	const { header } = ctx;
-	const { um, username, password } = verifyToken(header.authorization?.replace('Bearer ', '')) as IUser;
-	const userInfo = await User.findOne({ username, password });
+	const { um, username } = verifyToken(header.authorization?.replace('Bearer ', '')) as IUser;
+	const userInfo = await User.findOne({ um, username });
 	if (userInfo) {
 		toCliect(ctx, {
 			editable: ['username'],
 			userInfo: {
 				username: userInfo.username,
 				um,
+				avatar: userInfo?.avatar,
 				permission: userInfo?.permission
 			}
 		});
 	}
-
-	next();
 });
 
 // 用户自己只能改名字和头像
-router.post('auth/updateSelfInfo', async (ctx, next) => {
+router.post('auth/updateSelfInfo', async (ctx) => {
 	const {
 		um,
 		username,
@@ -40,14 +39,8 @@ router.post('auth/updateSelfInfo', async (ctx, next) => {
 		}
 
 		toCliect(ctx, {
-			token: generateToken({
-				username,
-				um: userInfo.um,
-				password: userInfo.password
-			}),
+			token: generateToken({ username, um: userInfo.um }),
 			message: '用户信息已更新'
 		});
 	}
-
-	next();
 });

@@ -4,7 +4,8 @@ import axios from './interceptors';
 type Options = {
 	useLoading?: boolean,
 	useMessage?: boolean,
-	handleError?: boolean
+	handleError?: boolean,
+	useFormData?: boolean
 };
 const defaultOption = { useLoading: false, useMessage: false, handleError: false } as const;
 
@@ -13,7 +14,7 @@ export type extendedAxiosRequestConfig = AxiosRequestConfig<any>&Options
 export const get = (
 	url = '',
 	params = {},
-	options: Options = defaultOption
+	options: extendedAxiosRequestConfig = defaultOption
 ) => {
 	const config = {
 		method: 'get',
@@ -36,14 +37,26 @@ export const get = (
 export const post = (
 	url = '',
 	params = {},
-	options: Options = defaultOption
+	options: extendedAxiosRequestConfig = defaultOption
 ) => {
-	const config = {
-		method: 'post',
-		url,
-		data: { ...params },
-		...options
-	};
+	let config:any;
+	if (options.useFormData) {
+		config = {
+			method: 'post',
+			url,
+			data: params,
+			headers: { 'Content-Type': 'multipart/form-data; boundary=boundary' },
+			...options
+		};
+	} else {
+		config = {
+			method: 'post',
+			url,
+			data: { ...params },
+			...options
+		};
+	}
+
 	return new Promise((resolve, reject) => {
 		axios(config as extendedAxiosRequestConfig)
 			.then((res) => {

@@ -3,8 +3,9 @@ import { computed, ref } from 'vue';
 import { useRouter } from 'vue-router';
 import { UserFilled } from '@element-plus/icons-vue';
 import { setLocal } from '@/utils';
-import userInfoDialog from './user-info-dialog.vue';
 import { useStore } from '@/stores';
+import { imgBaseUrl } from '@/api/authorization';
+import userInfoDialog from './user-info-dialog.vue';
 
 const showDialogBool = ref(false);
 const showDialog = async () => { showDialogBool.value = true; };
@@ -14,6 +15,7 @@ const router = useRouter();
 const store = useStore();
 
 const username = computed(() => store.userInfo.username);
+const avatarUrl = computed(() => store.userInfo.avatar);
 
 const logout = () => {
 	setLocal('token', '');
@@ -44,7 +46,18 @@ const menuList = [
   >
     <template #reference>
       <div class="popover__avatar">
-        <el-avatar :icon="UserFilled" />
+        <el-avatar
+          v-if="avatarUrl"
+          shape="square"
+          :size="36"
+          :src="`${imgBaseUrl}/${avatarUrl}`"
+        />
+        <el-avatar
+          v-else
+          shape="square"
+          :size="36"
+          :icon="UserFilled"
+        />
         <span class="popover__username">{{ username }}</span>
       </div>
     </template>

@@ -1,6 +1,7 @@
 import { model } from 'mongoose';
 
 interface IUser {
+	avatar?: string // 图片地址
 	username: string
 	um: string
 	password: string
@@ -8,6 +9,7 @@ interface IUser {
 }
 
 const userSchema = new Schema<IUser>({
+	avatar: String,
 	username: {
 		type: String,
 		required: true

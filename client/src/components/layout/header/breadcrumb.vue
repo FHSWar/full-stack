@@ -45,7 +45,7 @@ watch(breadcrumb, async () => {
     display: flex;
   }
   &__main {
-    width: calc(100% - 100px);
+    flex: 1;
     line-height: var(--el-header-height);
   }
 }
