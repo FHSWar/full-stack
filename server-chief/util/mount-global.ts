@@ -1,15 +1,11 @@
-import { Context } from 'koa';
-import Router from '@koa/router';
 import { model, Schema } from 'mongoose';
 import { STATUS, useLogger } from 'shared';
+import { KoaContext } from '@util';
 import wss from './web-socket';
 
-const router = new Router({
-	prefix: '/api/'
-});
 // 同一返回
 const toCliect = (
-	ctx: Context,
+	ctx: KoaContext,
 	content: any,
 	status:typeof STATUS[keyof typeof STATUS] = STATUS.SUCCESS
 
@@ -25,7 +21,6 @@ const toCliect = (
 export const mountGlobal = () => {
 	global.logger = useLogger('chief', __dirname);
 	global.model = model;
-	global.router = router;
 	global.Schema = Schema;
 	global.STATUS = STATUS;
 	global.toCliect = toCliect;

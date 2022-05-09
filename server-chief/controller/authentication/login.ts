@@ -1,5 +1,7 @@
 import { User } from 'model/user';
-import { generateToken } from 'util/jwt';
+import { useRouter, generateToken } from '@util';
+
+const router = useRouter();
 
 router.post('auth/login', async (ctx) => {
 	const { username, password } = ctx.request.body;

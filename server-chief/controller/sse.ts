@@ -1,4 +1,7 @@
 import { PassThrough } from 'stream';
+import { useRouter } from '@util';
+
+const router = useRouter();
 
 router.get('sse', async (ctx) => {
 	/* // 这个不加也能跑

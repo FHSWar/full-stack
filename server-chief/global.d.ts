@@ -9,6 +9,7 @@ import {
     Status,
     WebSocketServer
 } from '@util'
+
 declare global {
     var logger: Logger
     var model: ModelType

@@ -1,9 +1,16 @@
-import { staticDir, upload, verifyToken } from '@util';
 import { createWriteStream } from 'fs';
 import { IUser, User } from 'model/user';
+import {
+	useRouter,
+	staticDir,
+	upload,
+	verifyToken
+} from '@util';
 
 // process.cwd(): /Users/fhs_war/Documents/trainHall/full-stack/server-chief
 // __dirname: /Users/fhs_war/Documents/trainHall/full-stack/server-chief/router/upload
+
+const router = useRouter();
 
 router.post('upload/avatar', upload, async (ctx) => {
 	const { avatar } = ctx.request.files as any;
@@ -28,3 +35,5 @@ router.post('upload/avatar', upload, async (ctx) => {
 
 	toCliect(ctx, '图片已上传');
 });
+
+export default router;

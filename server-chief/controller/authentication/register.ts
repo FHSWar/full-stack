@@ -1,6 +1,8 @@
+import { useRouter } from '@util';
 import { User } from 'model/user';
 
 const umRegex = /^[a-zA-Z][a-zA-Z0-9-]*[0-9]$/;
+const router = useRouter();
 
 router.post('auth/register', async (ctx, next) => {
 	const { username, umNo, password } = ctx.request.body;
