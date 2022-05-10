@@ -1,7 +1,7 @@
 {
   "name": "server-worker",
   "author": "fhswar",
-  "description": "server-chief",
+  "description": "server",
   "license": "ISC",
   "keywords": ["koa"],
   "version": "1.0.0",

@@ -14,7 +14,7 @@ node_modules
 client/dist
 client/dist-ssr
 client/*.local
-server-chief/public
+server/public
 
 # Editor directories and files
 .vscode/*

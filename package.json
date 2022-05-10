@@ -13,7 +13,7 @@
   "license": "ISC",
   "workspaces": [
     "client",
-    "server-chief",
+    "server",
     "server-worker",
     "shared"
   ],
@@ -23,10 +23,10 @@
   "scripts": {
     "dev": "npm-run-all --parallel dev:*",
     "dev:client": "cd client && npm run dev",
-    "dev:server-chief": "cd server-chief && npm run dev",
+    "dev:server": "cd server && npm run dev",
     "dev:server-worker": "cd server-worker && npm run dev",
     "lint": "npm-run-all --parallel lint:*",
-    "lint:chief": "cd server-chief && npm run lint",
+    "lint:chief": "cd server && npm run lint",
     "lint:worker": "cd server-worker && npm run lint",
     "lint:shared": "cd shared && npm run lint",
     "prepare": "husky install"
@@ -39,7 +39,7 @@
     "npm-run-all": "^4.1.5"
   },
   "lint-staged": {
-    "server-chief/**/*.{js,ts}": [
+    "server/**/*.{js,ts}": [
       "npm run lint:chief"
     ],
     "server-worker/**/*.{js,ts}": [

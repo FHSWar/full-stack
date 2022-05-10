@@ -7,8 +7,8 @@ import {
 	verifyToken
 } from '@util';
 
-// process.cwd(): /Users/fhs_war/Documents/trainHall/full-stack/server-chief
-// __dirname: /Users/fhs_war/Documents/trainHall/full-stack/server-chief/router/upload
+// process.cwd(): /Users/fhs_war/Documents/trainHall/full-stack/server
+// __dirname: /Users/fhs_war/Documents/trainHall/full-stack/server/router/upload
 
 const router = useRouter();
 

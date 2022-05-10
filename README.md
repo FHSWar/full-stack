@@ -14,15 +14,15 @@
    npm run dev
    ```
 
-4. ⚠️注意：要在项目根目录执行。单独启动也可也，目前server-chief还能通过`npm run prd`编译为js项目后用pm2运行。
+4. ⚠️注意：要在项目根目录执行。单独启动也可也，目前server还能通过`npm run prd`编译为js项目后用pm2运行。
 
 ## 目录结构
 
 - root（monorepo，typescript，husky，eslint）
   - client（axios+sass+vite+vue3全家桶+element-plus）
-  - server-chief（koa全家桶，mongoose，jwt，websocket，sse，路由自动注册，ts可编译为js项目运行）
-  - server-worker（同server-chief）
-  - shared（server-chief与server-worker共享的工具代码）
+  - server（koa全家桶，mongoose，jwt，websocket，sse，路由自动注册，ts可编译为js项目运行）
+  - server-worker（同server）
+  - shared（server与server-worker共享的工具代码）
 
 ## 特色
 

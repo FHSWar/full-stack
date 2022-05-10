@@ -11,5 +11,5 @@ const initWebSocket = () => {
 	});
 };
 
-// 如果没有异步处理，和 server-chief 一起启动会报错一次
+// 如果没有异步处理，和 server 一起启动会报错一次
 setTimeout(initWebSocket, 1000);
