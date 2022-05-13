@@ -75,7 +75,6 @@ const sideMenu = [...constantRoutes, ...dynamicRoutes];
 		height: 100%;
 		&:not(.el-menu--collapse) {
 			width: 300px;
-			flex: auto;
 		}
 	}
 	&__footer {

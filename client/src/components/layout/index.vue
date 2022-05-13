@@ -6,7 +6,7 @@ import TabsBar from './header/tabs-bar.vue';
 
 <template>
   <el-container class="common-layout">
-    <el-aside width="initial" class="common-layout__aside">
+    <el-aside width="auto" class="common-layout__aside">
       <layout-aside />
     </el-aside>
 
