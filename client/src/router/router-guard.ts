@@ -1,4 +1,5 @@
 import { createRouter, createWebHistory, NavigationGuardNext, RouteLocationNormalized } from 'vue-router';
+import _ from 'lodash';
 import { useStore } from '@/stores';
 import { routes } from './routes';
 
@@ -9,7 +10,13 @@ const router = createRouter({
 	routes
 });
 
-const ifToLogin = (to: RouteLocationNormalized, next:NavigationGuardNext) => {
+const ifToLogin = (to: RouteLocationNormalized, from: RouteLocationNormalized, next:NavigationGuardNext) => {
+	// eslint-disable-next-line no-restricted-globals
+	if (_.isEmpty(history.state.current)) {
+	// eslint-disable-next-line no-restricted-globals
+		_.assign(history.state, { current: from.fullPath });
+	}
+
 	if (!store) store = useStore();
 
 	if (to.path === '/login') {
@@ -28,6 +35,6 @@ const maintainVisitedRoutes = (to:RouteLocationNormalized) => {
 	}
 };
 
-router.beforeEach((to, _, next) => { ifToLogin(to, next); });
+router.beforeEach((to, from, next) => { ifToLogin(to, from, next); });
 router.afterEach((to) => { maintainVisitedRoutes(to); });
 export { router };
