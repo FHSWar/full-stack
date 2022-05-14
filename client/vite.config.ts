@@ -14,5 +14,12 @@ export default defineConfig({
 		alias: {
 			'@': resolve(__dirname, './src/')
 		}
+	},
+	server: {
+		headers: {
+			'Access-Control-Allow-Origin': '*',
+			'Access-Control-Allow-Methods': '*',
+			'Access-Control-Allow-Headers': '*'
+		}
 	}
 });

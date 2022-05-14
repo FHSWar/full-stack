@@ -26,5 +26,12 @@ export const dynamicSideMenuList:MenuList = [
 		id: '2',
 		pid: '',
 		icon: 'Coffee'
+	},
+	{
+		title: 'vue2子应用',
+		id: '5',
+		pid: '',
+		icon: 'Present',
+		page: 'vue2'
 	}
 ];
