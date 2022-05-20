@@ -1,6 +1,6 @@
 <script lang="ts" setup>
 import { computed, ref, watchEffect } from 'vue';
-import sideHeader from './header.vue';
+import sideHeader from './aside-header.vue';
 import menuTree from './menu-tree.vue';
 import type { MenuList, MenuTree } from '@/types';
 import { useStore } from '@/stores';

@@ -12,6 +12,7 @@
     "@types/ws": "^8.5.3",
     "@vitejs/plugin-legacy": "^1.8.2",
     "@vitejs/plugin-vue": "^2.3.1",
+    "@vueuse/core": "^8.5.0",
     "axios": "^0.26.1",
     "element-plus": "^2.1.10",
     "pinia": "^2.0.13",

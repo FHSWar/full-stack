@@ -3,7 +3,6 @@ import { computed, nextTick, ref, watch } from 'vue';
 import { ArrowRight } from '@element-plus/icons-vue';
 import { useStore } from '@/stores';
 import { constantRoutes } from '@/router/constant';
-import avatar from './avatar.vue';
 
 const store = useStore();
 
@@ -20,33 +19,22 @@ watch(breadcrumb, async () => {
 </script>
 
 <template>
-  <div class="breadcrumb__wrapper">
-    <el-breadcrumb class="breadcrumb__main" :separator-icon="ArrowRight">
-      <template v-for="{icon, id, page, title} in breadcrumb" :key="id">
-        <transition name="el-fade-in">
-          <el-breadcrumb-item v-if="page" :to="{ name: page }" v-show="showBreadcrumb">
-            <use-icon v-if="icon" :icon="icon" />
-            {{ title }}
-          </el-breadcrumb-item>
-          <el-breadcrumb-item v-else v-show="showBreadcrumb">
-            <use-icon v-if="icon" :icon="icon" />
-            {{ title }}
-          </el-breadcrumb-item>
-        </transition>
-      </template>
-    </el-breadcrumb>
-    <avatar />
-  </div>
+  <el-breadcrumb :separator-icon="ArrowRight">
+    <template v-for="{icon, id, page, title} in breadcrumb" :key="id">
+      <transition name="el-fade-in">
+        <el-breadcrumb-item v-if="page" :to="{ name: page }" v-show="showBreadcrumb">
+          <use-icon v-if="icon" :icon="icon" />
+          {{ title }}
+        </el-breadcrumb-item>
+        <el-breadcrumb-item v-else v-show="showBreadcrumb">
+          <use-icon v-if="icon" :icon="icon" />
+          {{ title }}
+        </el-breadcrumb-item>
+      </transition>
+    </template>
+  </el-breadcrumb>
 </template>
 
 <style lang="scss" scoped>
-.breadcrumb {
-  &__wrapper {
-    display: flex;
-  }
-  &__main {
-    flex: 1;
-    line-height: var(--el-header-height);
-  }
-}
+
 </style>
