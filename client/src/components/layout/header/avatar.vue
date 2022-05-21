@@ -4,7 +4,8 @@ import { UserFilled } from '@element-plus/icons-vue';
 import { useStore } from '@/stores';
 import { imgBaseUrl } from '@/api/authorization';
 import { useLogout } from '@/utils';
-import userInfoDialog from './user-info-dialog.vue';
+import PopoverOptions from './popover-options.vue';
+import UserInfoDialog from './user-info-dialog.vue';
 
 const store = useStore();
 
@@ -15,7 +16,7 @@ const showDialogBool = ref(false);
 const showDialog = async () => { showDialogBool.value = true; };
 const closeDialog = () => { showDialogBool.value = false; };
 
-const menuList = [
+const optionList = [
 	{
 		icon: 'Avatar',
 		desc: '个人设置',
@@ -27,6 +28,7 @@ const menuList = [
 		method: useLogout
 	}
 ];
+const triggerMethod = (method: () => void) => { method(); };
 </script>
 
 <template>
@@ -54,17 +56,7 @@ const menuList = [
         <span class="popover__username">{{ username }}</span>
       </div>
     </template>
-    <div class="popover__container">
-      <p
-        class="popover__item"
-        v-for="{icon, desc, method} in menuList"
-        :key="desc"
-        @click="method"
-      >
-        <use-icon :icon="icon" />
-        <span class="popover__desc">{{ desc }}</span>
-      </p>
-    </div>
+    <popover-options :options="optionList" @method="triggerMethod" />
   </el-popover>
   <Suspense>
     <user-info-dialog
@@ -83,23 +75,6 @@ const menuList = [
     }
     &__username {
         text-indent: .5em;
-    }
-    &__container {
-        padding: 4px;
-    }
-    &__item {
-        display: flex;
-        align-items: center;
-        border-radius: var(--el-border-radius-base);
-        height: 36px;
-        padding-left: 12px;
-
-        &:hover {
-            background-color: var(--el-color-primary-light-8);
-        }
-    }
-    &__desc {
-        text-indent: 1em;
     }
 }
 </style>

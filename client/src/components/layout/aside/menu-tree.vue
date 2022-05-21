@@ -2,7 +2,7 @@
 import { useRouter } from 'vue-router';
 import { useStore } from '@/stores';
 import { findMenuListChain } from '@/utils';
-import type { MenuList, MenuTree } from '@/types';
+import type { MenuList, MenuTree } from '@/utils';
 
 defineProps<{asideMenuTree: MenuTree}>();
 

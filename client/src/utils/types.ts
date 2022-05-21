@@ -21,6 +21,13 @@ export type MenuList = {
   title: string
 }[];
 
+export type PopoverOption = {
+  icon: string,
+  desc: string,
+  // eslint-disable-next-line no-unused-vars
+  method: () => void
+}
+
 export type ThemeConfig = {
   isAsideMenuCollapse: boolean
 }
