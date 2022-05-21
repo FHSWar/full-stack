@@ -1,4 +1,3 @@
-import { useRouter } from 'vue-router';
 import { ElLoading, ElMessage } from 'element-plus';
 import { extendedAxiosRequestConfig, useLogout } from '@/utils';
 import { useStore } from '@/stores';
@@ -65,10 +64,7 @@ axios.interceptors.response.use(
 
 		// 错误一定弹
 		const { message } = data;
-		if (message === 'jwt expired') {
-			const router = useRouter();
-			useLogout(router);
-		}
+		if (message === 'jwt expired') useLogout();
 
 		ElMessage.error(message || error.toString());
 

@@ -5,7 +5,7 @@ import type { KoaInstance } from '@util';
 // eslint-disable-next-line no-unused-vars
 type FileFilterCb = (error: Error | null, acceptFile: boolean) => void
 const fileFilter = (_:multer.MulterIncomingMessage, file:multer.File, cb:FileFilterCb) => {
-	file.mimetype === 'image/jpeg' || file.mimetype === 'image/png'
+	file.mimetype.startsWith('image/')
 		? cb(null, true)
 		: cb(new Error('错误的图片类型'), false);
 };

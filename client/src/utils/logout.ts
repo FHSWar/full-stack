@@ -1,7 +1,7 @@
-import { useRouter } from 'vue-router';
+import { router } from '@/router';
 import { useStore } from '@/stores';
 
-export const useLogout = (router: ReturnType<typeof useRouter>) => {
+export const useLogout = () => {
 	const store = useStore();
 
 	router.push({ name: 'login' });

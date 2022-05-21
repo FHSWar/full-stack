@@ -30,4 +30,5 @@ const maintainVisitedRoutes = (to:RouteLocationNormalized) => {
 
 router.beforeEach((to, _, next) => { ifToLogin(to, next); });
 router.afterEach((to) => { maintainVisitedRoutes(to); });
+
 export { router };
