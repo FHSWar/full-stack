@@ -97,16 +97,20 @@ const tabRemove = (tabName:string) => {
     &__wrapper {
         --tab-item-height: 32px;
 
-		.el-tabs__nav-next, .el-tabs__nav-prev {
-			height: var(--tab-item-height);
-			line-height: var(--tab-item-height);
-		}
 		:deep(.el-tabs__header) {
 			border-bottom: 0;
 			.el-tabs__nav {
 				border: 0;
 			}
+
+			.el-tabs__nav-scroll {
+				position: relative;
+				top: 6px;
+				height: 50px;
+			}
 			.el-tabs__item {
+				position: relative;
+				top: 10px;
 				height: var(--tab-item-height);
 				margin-right: 4px;
 				line-height: var(--tab-item-height);

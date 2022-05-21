@@ -19,8 +19,8 @@ watch(breadcrumb, async () => {
 </script>
 
 <template>
-  <el-breadcrumb :separator-icon="ArrowRight">
-    <template v-for="{icon, id, page, title} in breadcrumb" :key="id">
+  <el-breadcrumb class="breadcrumb__wrapper" :separator-icon="ArrowRight">
+    <template v-for="{ icon, id, page, title } in breadcrumb" :key="id">
       <transition name="el-fade-in">
         <el-breadcrumb-item v-if="page" :to="{ name: page }" v-show="showBreadcrumb">
           <use-icon v-if="icon" :icon="icon" />
@@ -36,5 +36,13 @@ watch(breadcrumb, async () => {
 </template>
 
 <style lang="scss" scoped>
+:deep(.el-breadcrumb__inner) {
+  font-size: var(--el-font-size-small);
 
+  .el-icon {
+    position: relative;
+    top: 1.5px;
+    color: var(--el-color-primary);
+  }
+}
 </style>

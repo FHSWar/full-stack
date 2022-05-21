@@ -1,7 +1,7 @@
 /*
 	从本地存取内容，封装一下方便实用
 */
-import type { LocalStorageValue, ShallowObject } from '@/types';
+import type { LocalStorageValue, ShallowObject } from '@/utils';
 
 // 存的是个JSON化的只一层的对象，才有innerKey
 export const setLocal = (key:string, value: LocalStorageValue, innerKey?: string) => {

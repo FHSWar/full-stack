@@ -1,4 +1,4 @@
-import type { MenuTree } from '@/types';
+import type { MenuTree } from '@/utils';
 
 // 常驻路由，不暴露给配置
 export const constantRoutes:MenuTree = [{

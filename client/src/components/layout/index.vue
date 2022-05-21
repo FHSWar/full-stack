@@ -52,8 +52,8 @@ const toggleDark = () => { toggleDarkClass(); };
     }
     &__header {
       display: flex;
-      align-items: center;
-      line-height: var(--el-header-height);
+      align-items: center; // line-height: var(--el-header-height);
+      height: calc(var(--el-header-height) - 12px);
 
       &:first-of-type {
         border-bottom: var(--el-border-width) var(--el-border-style) var(--el-border-color-light);
@@ -62,7 +62,6 @@ const toggleDark = () => { toggleDarkClass(); };
     }
     &__breadcrumb {
       flex: 1;
-      line-height: var(--el-header-height);
     }
     &__toggle-icon {
       margin-left: 12px;

@@ -1,4 +1,4 @@
-import type { MenuList } from '@/types';
+import type { MenuList } from '@/utils';
 
 export const dynamicSideMenuList:MenuList = [
 	{

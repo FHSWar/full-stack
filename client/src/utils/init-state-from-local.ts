@@ -1,4 +1,4 @@
-import { ThemeConfig, UserInfo } from '@/types';
+import { ThemeConfig, UserInfo } from '@/utils';
 import { getLocal, setLocal } from './commucate-local-storage';
 
 let temp:any;

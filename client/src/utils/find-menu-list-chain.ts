@@ -1,4 +1,4 @@
-import { MenuList } from '@/types';
+import { MenuList } from '@/utils';
 import { useStore } from '@/stores';
 
 export const findMenuListChain = (leafId: string):MenuList => {
