@@ -2,25 +2,21 @@
 import { computed, ref } from 'vue';
 import { useRouter } from 'vue-router';
 import { UserFilled } from '@element-plus/icons-vue';
-import { setLocal } from '@/utils';
 import { useStore } from '@/stores';
 import { imgBaseUrl } from '@/api/authorization';
+import { useLogout } from '@/utils';
 import userInfoDialog from './user-info-dialog.vue';
 
-const showDialogBool = ref(false);
-const showDialog = async () => { showDialogBool.value = true; };
-const closeDialog = () => { showDialogBool.value = false; };
-
-const router = useRouter();
 const store = useStore();
+const router = useRouter();
 
 const username = computed(() => store.userInfo.username);
 const avatarUrl = computed(() => store.userInfo.avatar);
 
-const logout = () => {
-	setLocal('token', '');
-	router.push({ name: 'login' });
-};
+const showDialogBool = ref(false);
+const showDialog = async () => { showDialogBool.value = true; };
+const closeDialog = () => { showDialogBool.value = false; };
+const logout = () => { useLogout(router); };
 
 const menuList = [
 	{

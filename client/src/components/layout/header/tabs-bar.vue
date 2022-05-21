@@ -39,7 +39,8 @@ const maintainActiveTab = (pageName: string|undefined) => {
 // 面包屑应该是active tab对应的祖先路径
 const maintainBreadCrumb = (tabName: string|undefined) => {
 	const menuItem = store.menuList.find((item) => item.page === tabName) as MenuList[number];
-	store.breadcrumb = findMenuListChain(menuItem.id);
+	// store.$reset() 这个menuItem就会拿到undefined
+	if (menuItem) store.breadcrumb = findMenuListChain(menuItem.id);
 };
 
 watchEffect(() => maintainActiveTab(store.breadcrumb.at(-1)?.page));

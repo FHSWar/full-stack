@@ -7,9 +7,16 @@ import type { LocalStorageValue, ShallowObject } from '@/types';
 export const setLocal = (key:string, value: LocalStorageValue, innerKey?: string) => {
 	if (innerKey) {
 		const firstLayerValue = localStorage.getItem(key);
-		if (firstLayerValue === null) return null;
-		const oldVal = JSON.parse(firstLayerValue);
-		localStorage.setItem(key, JSON.stringify({ ...oldVal, [innerKey]: value }));
+
+		// 这样操作后，getLocal(key)就不可能为null
+		if (firstLayerValue === null) setLocal(key, {});
+
+		// 但ts不这么觉得，于是在代码层面再次判空
+		const notNull = localStorage.getItem(key);
+		if (notNull !== null) {
+			const oldVal = JSON.parse(notNull);
+			localStorage.setItem(key, JSON.stringify({ ...oldVal, [innerKey]: value }));
+		}
 	} else {
 		if (typeof value === 'string') {
 			localStorage.setItem(key, value);

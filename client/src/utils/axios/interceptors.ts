@@ -1,8 +1,7 @@
+import { useRouter } from 'vue-router';
 import { ElLoading, ElMessage } from 'element-plus';
-import { extendedAxiosRequestConfig } from '@/utils';
-import { router } from '@/router';
+import { extendedAxiosRequestConfig, useLogout } from '@/utils';
 import { useStore } from '@/stores';
-import { setLocal } from '@/utils/commucate-local-storage';
 import axios from './config';
 
 type LoadingInstanceType = ReturnType<typeof ElLoading.service>;
@@ -67,11 +66,10 @@ axios.interceptors.response.use(
 		// 错误一定弹
 		const { message } = data;
 		if (message === 'jwt expired') {
-			// 这样就不用手动清除了，jwt过期就会回到login页面
-			setLocal('token', '');
-			// 这里没法用 useRouter 返回的实例
-			router.push({ name: 'login' });
+			const router = useRouter();
+			useLogout(router);
 		}
+
 		ElMessage.error(message || error.toString());
 
 		return Promise.reject(error.toString());

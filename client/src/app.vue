@@ -1,3 +1,9 @@
+<script setup lang="ts">
+import { usePiniaPersistance } from '@/utils';
+
+usePiniaPersistance();
+</script>
+
 <template>
   <router-view />
 </template>

@@ -3,7 +3,6 @@ import { reactive, ref } from 'vue';
 import type { FormInstance } from 'element-plus';
 import { useStore } from '@/stores';
 import { getUserInfo, updateSelfInfo } from '@/api/authorization';
-import { setLocal } from '@/utils';
 
 const emit = defineEmits(['update:modelValue']);
 
@@ -44,11 +43,9 @@ const changePassword = async (params: typeof form) => {
 	const { token } = await updateSelfInfo({ ...store.userInfo, ...params }) as any;
 	const bearer = `Bearer ${token}`;
 	store.token = bearer;
-	setLocal('token', bearer);
 
 	const { userInfo: newUserInfo } = await getUserInfo() as any;
 	store.userInfo = newUserInfo;
-	setLocal('userInfo', newUserInfo);
 
 	emit('update:modelValue', 'closeParent');
 };

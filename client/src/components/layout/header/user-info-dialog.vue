@@ -4,7 +4,6 @@ import { ElMessage } from 'element-plus';
 import type { UploadProps } from 'element-plus';
 import { getUserInfo, imgBaseUrl, updateSelfInfo, uploadAvatar } from '@/api/authorization';
 import { useStore } from '@/stores';
-import { setLocal } from '@/utils';
 import editPasswordDialog from './edit-password-dialog.vue';
 
 const { editable, userInfo } = await getUserInfo() as any;
@@ -64,11 +63,9 @@ const edit = async () => {
 		const { token } = await updateSelfInfo({ ...userInfo, ...params }) as any;
 		const bearer = `Bearer ${token}`;
 		store.token = bearer;
-		setLocal('token', bearer);
 
 		const { userInfo: newUserInfo } = await getUserInfo() as any;
 		store.userInfo = newUserInfo;
-		setLocal('userInfo', newUserInfo);
 
 		disabled.value = true;
 		emit('update:modelValue');
