@@ -53,11 +53,13 @@ const triggerMethod = (method: () => void) => { method(); };
           :size="36"
           :icon="UserFilled"
         />
-        <span class="popover__username">{{ username }}</span>
       </div>
     </template>
     <popover-options :options="optionList" @method="triggerMethod" />
   </el-popover>
+
+  <span class="popover__username">{{ username }}</span>
+
   <Suspense>
     <user-info-dialog
       v-if="showDialogBool"

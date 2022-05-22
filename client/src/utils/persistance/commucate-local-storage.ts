@@ -1,5 +1,5 @@
 /*
-	从本地存取内容，封装一下方便实用
+	从本地存取内容，封装一下方便使用
 */
 import type { LocalStorageValue, ShallowObject } from '@/utils';
 

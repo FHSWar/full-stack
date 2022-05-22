@@ -4,9 +4,9 @@ import { useRouter } from '@util';
 
 const router = useRouter();
 
-router.get('test', (ctx, next) => {
+router.get('test', (ctx) => {
 	toCliect(ctx, '顺利测试一个！');
-	next();
+	// next();
 });
 
 export default router;
