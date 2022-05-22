@@ -33,8 +33,10 @@ router.post('upload/avatar', upload, async (ctx) => {
 
 	// 同一个用户上传了新的，就先把旧的删掉，非常合理
 	const avatarDir = `${staticDir}/avatar`;
-	const previousAvatarArr = readdirSync(avatarDir).filter((filename) => filename.startsWith(um));
-	previousAvatarArr.forEach((filename) => unlinkSync(`${avatarDir}/${filename}`));
+	readdirSync(avatarDir)
+		.filter((filename) => filename.startsWith(um))
+		.forEach((filename) => unlinkSync(`${avatarDir}/${filename}`));
+
 	createWriteStream(`${avatarDir}/${fileName}`).write(avatar[0].buffer);
 
 	toCliect(ctx, '图片已上传');

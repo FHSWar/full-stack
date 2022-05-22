@@ -57,7 +57,7 @@ const toggleDark = () => { toggleDarkClass(); };
 
       &:first-of-type {
         border-bottom: var(--el-border-width) var(--el-border-style) var(--el-border-color-light);
-        background-color: var(--el-fill-color-light);
+        background-color: var(--el-bg-color-page);
       }
     }
     &__breadcrumb {
@@ -69,7 +69,7 @@ const toggleDark = () => { toggleDarkClass(); };
       color: v-bind("iconColor");
     }
     &__main {
-      background-color: var(--el-fill-color);
+      background-color: var(--el-bg-color-page);
     }
 }
 </style>

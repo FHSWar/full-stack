@@ -1,11 +1,11 @@
 <script lang="ts" setup>
 import { computed, ref, watchEffect } from 'vue';
+import { constantRoutes } from '@/router';
+import { useStore } from '@/stores';
+import type { MenuList, MenuTree } from '@/utils';
+import { dynamicSideMenuList } from '@/mock';
 import sideHeader from './aside-header.vue';
 import menuTree from './menu-tree.vue';
-import type { MenuList, MenuTree } from '@/types';
-import { useStore } from '@/stores';
-import { constantRoutes } from '@/router/constant';
-import { dynamicSideMenuList } from '@/mock';
 
 const store = useStore();
 // 用全局状态的值来做初始化
