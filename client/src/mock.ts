@@ -26,5 +26,32 @@ export const dynamicSideMenuList:MenuList = [
 		id: '2',
 		pid: '',
 		icon: 'Coffee'
+	},
+	{
+		title: '配置',
+		id: '5',
+		pid: '',
+		icon: 'Setting'
+	},
+	{
+		title: '菜单',
+		id: '6',
+		page: 'menu',
+		pid: '5',
+		icon: 'Rank'
+	},
+	{
+		title: '角色',
+		id: '7',
+		page: 'role',
+		pid: '5',
+		icon: 'UserFilled'
+	},
+	{
+		title: '用户',
+		id: '8',
+		page: 'user',
+		pid: '5',
+		icon: 'User'
 	}
 ];
