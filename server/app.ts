@@ -21,4 +21,4 @@ useJWT(app);
 useMongo();
 useRoutes(app);
 
-app.listen(9000);
+export const server = app.listen(9000);
