@@ -1,10 +1,11 @@
 import { useRouter } from '@util';
 import { User } from 'model/user';
+import { Role } from 'model/role';
 
 const umRegex = /^[a-zA-Z][a-zA-Z0-9-]*[0-9]$/;
 const router = useRouter();
 
-router.post('auth/register', async (ctx, next) => {
+router.post('auth/register', async (ctx) => {
 	const { username, umNo, password } = ctx.request.body;
 	if (!username) {
 		toCliect(ctx, '无效提交', STATUS.FAILURE);
@@ -23,10 +24,12 @@ router.post('auth/register', async (ctx, next) => {
 		return;
 	}
 
-	await new User({ username, password, um: umNo }).save();
+	const defaultRole = await Role.findOne({ role: 'visitor', isDelete: false });
+	const doc = new User({ username, password, um: umNo, permission: [defaultRole?._id] });
+
+	await doc.save();
 
 	toCliect(ctx, '注册成功');
-	next();
 });
 
 export default router;

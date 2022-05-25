@@ -11,6 +11,9 @@ export type MenuTree = {
   page?: string // 就是路由的name
   pid: string
   title: string
+  meta?: {
+    [key:string]: any
+  }
 }[];
 // 摊平的，方便后端存
 export type MenuList = {
@@ -19,6 +22,9 @@ export type MenuList = {
   page?: string
   pid: string
   title: string
+  meta?: {
+    [key:string]: any
+  }
 }[];
 
 export type PopoverOption = {

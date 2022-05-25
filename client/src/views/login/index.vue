@@ -1,14 +1,9 @@
 <script lang="ts" setup>
-import { ref } from 'vue';
+import { computed, ref } from 'vue';
 import loginView from './login-form.vue';
 
 const activeName = ref('login');
-const showRegister = ref(false);
-
-const handleClick = () => {
-	if (activeName.value === 'register') showRegister.value = true;
-};
-
+const showRegister = computed(() => (activeName.value !== 'login'));
 </script>
 
 <template>
@@ -17,13 +12,12 @@ const handleClick = () => {
       class="login__container"
       v-model="activeName"
       type="border-card"
-      @tab-click="handleClick"
     >
       <el-tab-pane label="登陆" name="login" stretch>
-        <login-view />
+        <login-view :key="'first'" />
       </el-tab-pane>
       <el-tab-pane label="注册" name="register">
-        <login-view v-if="showRegister" :show-double-check="true" />
+        <login-view v-if="showRegister" :show-double-check="true" :key="'second'" />
       </el-tab-pane>
     </el-tabs>
   </div>

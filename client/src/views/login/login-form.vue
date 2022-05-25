@@ -12,6 +12,7 @@ const props = defineProps({
 	}
 });
 const { showDoubleCheck } = toRefs(props);
+
 const router = useRouter();
 
 const form = reactive({
@@ -111,10 +112,10 @@ const resetForm = (formEl: FormInstance | undefined) => {
       <el-input v-model="form.umNo" />
     </el-form-item>
     <el-form-item label="密码" prop="password">
-      <el-input v-model="form.password" type="password" autocomplete="off" />
+      <el-input v-model="form.password" type="password" />
     </el-form-item>
     <el-form-item v-if="showDoubleCheck" label="确认密码" prop="checkPassword">
-      <el-input v-model="form.checkPassword" type="password" autocomplete="off" />
+      <el-input v-model="form.checkPassword" type="password" />
     </el-form-item>
   </el-form>
   <el-button v-if="showDoubleCheck" type="primary" class="login__button" @click="submitForm(ruleFormRef, true)">

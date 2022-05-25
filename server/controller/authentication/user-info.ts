@@ -6,16 +6,20 @@ const router = useRouter();
 router.get('auth/userInfo', async (ctx) => {
 	const { header } = ctx;
 	const { um, username } = verifyToken(header.authorization?.replace('Bearer ', '')) as IUser;
-	const userInfo = await User.findOne({ um, username });
+	const userInfo = await User.findOne({ um, username }).populate('permission');
 
 	if (userInfo) {
+		const roleArr = userInfo.permission
+			.filter((v) => v.isDelete === false)
+			.map((v) => v.role);
+
 		toCliect(ctx, {
 			editable: ['username'],
 			userInfo: {
 				username: userInfo.username,
 				um,
 				avatar: userInfo?.avatar,
-				permission: userInfo?.permission
+				permission: roleArr
 			}
 		});
 	}

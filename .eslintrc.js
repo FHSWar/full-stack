@@ -35,9 +35,11 @@ module.exports = {
 		'no-prototype-builtins': 'off',
 		'no-tabs': ['error', { allowIndentationTabs: true }],
 		'no-undef': 'off',
+		'no-underscore-dangle': ['error', { allow: ['_id'] }],
 		'no-param-reassign': 0,
 		'no-restricted-syntax': 'off', // 允许 for...of 之类的语法
 		'no-unused-expressions': 'off', // 优雅三元可以有
+		'object-curly-newline': 'off',
 		'prefer-destructuring': 'off',
 		quotes: ['error', 'single'],
 		semi: ['error', 'always'] // 代码尾部必须带分号

@@ -1,12 +1,14 @@
+import { IRole } from 'model/role';
+
 interface IUser {
 	avatar?: string // 图片地址
 	username: string
 	um: string
 	password: string
-	permission?: string
+	permission: IRole[] // 用Schema.Types.ObjectId[]要强转，不好。populate之后得到 Role数组，没问题。
 }
 
-const userSchema = new Schema<IUser>({
+const User = model<IUser>('User', new Schema<IUser>({
 	avatar: String,
 	username: {
 		type: String,
@@ -21,11 +23,11 @@ const userSchema = new Schema<IUser>({
 		type: String,
 		required: true
 	},
-	permission: {
-		type: String,
-		default: 'developer'
-	}
-});
+	permission: [{
+		type: Schema.Types.ObjectId,
+		ref: 'Role',
+		required: true
+	}]
+}));
 
-const User = model<IUser>('User', userSchema);
 export { IUser, User };

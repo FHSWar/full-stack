@@ -7,7 +7,7 @@ type Options = {
 	handleError?: boolean,
 	useFormData?: boolean
 };
-const defaultOption = { useLoading: false, useMessage: false, handleError: false } as const;
+const defaultOption = { useLoading: true, useMessage: true, handleError: false } as const;
 
 export type extendedAxiosRequestConfig = AxiosRequestConfig<any>&Options
 

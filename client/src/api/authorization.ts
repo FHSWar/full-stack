@@ -6,27 +6,25 @@ type User = {
     checkPassword?: string
 }
 
-export const login = (params: User) => post('auth/login', params, { useLoading: true, useMessage: true });
+// 登陆
+export const login = (params: User) => post('auth/login', params);
 
-export const register = (params: User) => post('auth/register', params, { useLoading: true, useMessage: true });
+// 注册
+export const register = (params: User) => post('auth/register', params);
 
-export const getUserInfo = () => get('auth/userInfo', { useMessage: true });
+// 获取用户信息
+export const getUserInfo = () => get('auth/userInfo', {}, { useMessage: false });
 
-export const updateSelfInfo = (params: User) => post(
-	'auth/updateSelfInfo',
-	params,
-	{ useLoading: true, useMessage: true }
-);
+// 更新用户信息
+export const updateSelfInfo = (params: User) => post('auth/updateSelfInfo', params);
 
-export const testToken = (params: any) => get('test', params, { useMessage: true });
+// 测试token
+export const testToken = (params: any) => get('test', params);
 
+// 上传头像
 export const imgBaseUrl = 'http://localhost:9000';
 export const uploadAvatar = (params: User) => post(
 	'upload/avatar',
 	params,
-	{
-		useLoading: true,
-		useMessage: true,
-		useFormData: true
-	}
+	{ useFormData: true }
 );

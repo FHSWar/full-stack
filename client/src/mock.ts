@@ -31,27 +31,27 @@ export const dynamicSideMenuList:MenuList = [
 		title: '配置',
 		id: '5',
 		pid: '',
-		icon: 'Setting'
-	},
-	{
-		title: '菜单',
-		id: '6',
-		page: 'menu',
-		pid: '5',
-		icon: 'Rank'
+		icon: 'SetUp'
 	},
 	{
 		title: '角色',
-		id: '7',
+		id: '6',
 		page: 'role',
+		pid: '5',
+		icon: 'User'
+	},
+	{
+		title: '用户',
+		id: '7',
+		page: 'user',
 		pid: '5',
 		icon: 'UserFilled'
 	},
 	{
-		title: '用户',
+		title: '菜单',
 		id: '8',
-		page: 'user',
+		page: 'menu',
 		pid: '5',
-		icon: 'User'
+		icon: 'Rank'
 	}
 ];
