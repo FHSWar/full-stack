@@ -2,8 +2,10 @@
 import { reactive, ref, toRefs } from 'vue';
 import { useRouter } from 'vue-router';
 import type { FormInstance } from 'element-plus';
+import { pki } from 'node-forge';
 import { getUserInfo, login, register } from '@/api/authorization';
 import { useStore } from '@/stores';
+import { publicKey } from '@/utils';
 
 const props = defineProps({
 	showDoubleCheck: {
@@ -21,7 +23,18 @@ const form = reactive({
 	password: '',
 	checkPassword: ''
 });
+const encryptPassword = (password: string) => {
+	const publicK = pki.publicKeyFromPem(publicKey);
+	const encrypted = publicK.encrypt(encodeURIComponent(password), 'RSA-OAEP'); // 经过url编码，后端解密后需要url解码
+	// console.log('密文：', encrypted); // 虽然乱码，但可以直接发给后端解密
+	const base64 = window.btoa(unescape(encodeURIComponent(encrypted)));
+
+	return base64;
+};
 const handleLogin = async (params: typeof form) => {
+	const encryptedPassword = encryptPassword(params.password);
+
+	params.password = encryptedPassword;
 	const suc:any = await login(params);
 	const token:string = `Bearer ${suc.token}`;
 

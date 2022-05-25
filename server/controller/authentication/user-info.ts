@@ -37,6 +37,7 @@ router.post('auth/updateSelfInfo', async (ctx) => {
 
 	if (userInfo) {
 		userInfo.username = username;
+		userInfo.updateTime = new Date();
 		if (oldPassword) {
 			userInfo.password = password;
 			await User.updateOne({ um, password: oldPassword }, userInfo);

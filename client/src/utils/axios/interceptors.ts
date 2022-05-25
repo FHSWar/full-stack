@@ -48,7 +48,7 @@ axios.interceptors.response.use(
 		}
 		if ((config as extendedAxiosRequestConfig)?.useMessage) {
 			const { message } = data;
-			ElMessage.success(message);
+			if (message !== '默认返回') ElMessage.success(message);
 		}
 
 		return data;
