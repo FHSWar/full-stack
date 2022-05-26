@@ -1,16 +1,12 @@
 import { User } from 'model/user';
-import { useRouter, generateToken } from '@util';
-import { rsaPrivateKey } from 'config';
-
-const forge = require('node-forge');
+import { decryptPassword, generateToken, useRouter } from '@util';
 
 const router = useRouter();
 
 router.post('auth/login', async (ctx) => {
 	const { username, password } = ctx.request.body;
-	const privateK = forge.pki.privateKeyFromPem(rsaPrivateKey);
-	const encrypted = Buffer.from(password, 'base64').toString();
-	const decrypted = privateK.decrypt(encrypted, 'RSA-OAEP');
+
+	const decrypted = decryptPassword(password);
 
 	const passwordCorrect = await User.findOne({ username, password: decrypted }).populate('permission');
 
