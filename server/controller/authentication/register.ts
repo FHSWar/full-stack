@@ -1,4 +1,4 @@
-import { useRouter } from '@util';
+import { decryptPassword, encryptBySHA512, useRouter } from '@util'; // encryptBySHA512,
 import { User } from 'model/user';
 import { Role } from 'model/role';
 
@@ -7,6 +7,7 @@ const router = useRouter();
 
 router.post('auth/register', async (ctx) => {
 	const { username, umNo, password } = ctx.request.body;
+
 	if (!username) {
 		toCliect(ctx, '无效提交', STATUS.FAILURE);
 		return;
@@ -25,7 +26,12 @@ router.post('auth/register', async (ctx) => {
 	}
 
 	const defaultRole = await Role.findOne({ role: 'visitor', isDelete: false });
-	const doc = new User({ username, password, um: umNo, permission: [defaultRole?._id] });
+	const doc = new User({
+		username,
+		um: umNo,
+		password: encryptBySHA512(decryptPassword(password)),
+		permission: [defaultRole?._id]
+	});
 
 	await doc.save();
 

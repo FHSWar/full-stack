@@ -23,20 +23,26 @@ const form = reactive({
 	password: '',
 	checkPassword: ''
 });
+
 const encryptPassword = (password: string) => {
-	const publicK = pki.publicKeyFromPem(publicKey);
-	// 经过url编码，后端解密后需要url解码。encrypted虽然乱码，但可以直接发给后端解密。
-	const encrypted = publicK.encrypt(encodeURIComponent(password), 'RSA-OAEP');
-	// 转成base64看着比较干净。
-	const base64 = window.btoa(unescape(encodeURIComponent(encrypted)));
+	try {
+		const publicK = pki.publicKeyFromPem(publicKey);
+		// 经过url编码，后端解密后需要url解码。encrypted虽然乱码，但可以直接发给后端解密。
+		const encrypted = publicK.encrypt(encodeURIComponent(password), 'RSA-OAEP');
+		// 转成base64看着比较干净。
+		const base64 = window.btoa(unescape(encodeURIComponent(encrypted)));
 
-	return base64;
+		return base64;
+	} catch (e) {
+		console.log('密码加密出错', (e as Error).toString());
+		return '';
+	}
 };
-const handleLogin = async (params: typeof form) => {
-	const encryptedPassword = encryptPassword(params.password);
 
-	params.password = encryptedPassword;
-	const suc:any = await login(params);
+const handleLogin = async (callFromRegister?: boolean) => {
+	if (!callFromRegister) form.password = encryptPassword(form.password);
+
+	const suc:any = await login(form);
 	const token:string = `Bearer ${suc.token}`;
 
 	const store = useStore();
@@ -47,9 +53,11 @@ const handleLogin = async (params: typeof form) => {
 
 	router.push({ name: 'home' });
 };
-const handleRegister = async (params: typeof form) => {
-	await register(params);
-	handleLogin(params);
+const handleRegister = async () => {
+	form.password = encryptPassword(form.password);
+
+	await register(form);
+	handleLogin(true);
 };
 
 const ruleFormRef = ref<FormInstance>();
@@ -97,8 +105,8 @@ const submitForm = (formEl: FormInstance | undefined, isRegister:boolean = false
 	formEl.validate((valid) => {
 		if (valid) {
 			isRegister
-				? handleRegister(form)
-				: handleLogin(form);
+				? handleRegister()
+				: handleLogin();
 		} else {
 			console.log('表单格式错误!');
 			return false;

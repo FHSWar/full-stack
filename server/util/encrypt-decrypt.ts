@@ -1,4 +1,4 @@
-import { pki } from 'node-forge';
+import { md, pki } from 'node-forge';
 import { rsaPrivateKey } from 'config';
 
 // 用RSA私钥解密公钥加密过的密码
@@ -11,14 +11,19 @@ export const decryptPassword = (str: string) => {
 	return privateK.decrypt(encrypted, 'RSA-OAEP');
 };
 
+export const encryptBySHA512 = (str: string) => {
+	const encrypter = md.sha512.create();
+	encrypter.update(str);
+
+	return encrypter.digest().toHex();
+};
+
 // 生成RSA密钥对
 export const generateRsaKeyPair = () => {
 	const { rsa, publicKeyToRSAPublicKeyPem, privateKeyToPem } = pki;
 
 	rsa.generateKeyPair({ bits: 2048, workers: 2 }, (err:any, keypair:any) => {
-		if (err) {
-			return;
-		}
+		if (err) return;
 
 		// 这里就生成了字符串的公钥和密钥了，可以把生成结果保存起来
 		console.log({
