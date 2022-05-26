@@ -9,10 +9,10 @@ router.post('auth/login', async (ctx) => {
 	const passwordCorrect = await User.findOne({
 		username,
 		password: encryptBySHA512(decryptPassword(password))
-	}).populate('permission');
+	}).populate('roles');
 
 	if (passwordCorrect) {
-		const roleArr = passwordCorrect.permission
+		const roleArr = passwordCorrect.roles
 			.filter((v) => v.isDelete === false)
 			.map((v) => v.role);
 
@@ -20,7 +20,7 @@ router.post('auth/login', async (ctx) => {
 			token: generateToken({
 				username,
 				um: passwordCorrect.um,
-				permission: roleArr
+				roles: roleArr
 			}),
 			message: '已登陆'
 		});

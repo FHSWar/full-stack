@@ -30,7 +30,7 @@ router.post('auth/register', async (ctx) => {
 		username,
 		um: umNo,
 		password: encryptBySHA512(decryptPassword(password)),
-		permission: [defaultRole?._id]
+		roles: [defaultRole?._id]
 	});
 
 	await doc.save();

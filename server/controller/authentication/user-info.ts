@@ -6,10 +6,10 @@ const router = useRouter();
 router.get('auth/userInfo', async (ctx) => {
 	const { header } = ctx;
 	const { um, username } = verifyToken(header.authorization?.replace('Bearer ', '')) as IUser;
-	const userInfo = await User.findOne({ um, username }).populate('permission');
+	const userInfo = await User.findOne({ um, username }).populate('roles');
 
 	if (userInfo) {
-		const roleArr = userInfo.permission
+		const roleArr = userInfo.roles
 			.filter((v) => v.isDelete === false)
 			.map((v) => v.role);
 
@@ -19,7 +19,7 @@ router.get('auth/userInfo', async (ctx) => {
 				username: userInfo.username,
 				um,
 				avatar: userInfo?.avatar,
-				permission: roleArr
+				roles: roleArr
 			}
 		});
 	}
