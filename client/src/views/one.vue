@@ -7,10 +7,12 @@ const test = async () => {
 </script>
 
 <template>
-  test1
-  <el-button type="primary" @click="test">
-    测试token
-  </el-button>
+  <div>
+    test1
+    <el-button type="primary" @click="test">
+      测试token
+    </el-button>
+  </div>
 </template>
 <style lang="scss" scoped>
 </style>

@@ -69,44 +69,46 @@ getUsers();
 </script>
 
 <template>
-  <fhs-table
-    :table-columns="columns"
-    :table-data="userList"
-    @button-click="handleButtonClick"
-  />
-  <el-dialog
-    ref="dialogEl"
-    draggable
-    center
-    v-model="showAssignRoleDialog"
-    :title="`${userEditing.um}角色`"
-    width="33%"
-  >
-    <div class="dialog__wrapper">
-      <el-select
-        class="dialog__select"
-        v-model="partialRoleList"
-        multiple
-        placeholder="Select"
-      >
-        <!--style="width: 240px;"-->
-        <template v-for="item in roleList" :key="item.role">
-          <el-tooltip
-            placement="right"
-            popper-class="dialog__tooltip--user"
-            :content="item.description"
-          >
-            <el-option :label="item.role" :value="item.role" />
-          </el-tooltip>
-        </template>
-      </el-select>
-    </div>
-    <template #footer>
-      <el-button type="primary" @click="confirmEdit">
-        确认
-      </el-button>
-    </template>
-  </el-dialog>
+  <div>
+    <fhs-table
+      :table-columns="columns"
+      :table-data="userList"
+      @button-click="handleButtonClick"
+    />
+    <el-dialog
+      ref="dialogEl"
+      draggable
+      center
+      v-model="showAssignRoleDialog"
+      :title="`${userEditing.um}角色`"
+      width="33%"
+    >
+      <div class="dialog__wrapper">
+        <el-select
+          class="dialog__select"
+          v-model="partialRoleList"
+          multiple
+          placeholder="Select"
+        >
+          <!--style="width: 240px;"-->
+          <template v-for="item in roleList" :key="item.role">
+            <el-tooltip
+              placement="right"
+              popper-class="dialog__tooltip--user"
+              :content="item.description"
+            >
+              <el-option :label="item.role" :value="item.role" />
+            </el-tooltip>
+          </template>
+        </el-select>
+      </div>
+      <template #footer>
+        <el-button type="primary" @click="confirmEdit">
+          确认
+        </el-button>
+      </template>
+    </el-dialog>
+  </div>
 </template>
 
 <style lang="scss" scoped>

@@ -2,7 +2,9 @@
 </script>
 
 <template>
-  menu
+  <div>
+    menu
+  </div>
 </template>
 
 <style lang="scss" scoped>

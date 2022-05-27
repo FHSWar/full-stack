@@ -30,9 +30,11 @@ const toggleDark = () => { toggleDarkClass(); };
         <tabs-bar />
       </el-header>
       <el-main class="common-layout__main">
-        <router-view v-slot="{ Component }">
+        <router-view v-slot="{ Component, route }">
           <keep-alive :include="[]">
-            <component :is="Component" />
+            <transition name="fade" mode="out-in">
+              <component :is="Component" :key="route.path" />
+            </transition>
           </keep-alive>
         </router-view>
       </el-main>
@@ -40,11 +42,11 @@ const toggleDark = () => { toggleDarkClass(); };
   </el-container>
 </template>
 
-<style lang="scss">
+<style lang="scss" scoped>
 .common-layout {
     height: 100%;
     &__aside {
-      .el-scrollbar__view {
+      :deep(.el-scrollbar__view) {
         height: 100%;
         display: flex;
         flex-direction: column;
@@ -52,7 +54,7 @@ const toggleDark = () => { toggleDarkClass(); };
     }
     &__header {
       display: flex;
-      align-items: center; // line-height: var(--el-header-height);
+      align-items: center;
       height: calc(var(--el-header-height) - 12px);
 
       &:first-of-type {
@@ -70,6 +72,22 @@ const toggleDark = () => { toggleDarkClass(); };
     }
     &__main {
       background-color: var(--el-bg-color-page);
+
+      .fade-enter-active,
+      .fade-leave-active {
+        transition: opacity 0.2s ease 0s;
+      }
+
+      .fade-enter-from,
+      .fade-leave-to {
+        opacity: 0;
+      }
+
+      .fade-leave-from,
+      .fade-enter-to {
+        opacity: 1;
+      }
     }
 }
+
 </style>

@@ -10,7 +10,7 @@ const showHeaderTitle = computed(() => !store.themeConfig.isAsideMenuCollapse);
   <el-header class="side-bar__header">
     <use-icon icon="Setting" />
     <use-icon icon="Tools" />
-    <transition name="el-fade-in">
+    <transition name="el-zoom-in-center">
       <h1 v-show="showHeaderTitle">
         后台系统
       </h1>

@@ -2,7 +2,9 @@
 </script>
 
 <template>
-  test3
+  <div>
+    test3
+  </div>
 </template>
 <style lang="scss" scoped>
 </style>
