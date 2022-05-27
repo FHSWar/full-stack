@@ -5,6 +5,8 @@ import dayjs from 'dayjs';
 import { addRole, editRole, getRoleList, removeRole } from '@/api/personnel';
 
 const tableData = ref([] as any);
+const popoverRef = ref(null) as any;
+
 const getList = async () => {
 	const { list } = await getRoleList() as any;
 	tableData.value = list.map((item: any) => {
@@ -13,7 +15,6 @@ const getList = async () => {
 		return item;
 	});
 };
-getList();
 
 const editRow = async (row: any) => {
 	if (row.editable === false) row.editable = true;
@@ -26,6 +27,7 @@ const removeRow = async (row: any) => {
 	await removeRole(row);
 	getList();
 };
+const hidePopover = () => { popoverRef.value.hide(); };
 
 const dialogVisible = ref(false);
 
@@ -52,6 +54,8 @@ const resetForm = (formEl: FormInstance | undefined) => {
 	if (!formEl) return;
 	formEl.resetFields();
 };
+
+getList();
 </script>
 
 <template>
@@ -73,9 +77,26 @@ const resetForm = (formEl: FormInstance | undefined) => {
           <el-button @click.prevent="editRow(scope.row)">
             {{ scope.row.editable ? '确认':'编辑' }}
           </el-button>
-          <el-button link @click.prevent="removeRow(scope.row)">
-            移除
-          </el-button>
+          <el-popover
+            ref="popoverRef"
+            placement="top"
+            trigger="click"
+          >
+            <template #reference>
+              <el-button link>
+                移除
+              </el-button>
+            </template>
+            <!-- 删除的确定 -->
+            <div class="table__double-check">
+              <el-button type="danger" @click="removeRow(scope.row)">
+                删除
+              </el-button>
+              <el-button @click="hidePopover()">
+                取消
+              </el-button>
+            </div>
+          </el-popover>
         </template>
       </el-table-column>
     </el-table>
@@ -83,16 +104,15 @@ const resetForm = (formEl: FormInstance | undefined) => {
     <el-dialog v-model="dialogVisible" draggable>
       <el-form
         ref="formRef"
-        :model="roleValidateForm"
         label-width="100px"
-        class="demo-ruleForm"
+        :model="roleValidateForm"
       >
         <el-form-item
           label="角色"
           prop="role"
           :rules="[
-            { required: true, message: 'role is required' },
-            { type: 'string', message: 'role must be a number' },
+            { required: true, message: '角色是必须字段' },
+            { type: 'string', message: '' },
           ]"
         >
           <el-input
@@ -105,8 +125,8 @@ const resetForm = (formEl: FormInstance | undefined) => {
           label="描述"
           prop="description"
           :rules="[
-            { required: true, message: 'description is required' },
-            { type: 'string', message: 'description must be a number' },
+            { required: true, message: '描述是必须字段' },
+            { type: 'string', message: '' },
           ]"
         >
           <el-input
@@ -132,6 +152,10 @@ const resetForm = (formEl: FormInstance | undefined) => {
 .table {
   &__wrapper {
     margin-top: 16px;
+  }
+  &__double-check {
+    display: flex;
+    justify-content: space-between;
   }
 }
 </style>

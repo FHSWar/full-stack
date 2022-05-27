@@ -21,7 +21,7 @@ router.post('auth/addRole', async (ctx) => {
 		return;
 	}
 
-	const result = await Role.findOne({ role });
+	const result = await Role.findOne({ role, isDelete: false });
 
 	if (result) {
 		toCliect(ctx, '角色已存在', STATUS.FORBIDDEN);

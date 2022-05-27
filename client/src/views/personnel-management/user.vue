@@ -62,6 +62,7 @@ const confirmEdit = async () => {
 		roles: partialRoleList.value
 	});
 	showAssignRoleDialog.value = false;
+	getUsers();
 };
 
 getRoles();
