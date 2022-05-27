@@ -31,7 +31,7 @@ const toggleDark = () => { toggleDarkClass(); };
       </el-header>
       <el-main class="common-layout__main">
         <router-view v-slot="{ Component, route }">
-          <keep-alive :include="[]">
+          <keep-alive :include="['MenuConfiguration']">
             <transition name="fade" mode="out-in">
               <component :is="Component" :key="route.path" />
             </transition>
@@ -71,6 +71,7 @@ const toggleDark = () => { toggleDarkClass(); };
       color: v-bind("iconColor");
     }
     &__main {
+      // height: 100%;
       background-color: var(--el-bg-color-page);
 
       .fade-enter-active,

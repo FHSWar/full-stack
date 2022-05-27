@@ -3,7 +3,7 @@ import HomePage from '@/views/home-page.vue';
 import One from '@/views/one.vue';
 import Two from '@/views/two.vue';
 import Three from '@/views/three.vue';
-import Menu from '@/views/personnel-management/menu.vue';
+import MenuConfiguration from '@/views/personnel-management/menu-configuration/index.vue';
 import Role from '@/views/personnel-management/role.vue';
 import User from '@/views/personnel-management/user.vue';
 
@@ -29,11 +29,6 @@ export const mainPanelRoutes:RouteRecordRaw[] = [
 		component: Three
 	},
 	{
-		path: 'menu',
-		name: 'menu',
-		component: Menu
-	},
-	{
 		path: 'role',
 		name: 'role',
 		component: Role
@@ -42,5 +37,10 @@ export const mainPanelRoutes:RouteRecordRaw[] = [
 		path: 'user',
 		name: 'user',
 		component: User
+	},
+	{
+		path: 'menu',
+		name: 'menu',
+		component: MenuConfiguration
 	}
 ];
