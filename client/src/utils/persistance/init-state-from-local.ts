@@ -1,4 +1,6 @@
-import { getLocal, setLocal, ThemeConfig, UserInfo } from '@/utils';
+import { constantRoutes } from '@/router/constant';
+import type { MenuList } from '@/utils';
+import { getLocal, getSession, setLocal, ThemeConfig, UserInfo } from '@/utils';
 
 let temp:any;
 
@@ -19,4 +21,14 @@ temp = getLocal('token') as string;
 if (temp !== null) token = temp;
 else token = '';
 
-export default { themeConfig, token, userInfo };
+let breadcrumb:MenuList;
+temp = getSession('breadcrumb') as string;
+if (temp !== null) breadcrumb = temp;
+else breadcrumb = constantRoutes;
+
+let visitedRoutes:MenuList;
+temp = getSession('visitedRoutes') as string;
+if (temp !== null) visitedRoutes = temp;
+else visitedRoutes = [] as MenuList;
+
+export default { breadcrumb, themeConfig, token, userInfo, visitedRoutes };

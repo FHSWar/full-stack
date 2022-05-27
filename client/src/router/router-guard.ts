@@ -21,7 +21,7 @@ const ifToLogin = (to: RouteLocationNormalized, next:NavigationGuardNext) => {
 	}
 };
 const maintainVisitedRoutes = (to:RouteLocationNormalized) => {
-	if (to.name === undefined) return;
+	if (!to.name) return;
 	const currentRouteConfig = store.breadcrumb.find((item) => item.page === to.name);
 	if (currentRouteConfig && !store.visitedRoutes.find((item) => item.page === currentRouteConfig.page)) {
 		store.visitedRoutes.push(currentRouteConfig);

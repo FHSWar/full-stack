@@ -6,5 +6,8 @@ export const useLogout = () => {
 
 	router.push({ name: 'login' });
 	store.$reset();
-	localStorage.clear();
+	setTimeout(() => {
+		sessionStorage.clear();
+		localStorage.clear();
+	}, 0);
 };

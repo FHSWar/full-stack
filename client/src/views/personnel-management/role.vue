@@ -68,7 +68,12 @@ getList();
       <el-table-column prop="role" label="角色" width="160" />
       <el-table-column prop="description" label="描述">
         <template #default="scope">
-          <el-input v-model="scope.row.description" :disabled="!scope.row.editable" />
+          <el-input
+            autosize
+            type="textarea"
+            v-model="scope.row.description"
+            :disabled="!scope.row.editable"
+          />
         </template>
       </el-table-column>
       <el-table-column prop="createTime" label="添加日期" width="120" align="right" />
