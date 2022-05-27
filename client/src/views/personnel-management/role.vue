@@ -6,8 +6,8 @@ import { addRole, editRole, getRoleList, removeRole } from '@/api/personnel';
 
 const tableData = ref([] as any);
 const getList = async () => {
-	const { data } = await getRoleList() as any;
-	tableData.value = data.map((item: any) => {
+	const { list } = await getRoleList() as any;
+	tableData.value = list.map((item: any) => {
 		item.createTime = dayjs(item.createTime).format('YYYY-MM-DD');
 		item.editable = false;
 		return item;
@@ -72,7 +72,7 @@ const resetForm = (formEl: FormInstance | undefined) => {
         <el-button @click.prevent="editRow(scope.row)">
           {{ scope.row.editable ? '确认':'编辑' }}
         </el-button>
-        <el-button @click.prevent="removeRow(scope.row)">
+        <el-button link @click.prevent="removeRow(scope.row)">
           移除
         </el-button>
       </template>

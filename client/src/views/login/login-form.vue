@@ -54,6 +54,7 @@ const handleLogin = async (callFromRegister?: boolean) => {
 	router.push({ name: 'home' });
 };
 const handleRegister = async () => {
+	form.umNo = form.umNo.toUpperCase();
 	form.password = encryptPassword(form.password);
 
 	await register(form);
@@ -108,7 +109,7 @@ const submitForm = (formEl: FormInstance | undefined, isRegister:boolean = false
 				? handleRegister()
 				: handleLogin();
 		} else {
-			console.log('表单格式错误!');
+			console.warn('表单格式错误!');
 			return false;
 		}
 	});

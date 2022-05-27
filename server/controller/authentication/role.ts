@@ -8,7 +8,7 @@ router.get('auth/roleList', async (ctx) => {
 	const list = await Role.find({ isDelete: false });
 
 	toCliect(ctx, {
-		data: list.map(({ role, description, createTime }) => ({ role, description, createTime })),
+		list: list.map(({ role, description, createTime }) => ({ role, description, createTime })),
 		message: '角色列表'
 	});
 });

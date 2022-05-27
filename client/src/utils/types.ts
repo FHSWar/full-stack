@@ -1,3 +1,5 @@
+import type { ButtonType } from 'element-plus';
+
 export type ShallowObject = {
   [key:string]: string|number|boolean
 }
@@ -43,4 +45,19 @@ export type UserInfo = {
   username: string
   um: string
   permission: string
+}
+
+// fhs-table 用
+export type TableColumn = {
+    label: string
+    align?: 'left' | 'center' | 'right'
+    width?: number
+    prop?: string
+    buttons?: {
+        description: string
+        type?: ButtonType
+        link?: boolean
+		doubleCheck?: boolean
+	}[]
+    // sortable?: boolean
 }

@@ -14,3 +14,9 @@ export const removeRole = (params:any) => post('auth/removeRole', params);
 
 // 获取所有用户
 export const getUserList = () => get('auth/userList');
+
+// 编辑用户角色
+export const editUserRoles = (params:any) => post('auth/editUserRoles', params);
+
+// 移除用户
+export const removeUser = (params:any) => post('auth/removeUser', params);
