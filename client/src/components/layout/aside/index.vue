@@ -1,7 +1,10 @@
 <script lang="ts" setup>
 import { computed, ref, watchEffect } from 'vue';
+import { cloneDeep } from 'lodash';
 import { getRoutesByRole } from '@/api/personnel';
+import { fallbackRoutes } from '@/router';
 import { useStore } from '@/stores';
+import { flattenMenuTree } from '@/utils';
 import type { MenuTree } from '@/utils';
 import sideHeader from './aside-header.vue';
 import menuTree from './menu-tree.vue';
@@ -19,28 +22,16 @@ watchEffect(() => { store.themeConfig.isAsideMenuCollapse = isCollapse.value; })
 
 const toggleAside = () => { isCollapse.value = !isCollapse.value; };
 
-function flattenMenuTree(arr: any) {
-	const result = [] as any;
-	const handler = (innerArr: any) => {
-		innerArr.forEach((item: any) => {
-			if (item.children.length !== 0) {
-				handler(item.children);
-			}
-			result.push(item);
-		});
-	};
-	handler(arr);
-
-	result.forEach((item: any) => {
-		item.children = [];
-		return item;
-	});
-	return result;
-}
 const initMenuTree = async () => {
-	const { routes } = await getRoutesByRole() as any;
-	sideMenu.value = JSON.parse(routes);
-	store.menuList = flattenMenuTree(JSON.parse(JSON.stringify(sideMenu.value)));
+	try {
+		const { routes } = await getRoutesByRole() as any;
+		sideMenu.value = JSON.parse(routes);
+		store.menuList = flattenMenuTree(cloneDeep(sideMenu.value));
+	} catch (e) {
+		console.warn('初始状态。');
+		sideMenu.value = fallbackRoutes;
+		store.menuList = flattenMenuTree(cloneDeep(sideMenu.value));
+	}
 };
 // todo: 持久化待完善
 initMenuTree();

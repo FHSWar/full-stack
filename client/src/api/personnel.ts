@@ -22,7 +22,7 @@ export const editUserRoles = (params:any) => post('auth/editUserRoles', params);
 export const removeUser = (params:any) => post('auth/removeUser', params);
 
 // 更新角色对应路由
-export const updateRoutes = (params:any) => post('auth/updateRoutes', params);
+export const updateRoutesByRole = (params:any) => post('auth/updateRoutesByRole', params);
 
 // 根据角色获取路由
-export const getRoutesByRole = () => get('auth/routesByRole');
+export const getRoutesByRole = () => get('auth/routesByRole', {}, { handleError: true });

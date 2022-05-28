@@ -4,11 +4,11 @@ import { getRoleList } from '@/api/personnel';
 import MenuConfiguration from './menu-configuration.vue';
 
 const roleList = ref([]) as any;
-const radioValue = ref('admin');
+const radioValue = ref('所有菜单');
 
 const getRoles = async () => {
 	const { list } = await getRoleList() as any;
-	roleList.value = list;
+	roleList.value = list.filter((item: { role: string; }) => item.role !== '所有菜单');
 };
 
 getRoles();
@@ -18,6 +18,9 @@ getRoles();
   <el-row class="menu-configuration__wrapper">
     <el-col :span="7" class="menu-configuration__left-panel">
       <el-radio-group v-model="radioValue">
+        <el-radio label="所有菜单" size="large">
+          所有菜单
+        </el-radio>
         <el-radio v-for="{role} in roleList" :key="role" :label="role" size="large">
           {{ role }}
         </el-radio>

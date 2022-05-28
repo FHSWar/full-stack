@@ -1,23 +1,38 @@
 import { ClientRoutes } from 'model/client-routes';
-import { User } from 'model/user';
-import { useRouter } from '@util';
+import { IUser } from 'model/user';
+import { useRouter, verifyToken } from '@util';
+import { Role } from 'model/role';
 
 const router = useRouter();
 
 router.get('auth/routesByRole', async (ctx) => {
-	const routesArr = await ClientRoutes.find();
+	const { header } = ctx.request;
+	const { roles } = verifyToken(header.authorization?.replace('Bearer ', '')) as IUser;
 
-	toCliect(ctx, { routes: routesArr[0].routesJson });
+	const roleDoc = await Role.findOne({ role: roles[0], isDelete: false });
+	if (roleDoc !== null) {
+		const routesDoc = await ClientRoutes.findOne({ role: roleDoc._id, isDelete: false });
+		if (routesDoc !== null) return toCliect(ctx, { routes: routesDoc.routesJson });
+		toCliect(ctx, {
+			routes: JSON.stringify([]),
+			message: '无对应角色的路由'
+		}, STATUS.OVERTIME);
+	}
 });
 
-router.post('auth/updateRoutes', async (ctx) => {
+// 更新对应角色的路由
+router.post('auth/updateRoutesByRole', async (ctx) => {
 	const { role, routes } = ctx.request.body;
 
-	const roleDoc = await User.findOne({ role, isDelete: false });
-	if (!roleDoc) return toCliect(ctx, '无对应角色', STATUS.FORBIDDEN);
+	let roleDoc = await Role.findOne({ role, isDelete: false });
+	if (!roleDoc) {
+		await new Role({ role, description: '默认描述' }).save();
+		roleDoc = await Role.findOne({ role, isDelete: false });
+	}
+
+	if (roleDoc === null) return toCliect(ctx, '让TS安心');
 
 	const routesDoc = await ClientRoutes.findOne({ role: roleDoc._id, isDelete: false });
-
 	if (routesDoc) {
 		// 少一个await，浪费一个钟排查
 		await ClientRoutes.updateOne(

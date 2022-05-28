@@ -5,6 +5,16 @@ import { Role } from 'model/role';
 const umRegex = /^[a-zA-Z][a-zA-Z0-9-]*[0-9]$/;
 const router = useRouter();
 
+const checkDefaultRole = async () => {
+	const roleDocArr = await Role.find();
+	if (roleDocArr.length === 0) {
+		await new Role({
+			role: '访客',
+			description: '初始默认角色'
+		}).save();
+	}
+};
+
 router.post('auth/register', async (ctx) => {
 	const { username, umNo, password } = ctx.request.body;
 
@@ -25,7 +35,9 @@ router.post('auth/register', async (ctx) => {
 		return;
 	}
 
-	const defaultRole = await Role.findOne({ role: 'visitor', isDelete: false });
+	await checkDefaultRole();
+
+	const defaultRole = await Role.findOne({ role: '访客', isDelete: false });
 	const doc = new User({
 		username,
 		um: umNo,
