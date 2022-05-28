@@ -25,7 +25,7 @@ getRoles();
     </el-col>
     <el-col :span="1" />
     <el-col :span="16" class="menu-configuration__right-panel">
-      <MenuConfiguration />
+      <menu-configuration :role="radioValue" />
     </el-col>
   </el-row>
 </template>
@@ -44,7 +44,7 @@ getRoles();
             width: 100%;
             padding-left: 12px 0;
             &:hover {
-                background-color: var(--el-bg-color-page);
+                background-color: var(--el-fill-color-light);
             }
         }
         :deep(.el-radio__inner) {

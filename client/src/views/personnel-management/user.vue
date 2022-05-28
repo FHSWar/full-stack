@@ -2,7 +2,7 @@
 import { ref } from 'vue';
 import dayjs from 'dayjs';
 import { editUserRoles, getRoleList, getUserList, removeUser } from '@/api/personnel';
-import type { TableColumn } from '@/utils';
+import type { FhsTableColumn } from '@/utils';
 import FhsTable from '@/components/fhs-table.vue';
 
 const userList = ref([] as any);
@@ -11,7 +11,7 @@ const partialRoleList = ref([] as any);
 const userEditing = ref({}) as any;
 const showAssignRoleDialog = ref(false);
 
-const columns: TableColumn[] = [
+const columns: FhsTableColumn[] = [
 	{ label: '用户名', prop: 'username', width: 120 },
 	{ label: 'UM号', prop: 'um', width: 120 },
 	{ label: '角色', prop: 'roles' },

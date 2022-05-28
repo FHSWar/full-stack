@@ -6,3 +6,5 @@ export const useIcon = (props: { icon: string }) => {
 	const { icon } = props;
 	return h(Icons[icon as keyof typeof Icons], { class: 'el-icon' });
 };
+
+export const iconNameArr = Object.keys(Icons);

@@ -8,25 +8,27 @@ export type LocalStorageValue = string|number|boolean|ShallowObject
 // 组装好的，渲染用
 export type MenuTree = {
   children: MenuTree
+  desc?: string
   icon?: string // 用不了keyof typeof Icons
   id: string
+  meta?: {
+    [key:string]: any
+  }
   page?: string // 就是路由的name
   pid: string
   title: string
-  meta?: {
-    [key:string]: any
-  }
 }[];
 // 摊平的，方便后端存
 export type MenuList = {
+  desc?: string
   icon?: string
   id: string
-  page?: string
-  pid: string
-  title: string
   meta?: {
     [key:string]: any
   }
+  page?: string
+  pid: string
+  title: string
 }[];
 
 export type PopoverOption = {
@@ -48,16 +50,16 @@ export type UserInfo = {
 }
 
 // fhs-table 用
-export type TableColumn = {
-    label: string
-    align?: 'left' | 'center' | 'right'
-    width?: number
-    prop?: string
-    buttons?: {
-        description: string
-        type?: ButtonType
-        link?: boolean
-		doubleCheck?: boolean
+export type FhsTableColumn = {
+  label: string
+  align?: 'left' | 'center' | 'right'
+  width?: number
+  prop?: string
+  buttons?: {
+    description: string
+    type?: ButtonType
+    link?: boolean
+    doubleCheck?: boolean
 	}[]
-    // sortable?: boolean
+  // sortable?: boolean
 }

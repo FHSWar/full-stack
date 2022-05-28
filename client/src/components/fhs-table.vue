@@ -1,9 +1,9 @@
 <script lang="ts" setup>
 import { ref } from 'vue';
-import type { TableColumn } from '@/utils';
+import type { FhsTableColumn } from '@/utils';
 
 defineProps<{
-    tableColumns: TableColumn[]
+    tableColumns: FhsTableColumn[]
     tableData: any[]
 }>();
 const emit = defineEmits(['buttonClick']);
