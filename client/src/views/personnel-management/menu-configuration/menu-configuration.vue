@@ -1,11 +1,11 @@
 <script lang="ts" setup>
-import { getCurrentInstance, ref, watchEffect } from 'vue';
+import { defineExpose, getCurrentInstance, ref, watchEffect } from 'vue';
 import { cloneDeep } from 'lodash';
 import type Node from 'element-plus/es/components/tree/src/model/node';
 import { computed } from '@vue/reactivity';
 import { fallbackRoutes, fallbackRoutesIdArr } from '@/router';
-import { trimMenuTree } from '@/utils';
-import type { MenuTree, ExtendedMenuTreeItem } from '@/utils';
+import { flattenMenuTree, trimMenuTree } from '@/utils';
+import type { ExtendedMenuTreeItem, MenuTree } from '@/utils';
 import { getRoutesByRole, updateRoutesByRole } from '@/api/personnel';
 import ConfigurationDialog from './configuration-dialog.vue';
 
@@ -24,24 +24,28 @@ const activeNodeParentData = ref({} as Node['data']);
 const instance = ref(getCurrentInstance());
 const isAll = computed(() => props.role === '所有菜单');
 const showDialogBool = ref(false);
-const treeRef = ref(null);
-watchEffect(async () => {
+const treeRef = ref(null) as any;
+
+const closeDialog = () => { showDialogBool.value = false; };
+const setCheckedByRole = async () => {
 	if (!isAll.value) {
 		try {
 			const { routes } = await getRoutesByRole({ role: props.role }) as any;
-			console.log('role routes', routes);
+			const parsedRoutes = JSON.parse(routes);
+			const routeIdList = flattenMenuTree(parsedRoutes)
+				.filter((item:ExtendedMenuTreeItem) => item.checked);
+			treeRef.value.setCheckedNodes(routeIdList);
 		} catch (e) {
 			console.warn('请求对应角色路由出错', (e as Error).toString());
 		}
 	}
-});
-
-const closeDialog = () => { showDialogBool.value = false; };
+};
+watchEffect(setCheckedByRole);
 
 const dataSource = ref<MenuTree>([]);
 const getMenu = async () => {
 	try {
-		const { routes } = await getRoutesByRole() as any;
+		const { routes } = await getRoutesByRole({ role: '所有菜单' }) as any;
 		const remoteRoutes = JSON.parse(routes);
 		dataSource.value = remoteRoutes;
 	} catch (e) {
@@ -112,15 +116,18 @@ const filterSelectedRoutes = () => {
 			return item.checked || item.indeterminate;
 		});
 	};
+
 	return handler(wholeTree);
 };
 
 const confirmEdit = async () => {
 	isAll.value
 		? await updateRoutesByRole({ role: props.role, routes: trimMenuTree(dataSource.value) })
-		: await updateRoutesByRole({ role: props.role, routes: trimMenuTree(filterSelectedRoutes()) });
-	getMenu();
+		: await updateRoutesByRole({ role: props.role, routes: filterSelectedRoutes() });
+	await getMenu();
+	setCheckedByRole();
 };
+defineExpose({ confirmEdit });
 
 getMenu();
 </script>
@@ -133,57 +140,47 @@ export default {
 
 <template>
   <div class="tree__wrapper">
-    <div class="tree__container">
-      <el-tree
-        ref="treeRef"
-        node-key="id"
-        default-expand-all
-        :draggable="isAll"
-        :show-checkbox="!isAll"
-        :data="dataSource"
-        :expand-on-click-node="false"
-        @check-change="handleCheckChange"
-      >
-        <template #default="{ node, data }">
-          <span class="tree__node">
-            <span>
-              <use-icon v-if="data.icon" :icon="data.icon" />
-              {{ data.title }}
-            </span>
-            <span v-if="isAll">
-              <el-popover
-                v-if="!fallbackRoutesIdArr.includes(data.id)"
-                placement="top"
-                trigger="click"
-                :ref="`popoverRef${data.title}`"
-              >
-                <template #reference>
-                  <el-button link>移除</el-button>
-                </template>
-                <!-- 删除的确定 -->
-                <div class="tree__double-check">
-                  <el-button type="danger" @click="confirmRemove(node, data)">
-                    删除
-                  </el-button>
-                  <el-button @click="hidePopover(data.title)">
-                    取消
-                  </el-button>
-                </div>
-              </el-popover>
-              <el-button @click="preAppend(node, data)">添加</el-button>
-            </span>
+    <el-tree
+      ref="treeRef"
+      node-key="id"
+      default-expand-all
+      :draggable="isAll"
+      :show-checkbox="!isAll"
+      :data="dataSource"
+      :expand-on-click-node="false"
+      @check-change="handleCheckChange"
+    >
+      <template #default="{ node, data }">
+        <span class="tree__node">
+          <span>
+            <use-icon v-if="data.icon" :icon="data.icon" />
+            {{ data.title }}
           </span>
-        </template>
-      </el-tree>
-    </div>
-    <el-footer>
-      <el-button type="primary" @click="filterSelectedRoutes">
-        测试
-      </el-button>
-      <el-button type="primary" @click="confirmEdit">
-        确定
-      </el-button>
-    </el-footer>
+          <span v-if="isAll">
+            <el-popover
+              v-if="!fallbackRoutesIdArr.includes(data.id)"
+              placement="top"
+              trigger="click"
+              :ref="`popoverRef${data.title}`"
+            >
+              <template #reference>
+                <el-button link>移除</el-button>
+              </template>
+              <!-- 删除的确定 -->
+              <div class="tree__double-check">
+                <el-button type="danger" @click="confirmRemove(node, data)">
+                  删除
+                </el-button>
+                <el-button @click="hidePopover(data.title)">
+                  取消
+                </el-button>
+              </div>
+            </el-popover>
+            <el-button @click="preAppend(node, data)">添加</el-button>
+          </span>
+        </span>
+      </template>
+    </el-tree>
     <configuration-dialog
       v-if="showDialogBool"
       :model-value="showDialogBool"
@@ -196,8 +193,6 @@ export default {
 <style lang="scss" scoped>
 .tree {
 	&__wrapper {
-		display: flex;
-		flex-direction: column;
         border-radius: var(--el-border-radius-base);
 		overflow: hidden;
 		height: 100%;
@@ -206,13 +201,6 @@ export default {
 		.is-link {
 			padding: 8px 15px;
 		}
-		.el-footer {
-			display: flex;
-			justify-content: flex-end;
-		}
-	}
-	&__container {
-		flex: 1;
 	}
 	&__node {
 		flex: 1;

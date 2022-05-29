@@ -1,3 +1,4 @@
+import { cloneDeep } from 'lodash';
 import type { MenuTree, ExtendedMenuTreeItem } from '@/utils';
 
 export const flattenMenuTree = (arr: MenuTree) => {
@@ -21,6 +22,7 @@ export const flattenMenuTree = (arr: MenuTree) => {
 
 // 其他角色的操作会给“所有菜单”加上check和indeterminate标记位，不好
 export const trimMenuTree = (arr: ExtendedMenuTreeItem[]):MenuTree => {
+	const arrCopy = cloneDeep(arr);
 	const handler = (innerArr: ExtendedMenuTreeItem[]) => {
 		innerArr.forEach((item: ExtendedMenuTreeItem) => {
 			if (item.children.length !== 0) {
@@ -30,6 +32,6 @@ export const trimMenuTree = (arr: ExtendedMenuTreeItem[]):MenuTree => {
 			delete item.indeterminate;
 		});
 	};
-	handler(arr);
-	return arr;
+	handler(arrCopy);
+	return arrCopy;
 };

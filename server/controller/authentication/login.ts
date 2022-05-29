@@ -1,3 +1,5 @@
+import { defaultRole } from 'config';
+import { Role } from 'model/role';
 import { User } from 'model/user';
 import { encryptBySHA512, decryptPassword, generateToken, useRouter } from '@util';
 
@@ -15,6 +17,12 @@ router.post('auth/login', async (ctx) => {
 		const roleArr = passwordCorrect.roles
 			.filter((v) => v.isDelete === false)
 			.map((v) => v.role);
+
+		// 用户角色都删除了就回退到默认角色
+		if (roleArr.length === 0) {
+			const defaultRoleDoc = await Role.findOne({ role: defaultRole, isDelete: false });
+			await User.updateOne({ username }, { roles: [defaultRoleDoc!._id] });
+		}
 
 		toCliect(ctx, {
 			token: generateToken({

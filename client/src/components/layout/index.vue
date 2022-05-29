@@ -71,7 +71,6 @@ const toggleDark = () => { toggleDarkClass(); };
       color: v-bind("iconColor");
     }
     &__main {
-      // height: 100%;
       background-color: var(--el-bg-color-page);
 
       .fade-enter-active,
