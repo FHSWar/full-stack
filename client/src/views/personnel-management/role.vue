@@ -83,6 +83,7 @@ getList();
             {{ scope.row.editable ? '确认':'编辑' }}
           </el-button>
           <el-popover
+            v-if="scope.row.role !== '访客'"
             ref="popoverRef"
             placement="top"
             trigger="click"

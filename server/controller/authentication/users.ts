@@ -1,6 +1,6 @@
 import { Role } from 'model/role';
 import { IUser, User } from 'model/user';
-import { useRouter, verifyToken } from '@util';
+import { useRouter } from '@util';
 
 const router = useRouter();
 
@@ -24,10 +24,10 @@ router.get('auth/userList', async (ctx) => {
 
 // todo: 完成后这里只有admin权限用户能操作
 router.post('auth/editUserRoles', async (ctx) => {
-	const { header, request } = ctx;
-	const { um, username } = verifyToken(header.authorization?.replace('Bearer ', '')) as IUser;
+	// verifyToken(header.authorization?.replace('Bearer ', '')) as IUser;
+	const { um, username, roles } = ctx.request.body;
 
-	const roleArr = (request.body as IUser).roles.map((role) => ({ role }));
+	const roleArr = (roles as IUser['roles']).map((role) => ({ role }));
 	const roleDocArr = await Role.find({ $or: roleArr });
 	await User.updateOne({ um, username }, { roles: roleDocArr.map((roleDoc) => roleDoc._id) });
 

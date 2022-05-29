@@ -18,6 +18,8 @@ export type MenuTree = {
   pid: string
   title: string
 }[];
+export type ExtendedMenuTreeItem = MenuTree[0]&{checked?: boolean, indeterminate?: boolean}
+
 // 摊平的，方便后端存
 export type MenuList = {
   desc?: string

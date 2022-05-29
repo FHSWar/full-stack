@@ -9,5 +9,7 @@ export const useLogout = () => {
 	setTimeout(() => {
 		sessionStorage.clear();
 		localStorage.clear();
+		// store.$reset(); 之后这个不为空，手动清一下
+		store.visitedRoutes = [];
 	}, 0);
 };

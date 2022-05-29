@@ -1,4 +1,5 @@
-import { decryptPassword, encryptBySHA512, useRouter } from '@util'; // encryptBySHA512,
+import { defaultRole } from 'config';
+import { decryptPassword, encryptBySHA512, useRouter } from '@util';
 import { User } from 'model/user';
 import { Role } from 'model/role';
 
@@ -9,7 +10,7 @@ const checkDefaultRole = async () => {
 	const roleDocArr = await Role.find();
 	if (roleDocArr.length === 0) {
 		await new Role({
-			role: '访客',
+			role: defaultRole,
 			description: '初始默认角色'
 		}).save();
 	}
@@ -37,12 +38,12 @@ router.post('auth/register', async (ctx) => {
 
 	await checkDefaultRole();
 
-	const defaultRole = await Role.findOne({ role: '访客', isDelete: false });
+	const defaultRoleDoc = await Role.findOne({ role: defaultRole, isDelete: false });
 	const doc = new User({
 		username,
 		um: umNo,
 		password: encryptBySHA512(decryptPassword(password)),
-		roles: [defaultRole?._id]
+		roles: [defaultRoleDoc?._id]
 	});
 
 	await doc.save();

@@ -1,3 +1,4 @@
+import { defaultRole } from 'config';
 import { useRouter } from '@util';
 import { Role } from 'model/role';
 
@@ -23,10 +24,7 @@ router.post('auth/addRole', async (ctx) => {
 
 	const result = await Role.findOne({ role, isDelete: false });
 
-	if (result) {
-		toCliect(ctx, '角色已存在', STATUS.FORBIDDEN);
-		return;
-	}
+	if (result) return toCliect(ctx, '角色已存在', STATUS.FORBIDDEN);
 
 	await new Role({ role, description }).save();
 
@@ -36,6 +34,7 @@ router.post('auth/addRole', async (ctx) => {
 // 编辑角色，只能编辑描述
 router.post('auth/editRole', async (ctx) => {
 	const { role, description } = ctx.request.body;
+
 	await Role.updateOne({ role, isDelete: false }, { description, updateTime: Date.now() });
 	toCliect(ctx, `已更新${role}描述`);
 });
@@ -43,6 +42,9 @@ router.post('auth/editRole', async (ctx) => {
 // 移除角色，逻辑删除
 router.post('auth/removeRole', async (ctx) => {
 	const { role } = ctx.request.body;
+
+	if (role === defaultRole) return toCliect(ctx, `默认角色“${defaultRole}”不可删除`, STATUS.FORBIDDEN);
+
 	await Role.updateOne({ role, isDelete: false }, { isDelete: true, updateTime: Date.now() });
 	toCliect(ctx, `已移除${role}`);
 });

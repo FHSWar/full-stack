@@ -25,4 +25,8 @@ export const removeUser = (params:any) => post('auth/removeUser', params);
 export const updateRoutesByRole = (params:any) => post('auth/updateRoutesByRole', params);
 
 // 根据角色获取路由
-export const getRoutesByRole = () => get('auth/routesByRole', {}, { handleError: true });
+export const getRoutesByRole = (params?:any) => get(
+	'auth/routesByRole',
+	params,
+	{ handleError: true, useMessage: true }
+);

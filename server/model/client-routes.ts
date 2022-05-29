@@ -1,5 +1,7 @@
+import { Types } from 'mongoose';
+
 interface IClientRoutes {
-    role: string
+    role: Types.ObjectId
     routesJson: string
     createTime: Date
 	updateTime: Date

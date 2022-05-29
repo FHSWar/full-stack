@@ -1,9 +1,11 @@
 <script lang="ts" setup>
-import { getCurrentInstance, ref, toRaw } from 'vue';
+import { getCurrentInstance, ref, watchEffect } from 'vue';
+import { cloneDeep } from 'lodash';
 import type Node from 'element-plus/es/components/tree/src/model/node';
 import { computed } from '@vue/reactivity';
 import { fallbackRoutes, fallbackRoutesIdArr } from '@/router';
-import type { MenuTree } from '@/utils';
+import { trimMenuTree } from '@/utils';
+import type { MenuTree, ExtendedMenuTreeItem } from '@/utils';
 import { getRoutesByRole, updateRoutesByRole } from '@/api/personnel';
 import ConfigurationDialog from './configuration-dialog.vue';
 
@@ -16,7 +18,6 @@ type MenuItem = {
     insert: string;
     desc: string;
 }
-type ExtendedMenuTreeItem = MenuTree[0]&{checked?: boolean, indeterminate?: boolean}
 
 const activeNodeData = ref({} as Node['data']);
 const activeNodeParentData = ref({} as Node['data']);
@@ -24,6 +25,17 @@ const instance = ref(getCurrentInstance());
 const isAll = computed(() => props.role === '所有菜单');
 const showDialogBool = ref(false);
 const treeRef = ref(null);
+watchEffect(async () => {
+	if (!isAll.value) {
+		try {
+			const { routes } = await getRoutesByRole({ role: props.role }) as any;
+			console.log('role routes', routes);
+		} catch (e) {
+			console.warn('请求对应角色路由出错', (e as Error).toString());
+		}
+	}
+});
+
 const closeDialog = () => { showDialogBool.value = false; };
 
 const dataSource = ref<MenuTree>([]);
@@ -92,8 +104,7 @@ const handleCheckChange = (
 };
 
 const filterSelectedRoutes = () => {
-	const wholeTree = toRaw((treeRef.value as any).data);
-	console.log('wholeTree', wholeTree);
+	const wholeTree = cloneDeep(dataSource.value);
 	// eslint-disable-next-line arrow-body-style
 	const handler = (layer: ExtendedMenuTreeItem[]) => {
 		return layer.filter((item) => {
@@ -106,8 +117,8 @@ const filterSelectedRoutes = () => {
 
 const confirmEdit = async () => {
 	isAll.value
-		? await updateRoutesByRole({ role: props.role, routes: dataSource.value })
-		: await updateRoutesByRole({ role: props.role, routes: filterSelectedRoutes() });
+		? await updateRoutesByRole({ role: props.role, routes: trimMenuTree(dataSource.value) })
+		: await updateRoutesByRole({ role: props.role, routes: trimMenuTree(filterSelectedRoutes()) });
 	getMenu();
 };
 
