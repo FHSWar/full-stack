@@ -9,7 +9,7 @@ router.get('auth/roleList', async (ctx) => {
 	const list = await Role.find({ isDelete: false });
 
 	toCliect(ctx, {
-		list: list.map(({ role, description, createTime }) => ({ role, description, createTime })),
+		list: list.map(({ role, description, createdAt }) => ({ role, description, createdAt })),
 		message: '角色列表'
 	});
 });
@@ -35,7 +35,7 @@ router.post('auth/addRole', async (ctx) => {
 router.post('auth/editRole', async (ctx) => {
 	const { role, description } = ctx.request.body;
 
-	await Role.updateOne({ role, isDelete: false }, { description, updateTime: Date.now() });
+	await Role.updateOne({ role, isDelete: false }, { description });
 	toCliect(ctx, `已更新${role}描述`);
 });
 
@@ -45,7 +45,7 @@ router.post('auth/removeRole', async (ctx) => {
 
 	if (role === defaultRole) return toCliect(ctx, `默认角色“${defaultRole}”不可删除`, STATUS.FORBIDDEN);
 
-	await Role.updateOne({ role, isDelete: false }, { isDelete: true, updateTime: Date.now() });
+	await Role.updateOne({ role, isDelete: false }, { isDelete: true });
 	toCliect(ctx, `已移除${role}`);
 });
 

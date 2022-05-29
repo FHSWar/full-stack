@@ -8,7 +8,6 @@ const test = async () => {
 
 <template>
   <div>
-    test1
     <el-button type="primary" @click="test">
       测试token
     </el-button>

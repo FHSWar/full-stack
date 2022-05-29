@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-import { defineExpose, getCurrentInstance, ref, watchEffect } from 'vue';
+import { getCurrentInstance, ref, watchEffect } from 'vue';
 import { cloneDeep } from 'lodash';
 import type Node from 'element-plus/es/components/tree/src/model/node';
 import { computed } from '@vue/reactivity';

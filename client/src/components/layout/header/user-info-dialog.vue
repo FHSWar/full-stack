@@ -168,6 +168,10 @@ const fromChild = (str: string) => {
     flex-direction: column;
     align-items: center;
     width: 100%;
+
+    .el-avatar {
+      margin-bottom: 16px;
+    }
     .el-form {
       width: 88%;
     }

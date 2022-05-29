@@ -7,14 +7,14 @@ const router = useRouter();
 router.get('auth/userList', async (ctx) => {
 	const userList = await User.find({ isDelete: false }).populate('roles');
 
-	const list = userList.map((u) => {
-		const { username, um, roles, createTime, updateTime } = u;
+	const list = userList.map((u: IUser) => {
+		const { username, um, roles, createdAt, updatedAt } = u;
 
 		return {
 			username,
 			um,
-			createTime,
-			updateTime,
+			createdAt,
+			updatedAt,
 			roles: roles.filter((v) => !v.isDelete).map((w) => w.role)
 		};
 	});
@@ -29,7 +29,10 @@ router.post('auth/editUserRoles', async (ctx) => {
 
 	const roleArr = (roles as IUser['roles']).map((role) => ({ role }));
 	const roleDocArr = await Role.find({ $or: roleArr });
-	await User.updateOne({ um, username }, { roles: roleDocArr.map((roleDoc) => roleDoc._id) });
+	await User.updateOne(
+		{ um, username },
+		{ roles: roleDocArr.map((roleDoc) => roleDoc._id) }
+	);
 
 	toCliect(ctx, '用户角色已更新');
 });

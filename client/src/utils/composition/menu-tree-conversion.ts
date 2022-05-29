@@ -23,10 +23,12 @@ export const flattenMenuTree = (arr: MenuTree) => {
 // 其他角色的操作会给“所有菜单”加上check和indeterminate标记位，不好
 export const trimMenuTree = (arr: ExtendedMenuTreeItem[]):MenuTree => {
 	const arrCopy = cloneDeep(arr);
-	const handler = (innerArr: ExtendedMenuTreeItem[]) => {
+	const handler = (innerArr: ExtendedMenuTreeItem[], pid?: string) => {
 		innerArr.forEach((item: ExtendedMenuTreeItem) => {
+			// 第一层的菜单项pid为空字符串
+			pid ? item.pid = pid : item.pid = '';
 			if (item.children.length !== 0) {
-				handler(item.children);
+				handler(item.children, item.id);
 			}
 			delete item.checked;
 			delete item.indeterminate;

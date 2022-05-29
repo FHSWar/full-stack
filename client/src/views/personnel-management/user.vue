@@ -15,8 +15,8 @@ const columns: FhsTableColumn[] = [
 	{ label: '用户名', prop: 'username', width: 120 },
 	{ label: 'UM号', prop: 'um', width: 120 },
 	{ label: '角色', prop: 'roles' },
-	{ label: '更新时间', prop: 'updateTime', align: 'right', width: 120 },
-	{ label: '创建时间', prop: 'createTime', align: 'right', width: 120 },
+	{ label: '更新时间', prop: 'updatedAt', align: 'right', width: 120 },
+	{ label: '创建时间', prop: 'createdAt', align: 'right', width: 120 },
 	{
 		label: '操作',
 		align: 'center',
@@ -32,8 +32,8 @@ const getRoles = async () => {
 const getUsers = async () => {
 	const { list } = await getUserList() as any;
 	userList.value = list.map((item: any) => {
-		item.createTime = dayjs(item.createTime).format('YYYY-MM-DD');
-		item.updateTime = dayjs(item.updateTime).format('YYYY-MM-DD');
+		item.createdAt = dayjs(item.createdAt).format('YYYY-MM-DD');
+		item.updatedAt = dayjs(item.updatedAt).format('YYYY-MM-DD');
 		return item;
 	});
 };

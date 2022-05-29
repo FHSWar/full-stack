@@ -10,7 +10,7 @@ const popoverRef = ref(null) as any;
 const getList = async () => {
 	const { list } = await getRoleList() as any;
 	tableData.value = list.map((item: any) => {
-		item.createTime = dayjs(item.createTime).format('YYYY-MM-DD');
+		item.createdAt = dayjs(item.createdAt).format('YYYY-MM-DD');
 		item.editable = false;
 		return item;
 	});
@@ -76,7 +76,7 @@ getList();
           />
         </template>
       </el-table-column>
-      <el-table-column prop="createTime" label="添加日期" width="120" align="right" />
+      <el-table-column prop="createdAt" label="添加日期" width="120" align="right" />
       <el-table-column fixed="right" label="操作" width="200" align="center">
         <template #default="scope">
           <el-button @click.prevent="editRow(scope.row)">
