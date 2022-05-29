@@ -15,13 +15,24 @@ const clickMenu = ({ page, id }: Omit<MenuList[number], 'icon'|'pid'|'title'|'ch
 </script>
 
 <template>
-  <template v-for="{children, icon, id, page, title} in asideMenuTree" :key="id">
+  <template v-for="{children, desc, icon, id, page, title} in asideMenuTree" :key="id">
     <el-menu-item v-if="children.length === 0" :index="id">
       <use-icon v-if="icon" :icon="icon" />
       <template #title>
-        <span class="menu-tree__item" @click="clickMenu({id, page})">
+        <span v-if="!desc" class="menu-tree__item" @click="clickMenu({id, page})">
           {{ title }}
         </span>
+        <el-tooltip
+          v-else
+          class="box-item"
+          placement="right"
+          :content="desc"
+          :show-after="500"
+        >
+          <span class="menu-tree__item" @click="clickMenu({id, page})">
+            {{ title }}
+          </span>
+        </el-tooltip>
       </template>
     </el-menu-item>
     <el-sub-menu v-else :index="id">
