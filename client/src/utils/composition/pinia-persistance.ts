@@ -6,6 +6,7 @@ export const usePiniaPersistance = () => {
 	const store = useStore();
 
 	const breadcrumb = computed(() => store.breadcrumb);
+	const menuTree = computed(() => store.menuTree);
 	const token = computed(() => store.token);
 	const isAsideMenuCollapse = computed(() => store.themeConfig.isAsideMenuCollapse);
 	const userInfo = computed(() => store.userInfo);
@@ -14,6 +15,7 @@ export const usePiniaPersistance = () => {
 	watchEffect(() => { setLocal('token', token.value); });
 	watchEffect(() => { setLocal('themeConfig', isAsideMenuCollapse.value, 'isAsideMenuCollapse'); });
 	watchEffect(() => { setLocal('userInfo', userInfo.value); });
+	watch(menuTree, () => { setLocal('menuTree', (menuTree as any).value); }, { deep: true });
 	watch(breadcrumb, () => { setSession('breadcrumb', (breadcrumb as any).value); }, { deep: true });
 	watch(visitedRoutes, () => { setSession('visitedRoutes', (visitedRoutes as any).value); }, { deep: true });
 };

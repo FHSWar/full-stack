@@ -2,6 +2,7 @@ import { cloneDeep } from 'lodash';
 import type { MenuTree, ExtendedMenuTreeItem } from '@/utils';
 
 export const flattenMenuTree = (arr: MenuTree) => {
+	const arrCopy = cloneDeep(arr);
 	const result = [] as MenuTree;
 	const handler = (innerArr: MenuTree) => {
 		innerArr.forEach((item: MenuTree[0]) => {
@@ -11,7 +12,7 @@ export const flattenMenuTree = (arr: MenuTree) => {
 			result.push(item);
 		});
 	};
-	handler(arr);
+	handler(arrCopy);
 
 	result.forEach((item: any) => {
 		item.children = [];

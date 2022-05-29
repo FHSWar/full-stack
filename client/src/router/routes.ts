@@ -9,7 +9,7 @@ import { mainPanelRoutes } from './main-panel';
 export const routes:RouteRecordRaw[] = [
 	{
 		path: '/',
-		redirect: '/home'
+		redirect: '/main'
 	},
 	{
 		path: '/login',
@@ -17,7 +17,7 @@ export const routes:RouteRecordRaw[] = [
 		component: Login
 	},
 	{
-		path: '/home',
+		path: '/main',
 		name: 'home',
 		redirect: '/',
 		component: Home,

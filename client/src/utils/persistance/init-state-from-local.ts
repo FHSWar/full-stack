@@ -1,8 +1,19 @@
 import { constantRoutes } from '@/router/constant';
-import type { MenuList } from '@/utils';
-import { getLocal, getSession, setLocal, ThemeConfig, UserInfo } from '@/utils';
+import type { MenuList, MenuTree } from '@/utils';
+import { flattenMenuTree, getLocal, getSession, setLocal, ThemeConfig, UserInfo } from '@/utils';
 
 let temp:any;
+
+let menuList: MenuList;
+let menuTree: MenuTree;
+temp = getLocal('menuTree') as unknown as MenuTree;
+if (temp !== null) {
+	menuTree = temp;
+	menuList = flattenMenuTree(menuTree);
+} else {
+	menuTree = [] as MenuTree;
+	menuList = [] as MenuList;
+}
 
 let themeConfig: ThemeConfig;
 themeConfig = getLocal('themeConfig') as ThemeConfig;
@@ -31,4 +42,4 @@ temp = getSession('visitedRoutes') as string;
 if (temp !== null) visitedRoutes = temp;
 else visitedRoutes = [] as MenuList;
 
-export default { breadcrumb, themeConfig, token, userInfo, visitedRoutes };
+export default { breadcrumb, menuList, menuTree, themeConfig, token, userInfo, visitedRoutes };

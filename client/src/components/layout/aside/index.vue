@@ -1,10 +1,9 @@
 <script lang="ts" setup>
 import { computed, ref, watchEffect } from 'vue';
-import { cloneDeep } from 'lodash';
 import { getRoutesByRole } from '@/api/personnel';
 import { fallbackRoutes } from '@/router';
 import { useStore } from '@/stores';
-import { flattenMenuTree } from '@/utils';
+import { flattenMenuTree, getLocal } from '@/utils';
 import type { MenuTree } from '@/utils';
 import sideHeader from './aside-header.vue';
 import menuTree from './menu-tree.vue';
@@ -23,17 +22,24 @@ watchEffect(() => { store.themeConfig.isAsideMenuCollapse = isCollapse.value; })
 const toggleAside = () => { isCollapse.value = !isCollapse.value; };
 
 const initMenuTree = async () => {
+	// getLocal('menuTree')为truthy说明还有登陆态，复用即可，不需要请求
+	if (getLocal('menuTree')) {
+		sideMenu.value = store.menuTree;
+		return;
+	}
+
 	try {
 		const { routes } = await getRoutesByRole() as any;
 		sideMenu.value = JSON.parse(routes);
-		store.menuList = flattenMenuTree(cloneDeep(sideMenu.value));
+		store.menuTree = sideMenu.value;
+		store.menuList = flattenMenuTree(sideMenu.value);
 	} catch (e) {
 		console.warn('初始状态。');
 		sideMenu.value = fallbackRoutes;
-		store.menuList = flattenMenuTree(cloneDeep(sideMenu.value));
+		store.menuTree = sideMenu.value;
+		store.menuList = flattenMenuTree(sideMenu.value);
 	}
 };
-// todo: 持久化待完善
 initMenuTree();
 </script>
 
