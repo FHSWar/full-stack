@@ -41,7 +41,9 @@ router.post('auth/editUserRoles', async (ctx) => {
 router.post('auth/removeUser', async (ctx) => {
 	const { um } = ctx.request.body as IUser;
 
-	await User.updateOne({ um }, { isDelete: true });
+	// 删除是将isDelete为false的置为isDelete为true
+	const res = await User.updateOne({ um, isDelete: false }, { isDelete: true });
+	console.log('res', res);
 
 	toCliect(ctx, '用户角色已移除');
 });
