@@ -20,8 +20,7 @@ const User = model<IUser>('users', new Schema<IUser>(
 		},
 		um: {
 			type: String,
-			unique: true
-		// required: true
+			required: true
 		},
 		password: {
 			type: String,

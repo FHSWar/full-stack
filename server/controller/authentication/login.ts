@@ -10,7 +10,8 @@ router.post('auth/login', async (ctx) => {
 
 	const passwordCorrect = await User.findOne({
 		username,
-		password: encryptBySHA512(decryptPassword(password))
+		password: encryptBySHA512(decryptPassword(password)),
+		isDelete: false
 	}).populate('roles');
 
 	if (passwordCorrect) {
@@ -35,11 +36,8 @@ router.post('auth/login', async (ctx) => {
 		return;
 	}
 
-	const userExist = await User.findOne({ username });
-	if (userExist) {
-		toCliect(ctx, '密码不正确', STATUS.FORBIDDEN);
-		return;
-	}
+	const userExist = await User.findOne({ username, isDelete: false });
+	if (userExist) return toCliect(ctx, '密码不正确', STATUS.FORBIDDEN);
 
 	toCliect(ctx, '用户不存在', STATUS.FAILURE);
 });

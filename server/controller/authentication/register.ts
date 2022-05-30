@@ -24,7 +24,12 @@ router.post('auth/register', async (ctx) => {
 		return;
 	}
 
-	const user = await User.findOne({ $or: [{ username }, { um: umNo }] });
+	const user = await User.findOne({
+		$and: [
+			{ $or: [{ username }, { um: umNo }] },
+			{ isDelete: false }
+		]
+	});
 
 	if (user) {
 		toCliect(ctx, '用户名或工号已被使用', STATUS.FORBIDDEN);
