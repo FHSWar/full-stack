@@ -11,7 +11,7 @@ const emit = defineEmits(['buttonClick']);
 
 <template>
   <el-table class="table__wrapper" stripe :data="tableData">
-    <template v-for="{align, buttons, label, prop, width} in tableColumns" :key="label">
+    <template v-for="{align, buttons, editable, label, prop, width} in tableColumns" :key="label">
       <!-- 一般就是数据展示 -->
       <el-table-column :align="align" :label="label" :prop="prop" :width="width">
         <!-- 偶尔会用到按钮 -->
@@ -38,6 +38,15 @@ const emit = defineEmits(['buttonClick']);
               </el-button>
             </double-check-remove>
           </template>
+        </template>
+        <!-- 更偶尔会用到行内编辑 -->
+        <template v-else-if="editable" #default="scope">
+          <el-input
+            autosize
+            type="textarea"
+            v-model="scope.row.description"
+            :disabled="!scope.row.editing"
+          />
         </template>
       </el-table-column>
     </template>

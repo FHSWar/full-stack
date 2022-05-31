@@ -3,29 +3,49 @@ import { reactive, ref } from 'vue';
 import type { FormInstance } from 'element-plus';
 import dayjs from 'dayjs';
 import { addRole, editRole, getRoleList, removeRole } from '@/api/personnel';
-import DoubleCheckRemove from '@/components/double-check-remove.vue';
+import type { FhsTableColumn } from '@/utils';
+import FhsTable from '@/components/fhs-table.vue';
 
 const tableData = ref([] as any);
+const columns: FhsTableColumn[] = [
+	{ label: '角色', prop: 'role', width: 160 },
+	{ editable: true, label: '描述', prop: 'description' },
+	{ label: '更新时间', prop: 'updatedAt', align: 'right', width: 120 },
+	{ label: '创建时间', prop: 'createdAt', align: 'right', width: 120 },
+	{
+		label: '操作',
+		align: 'center',
+		buttons: [{ description: '编辑' }, { description: '删除', link: true, doubleCheck: true }],
+		width: 200
+	}
+];
 
 const getList = async () => {
 	const { list } = await getRoleList() as any;
 	tableData.value = list.map((item: any) => {
 		item.createdAt = dayjs(item.createdAt).format('YYYY-MM-DD');
+		item.updatedAt = dayjs(item.updatedAt).format('YYYY-MM-DD');
 		item.editable = false;
 		return item;
 	});
 };
 
-const editRow = async (row: any) => {
-	if (row.editable === false) row.editable = true;
-	else {
-		await editRole(row);
-		row.editable = false;
+const handleButtonClick = async (desc: string, row: any) => {
+	switch (desc) {
+		case '编辑':
+			if (!row.editing) row.editing = true;
+			else {
+				await editRole(row);
+				row.editing = false;
+			}
+			break;
+		case '删除':
+			await removeRole(row);
+			getList();
+			break;
+		default:
+			break;
 	}
-};
-const removeRow = async (row: any) => {
-	await removeRole(row);
-	getList();
 };
 
 const dialogVisible = ref(false);
@@ -63,35 +83,11 @@ getList();
       新增角色
     </el-button>
 
-    <el-table class="table__wrapper" stripe :data="tableData">
-      <el-table-column prop="role" label="角色" width="160" />
-      <el-table-column prop="description" label="描述">
-        <template #default="scope">
-          <el-input
-            autosize
-            type="textarea"
-            v-model="scope.row.description"
-            :disabled="!scope.row.editable"
-          />
-        </template>
-      </el-table-column>
-      <el-table-column prop="createdAt" label="添加日期" width="120" align="right" />
-      <el-table-column fixed="right" label="操作" width="200" align="center">
-        <template #default="scope">
-          <el-button @click.prevent="editRow(scope.row)">
-            {{ scope.row.editable ? '确认':'编辑' }}
-          </el-button>
-          <double-check-remove
-            v-if="scope.row.role !== '访客'"
-            @confirm-remove="removeRow(scope.row)"
-          >
-            <el-button link>
-              移除
-            </el-button>
-          </double-check-remove>
-        </template>
-      </el-table-column>
-    </el-table>
+    <fhs-table
+      :table-columns="columns"
+      :table-data="tableData"
+      @button-click="handleButtonClick"
+    />
 
     <el-dialog v-model="dialogVisible" draggable>
       <el-form

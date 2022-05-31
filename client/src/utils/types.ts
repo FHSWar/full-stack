@@ -53,15 +53,19 @@ export type UserInfo = {
 
 // fhs-table 用
 export type FhsTableColumn = {
-  label: string
   align?: 'left' | 'center' | 'right'
-  width?: number
-  prop?: string
+  // 有这个键就变为按钮列
   buttons?: {
     description: string
     type?: ButtonType
     link?: boolean
     doubleCheck?: boolean
 	}[]
+  editable?: boolean
+  // editable为true且editing为true即可编辑
+  editing?: boolean
+  label: string
+  width?: number
+  prop?: string
   // sortable?: boolean
 }

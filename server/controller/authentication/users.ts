@@ -7,7 +7,7 @@ const router = useRouter();
 router.get('auth/userList', async (ctx) => {
 	const userList = await User.find({ isDelete: false }).populate('roles');
 
-	const list = userList.map((u: IUser) => {
+	const list = userList.map((u) => {
 		const { username, um, roles, createdAt, updatedAt } = u;
 
 		return {
@@ -27,7 +27,7 @@ router.post('auth/editUserRoles', async (ctx) => {
 	// verifyToken(header.authorization?.replace('Bearer ', '')) as IUser;
 	const { um, username, roles } = ctx.request.body;
 
-	const roleArr = (roles as IUser['roles']).map((role) => ({ role }));
+	const roleArr = (roles as string[]).map((role) => ({ role }));
 	const roleDocArr = await Role.find({ $or: roleArr });
 	await User.updateOne(
 		{ um, username },
