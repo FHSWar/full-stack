@@ -1,5 +1,5 @@
 import { RouteRecordRaw } from 'vue-router';
-import Result from '@/components/result/index.vue';
+import Result from '@/components/result';
 import HomePage from '@/views/home-page.vue';
 import One from '@/views/test-token.vue';
 import MenuConfiguration from '@/views/personnel-management/menu-configuration/index.vue';

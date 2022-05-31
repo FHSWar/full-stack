@@ -1,18 +1,26 @@
 <script lang="ts" setup>
+/* 这个并没有使用，但写得不错，用作index.tsx的对比 */
+import { shallowRef } from 'vue';
 import { useRoute } from 'vue-router';
-import NoFound from './no-found';
-import ServerError from './server-error';
-import Unauthorized from './unauthorized';
 
-const route = useRoute();
-const resultType = route.params.type;
+const resultType = shallowRef(null) as any;
+switch (useRoute().params.type) {
+	case 'no-found':
+		import('./no-found').then((val) => { resultType.value = val.default; });
+		break;
+	case 'server-error':
+		import('./server-error').then((val) => { resultType.value = val.default; });
+		break;
+	case 'unauthorized':
+		import('./unauthorized').then((val) => { resultType.value = val.default; });
+		break;
+	default:
+}
 </script>
 
 <template>
   <div class="result__wrapper">
-    <NoFound v-if="resultType === 'no-found'" />
-    <server-error v-else-if="resultType === 'server-error'" />
-    <unauthorized v-else />
+    <component :is="resultType" />
   </div>
 </template>
 
