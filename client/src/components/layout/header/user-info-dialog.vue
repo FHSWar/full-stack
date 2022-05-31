@@ -31,8 +31,6 @@ const handleAvatarSuccess: UploadProps['onSuccess'] = (
 	uploadFile
 ) => {
 	imageUrl.value = URL.createObjectURL(uploadFile.raw!);
-	console.log('uploadFile', uploadFile);
-	console.log('imgBaseUrl', imgBaseUrl);
 };
 const beforeAvatarUpload: UploadProps['beforeUpload'] = (rawFile) => {
 	if (rawFile.size / 1024 / 1024 > 1) {

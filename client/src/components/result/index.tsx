@@ -1,6 +1,6 @@
 import { createVNode, defineAsyncComponent, defineComponent, ref, resolveComponent } from 'vue'
-import { useRoute } from 'vue-router';
-import { startCase } from 'lodash';
+import { useRoute } from 'vue-router'
+import { startCase } from 'lodash'
 
 export default defineComponent({
     name: 'Result',

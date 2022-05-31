@@ -1,6 +1,8 @@
 import { cloneDeep } from 'lodash';
-import type { MenuTree, ExtendedMenuTreeItem } from '@/utils';
+import { useStore } from '@/stores';
+import type { MenuList, MenuTree, ExtendedMenuTreeItem } from '@/utils';
 
+// 摊平菜单树
 export const flattenMenuTree = (arr: MenuTree) => {
 	const arrCopy = cloneDeep(arr);
 	const result = [] as MenuTree;
@@ -21,7 +23,21 @@ export const flattenMenuTree = (arr: MenuTree) => {
 	return result;
 };
 
-// 其他角色的操作会给“所有菜单”加上check和indeterminate标记位，不好
+// 找到菜单项的祖先节点
+export const findMenuListChain = (leafId: string):MenuList => {
+	const store = useStore();
+
+	const result:MenuList = [];
+	const handler = (id: string) => {
+		const menuItem = store.menuList.find((item) => item.id === id) as MenuList[number];
+		result.unshift(menuItem);
+		if (menuItem.pid !== '') handler(menuItem.pid);
+	};
+	handler(leafId);
+	return result;
+};
+
+// 其他角色的操作会给“所有菜单”加上check和indeterminate标记位，不好，修掉，顺拜维护正确的pid
 export const trimMenuTree = (arr: ExtendedMenuTreeItem[]):MenuTree => {
 	const arrCopy = cloneDeep(arr);
 	const handler = (innerArr: ExtendedMenuTreeItem[], pid?: string) => {

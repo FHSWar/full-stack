@@ -44,7 +44,7 @@ const submitForm = (formEl: FormInstance | undefined) => {
 			await addRole(roleValidateForm);
 			getList();
 		} else {
-			console.log('error submit!');
+			console.warn('error submit!');
 			return false;
 		}
 	});

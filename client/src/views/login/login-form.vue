@@ -34,7 +34,7 @@ const encryptPassword = (password: string) => {
 
 		return base64;
 	} catch (e) {
-		console.log('密码加密出错', (e as Error).toString());
+		console.warn('密码加密出错', (e as Error).toString());
 		return '';
 	}
 };
