@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-import { getCurrentInstance, ref, watchEffect } from 'vue';
+import { ref, watchEffect } from 'vue';
 import { cloneDeep } from 'lodash';
 import type Node from 'element-plus/es/components/tree/src/model/node';
 import { computed } from '@vue/reactivity';
@@ -8,6 +8,7 @@ import { flattenMenuTree, trimMenuTree } from '@/utils';
 import type { ExtendedMenuTreeItem, MenuTree } from '@/utils';
 import { getRoutesByRole, updateRoutesByRole } from '@/api/personnel';
 import ConfigurationDialog from './configuration-dialog.vue';
+import DoubleCheckRemove from '@/components/double-check-remove.vue';
 
 const props = defineProps<{role: string}>();
 
@@ -21,7 +22,6 @@ type MenuItem = {
 
 const activeNodeData = ref({} as Node['data']);
 const activeNodeParentData = ref({} as Node['data']);
-const instance = ref(getCurrentInstance());
 const isAll = computed(() => props.role === '所有菜单');
 const showDialogBool = ref(false);
 const treeRef = ref(null) as any;
@@ -96,7 +96,6 @@ const confirmRemove = (node: Node, data: ExtendedMenuTreeItem) => {
 	const targetIndex = parent.children.findIndex((item: MenuTree[0]) => item.id === data.id);
 	parent.children.splice(targetIndex, 1);
 };
-const hidePopover = (title: string) => { (instance.value?.refs[`popoverRef${title}`] as any).hide(); };
 
 const handleCheckChange = (
 	data: ExtendedMenuTreeItem,
@@ -157,25 +156,10 @@ export default {
             {{ data.title }}
           </span>
           <span v-if="isAll">
-            <el-popover
+            <double-check-remove
               v-if="!fallbackRoutesIdArr.includes(data.id)"
-              placement="top"
-              trigger="click"
-              :ref="`popoverRef${data.title}`"
-            >
-              <template #reference>
-                <el-button link>移除</el-button>
-              </template>
-              <!-- 删除的确定 -->
-              <div class="tree__double-check">
-                <el-button type="danger" @click="confirmRemove(node, data)">
-                  删除
-                </el-button>
-                <el-button @click="hidePopover(data.title)">
-                  取消
-                </el-button>
-              </div>
-            </el-popover>
+              @confirm-remove="confirmRemove(node, data)"
+            />
             <el-button @click="preAppend(node, data)">添加</el-button>
           </span>
         </span>
@@ -197,10 +181,6 @@ export default {
 		overflow: hidden;
 		height: 100%;
 		background-color: var(--el-fill-color-blank);
-
-		.is-link {
-			padding: 8px 15px;
-		}
 	}
 	&__node {
 		flex: 1;

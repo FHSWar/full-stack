@@ -1,23 +1,12 @@
 <script lang="ts" setup>
-import { ref } from 'vue';
 import type { FhsTableColumn } from '@/utils';
+import DoubleCheckRemove from '@/components/double-check-remove.vue';
 
 defineProps<{
     tableColumns: FhsTableColumn[]
     tableData: any[]
 }>();
 const emit = defineEmits(['buttonClick']);
-
-const popoverRef = ref(null) as any;
-// 偷懒了，应该可以不遍历的
-const hidePopover = () => {
-	popoverRef.value.forEach((popoverInstance: any) => { popoverInstance.hide(); });
-};
-
-const confirmRemove = (description: string, scope: any) => {
-	emit('buttonClick', description, scope.row);
-	hidePopover();
-};
 </script>
 
 <template>
@@ -36,31 +25,18 @@ const confirmRemove = (description: string, scope: any) => {
             >
               {{ description }}
             </el-button>
-            <el-popover
+            <double-check-remove
               v-else
-              ref="popoverRef"
-              placement="top"
-              trigger="click"
+              @confirm-remove="emit('buttonClick', description, scope.row);"
             >
-              <template #reference>
-                <el-button
-                  :type="type"
-                  :link="link"
-                  @click="emit('buttonClick', '预删除', scope.row)"
-                >
-                  {{ description }}
-                </el-button>
-              </template>
-              <!-- 删除的确定 -->
-              <div class="table__double-check">
-                <el-button type="danger" @click="confirmRemove(description, scope)">
-                  删除
-                </el-button>
-                <el-button @click="hidePopover()">
-                  取消
-                </el-button>
-              </div>
-            </el-popover>
+              <el-button
+                :type="type"
+                :link="link"
+                @click="emit('buttonClick', '预删除', scope.row)"
+              >
+                {{ description }}
+              </el-button>
+            </double-check-remove>
           </template>
         </template>
       </el-table-column>

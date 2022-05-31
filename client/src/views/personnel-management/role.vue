@@ -3,9 +3,9 @@ import { reactive, ref } from 'vue';
 import type { FormInstance } from 'element-plus';
 import dayjs from 'dayjs';
 import { addRole, editRole, getRoleList, removeRole } from '@/api/personnel';
+import DoubleCheckRemove from '@/components/double-check-remove.vue';
 
 const tableData = ref([] as any);
-const popoverRef = ref(null) as any;
 
 const getList = async () => {
 	const { list } = await getRoleList() as any;
@@ -27,7 +27,6 @@ const removeRow = async (row: any) => {
 	await removeRole(row);
 	getList();
 };
-const hidePopover = () => { popoverRef.value.hide(); };
 
 const dialogVisible = ref(false);
 
@@ -82,27 +81,14 @@ getList();
           <el-button @click.prevent="editRow(scope.row)">
             {{ scope.row.editable ? '确认':'编辑' }}
           </el-button>
-          <el-popover
+          <double-check-remove
             v-if="scope.row.role !== '访客'"
-            ref="popoverRef"
-            placement="top"
-            trigger="click"
+            @confirm-remove="removeRow(scope.row)"
           >
-            <template #reference>
-              <el-button link>
-                移除
-              </el-button>
-            </template>
-            <!-- 删除的确定 -->
-            <div class="table__double-check">
-              <el-button type="danger" @click="removeRow(scope.row)">
-                删除
-              </el-button>
-              <el-button @click="hidePopover()">
-                取消
-              </el-button>
-            </div>
-          </el-popover>
+            <el-button link>
+              移除
+            </el-button>
+          </double-check-remove>
         </template>
       </el-table-column>
     </el-table>
