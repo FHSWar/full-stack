@@ -145,9 +145,5 @@ getList();
   &__wrapper {
     margin-top: 16px;
   }
-  &__double-check {
-    display: flex;
-    justify-content: space-between;
-  }
 }
 </style>

@@ -195,10 +195,6 @@ export default {
 			top: 1.5px;
 		}
 	}
-	&__double-check {
-		display: flex;
-		justify-content: space-between;
-	}
 }
 :deep(.el-tree-node__content) {
 	height: var(--el-component-size-large);

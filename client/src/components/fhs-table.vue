@@ -43,12 +43,3 @@ const emit = defineEmits(['buttonClick']);
     </template>
   </el-table>
 </template>
-
-<style lang="scss" scoped>
-.table {
-  &__double-check {
-    display: flex;
-    justify-content: space-between;
-  }
-}
-</style>
