@@ -25,9 +25,10 @@ const clickMenu = ({ page, id }: Omit<MenuList[number], 'icon'|'pid'|'title'|'ch
         <el-tooltip
           v-else
           class="box-item"
-          placement="right"
+          placement="top"
           :content="desc"
-          :show-after="500"
+          :hide-after="0"
+          :show-after="1000"
         >
           <span class="menu-tree__item" @click="clickMenu({id, page})">
             {{ title }}

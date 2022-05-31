@@ -13,7 +13,7 @@ const router = createRouter({
 	routes
 });
 
-const noCheckPageNameArr = ['no-found', 'server-error', 'unauthorized', ''];
+const noCheckPageNameArr = ['result', ''];
 
 const maintainVisitedRoutes = (to:RouteLocationNormalized) => {
 	if (!to.name) return;
@@ -35,13 +35,23 @@ const checkToken:RouterGuard = (to, next) => {
 	}
 };
 const checkPermission:RouterGuard = (to, next) => {
-	if (!to.name && to.fullPath !== '/main') return next('/main/no-found');
+	if (!to.name && to.fullPath !== '/main') {
+		return next({
+			name: 'result',
+			params: { type: 'no-found' }
+		});
+	}
 
 	if (noCheckPageNameArr.includes(to.name as string || '')) return true;
 
-	// !新增页面必须有name，灵活性都耦合在这个字段上了
+	//! 新增页面必须有name，灵活性都耦合在这个字段上了
 	const notInMenuList = !store.menuList.find((item:any) => item.page === to.name);
-	if (notInMenuList) return next('/main/unauthorized');
+	if (notInMenuList) {
+		return next({
+			name: 'result',
+			params: { type: 'unauthorized' }
+		});
+	}
 
 	return true;
 };

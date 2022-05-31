@@ -1,7 +1,5 @@
 import { RouteRecordRaw } from 'vue-router';
-import NoFound from '@/components/result/no-found.vue';
-import ServerError from '@/components/result/server-error.vue';
-import Unauthorized from '@/components/result/unauthorized.vue';
+import Result from '@/components/result/index.vue';
 import HomePage from '@/views/home-page.vue';
 import One from '@/views/test-token.vue';
 import MenuConfiguration from '@/views/personnel-management/menu-configuration/index.vue';
@@ -35,18 +33,8 @@ export const mainPanelRoutes:RouteRecordRaw[] = [
 		component: MenuConfiguration
 	},
 	{
-		path: 'no-found',
-		name: 'no-found',
-		component: NoFound
-	},
-	{
-		path: 'server-error',
-		name: 'server-error',
-		component: ServerError
-	},
-	{
-		path: 'unauthorized',
-		name: 'unauthorized',
-		component: Unauthorized
+		path: 'result',
+		name: 'result',
+		component: Result
 	}
 ];
