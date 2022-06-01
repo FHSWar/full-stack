@@ -4,7 +4,7 @@ import type { FormInstance } from 'element-plus';
 import dayjs from 'dayjs';
 import { addRole, editRole, getRoleList, removeRole } from '@/api/personnel';
 import type { FhsTableColumn } from '@/utils';
-import FhsTable from '@/components/fhs-table.vue';
+import FhsTable from '@/components/fhs-table/index.vue';
 
 const tableData = ref([] as any);
 const columns: FhsTableColumn[] = [

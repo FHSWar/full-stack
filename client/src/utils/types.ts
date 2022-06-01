@@ -61,6 +61,7 @@ export type FhsTableColumn = {
     link?: boolean
     doubleCheck?: boolean
 	}[]
+  children?: FhsTableColumn[]
   editable?: boolean
   // editable为true且editing为true即可编辑
   editing?: boolean

@@ -3,7 +3,7 @@ import { ref } from 'vue';
 import dayjs from 'dayjs';
 import { editUserRoles, getRoleList, getUserList, removeUser } from '@/api/personnel';
 import type { FhsTableColumn } from '@/utils';
-import FhsTable from '@/components/fhs-table.vue';
+import FhsTable from '@/components/fhs-table/index.vue';
 
 const userList = ref([] as any);
 const roleList = ref([] as any);
