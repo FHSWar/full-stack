@@ -6,6 +6,12 @@ defineProps<{
     tableColumns: FhsTableColumnType[]
     tableData: any[]
 }>();
+
+const emit = defineEmits(['buttonClick']);
+
+const buttonClick = (desc: string, row: any) => {
+	emit('buttonClick', desc, row);
+};
 </script>
 
 <template>
@@ -13,7 +19,7 @@ defineProps<{
     <template
       v-for="column in tableColumns" :key="column.label"
     >
-      <fhs-table-column :column="column" />
+      <fhs-table-column :column="column" @button-click="buttonClick" />
     </template>
   </el-table>
 </template>
