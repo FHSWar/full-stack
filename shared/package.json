@@ -8,6 +8,7 @@
     "lint": "eslint --fix --ext .js,.ts ./"
   },
   "dependencies": {
+    "lodash": "^4.17.21",
     "log4js": "^6.4.6"
   },
   "devDependencies": {
