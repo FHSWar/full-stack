@@ -35,7 +35,7 @@ const triggerMethod = (method: () => void) => { method(); };
   <el-popover
     class="popover__wrapper"
     placement="bottom"
-    trigger="hover"
+    trigger="click"
     :offset="-1"
     :show-arrow="false"
   >

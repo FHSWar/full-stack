@@ -21,9 +21,6 @@ const emit = defineEmits(['method']);
 
 <style lang="scss" scoped>
 .options {
-    &__container {
-        padding: 4px;
-    }
     &__item {
         display: flex;
         align-items: center;

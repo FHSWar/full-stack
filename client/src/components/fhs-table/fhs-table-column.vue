@@ -16,7 +16,7 @@ const emit = defineEmits(['buttonClick']);
     :width="column.width"
   >
     <!-- 更更偶尔会用到多行表头 -->
-    <template v-if="column?.children?.length">
+    <template v-if="column?.children?.length" #default>
       <fhs-table-column
         v-for="childColumn in column.children"
         :key="childColumn.label"
@@ -24,7 +24,7 @@ const emit = defineEmits(['buttonClick']);
       />
     </template>
     <!-- 偶尔会用到按钮 -->
-    <template v-if="column.buttons" #default="scope">
+    <template v-else-if="column.buttons" #default="scope">
       <template v-for="{description, type, link, doubleCheck} in column.buttons" :key="description">
         <el-button
           v-if="!doubleCheck"
@@ -32,7 +32,7 @@ const emit = defineEmits(['buttonClick']);
           :link="link"
           @click="emit('buttonClick', description, scope.row)"
         >
-          {{ description }}
+          {{ scope.row.editing ? '确认': description }}
         </el-button>
         <double-check-remove
           v-else
