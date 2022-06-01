@@ -28,12 +28,14 @@ router.post('auth/editUserRoles', async (ctx) => {
 	const { um, username, roles } = ctx.request.body;
 
 	const roleArr = (roles as string[]).map((role) => ({ role }));
+
+	if (roleArr.length === 0) return toCliect(ctx, '用户至少有一个角色', STATUS.FORBIDDEN);
+
 	const roleDocArr = await Role.find({ $or: roleArr });
 	await User.updateOne(
-		{ um, username },
+		{ um, username, isDelete: false },
 		{ roles: roleDocArr.map((roleDoc) => roleDoc._id) }
 	);
-
 	toCliect(ctx, '用户角色已更新');
 });
 

@@ -22,7 +22,7 @@ router.post('auth/login', async (ctx) => {
 		// 用户角色都删除了就回退到默认角色
 		if (roleArr.length === 0) {
 			const defaultRoleDoc = await Role.findOne({ role: defaultRole, isDelete: false });
-			await User.updateOne({ username }, { roles: [defaultRoleDoc!._id] });
+			await User.updateOne({ username, isDelete: false }, { roles: [defaultRoleDoc!._id] });
 		}
 
 		toCliect(ctx, {
