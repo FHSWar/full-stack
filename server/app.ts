@@ -4,6 +4,7 @@ import bodyParser from 'koa-bodyparser';
 
 import { useRoutes } from 'controller';
 import {
+	checkPermission,
 	mountGlobal,
 	serveStatic,
 	useMongo,
@@ -15,6 +16,7 @@ mountGlobal();
 const app = new Koa();
 app.use(cors()); // 解决服务端报跨域问题
 app.use(bodyParser()); // 处理 post 请求体
+app.use(checkPermission());
 
 serveStatic(app);
 useJWT(app);

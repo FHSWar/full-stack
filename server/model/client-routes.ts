@@ -1,4 +1,4 @@
-import { Types } from 'mongoose';
+import { model, Schema, Types } from 'mongoose';
 
 interface IClientRoutes {
     role: Types.ObjectId

@@ -1,3 +1,4 @@
+import { model, Schema } from 'mongoose';
 import { IRole } from 'model/role';
 
 interface IUser {

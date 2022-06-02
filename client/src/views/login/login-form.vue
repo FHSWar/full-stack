@@ -5,7 +5,7 @@ import type { FormInstance } from 'element-plus';
 import { pki } from 'node-forge';
 import { getUserInfo, login, register } from '@/api/authorization';
 import { useStore } from '@/stores';
-import { publicKey } from '@/utils';
+import { PUBLIC_KEY } from '@/utils';
 
 const props = defineProps({
 	showDoubleCheck: {
@@ -26,7 +26,7 @@ const form = reactive({
 
 const encryptPassword = (password: string) => {
 	try {
-		const publicK = pki.publicKeyFromPem(publicKey);
+		const publicK = pki.publicKeyFromPem(PUBLIC_KEY);
 		// 经过url编码，后端解密后需要url解码。encrypted虽然乱码，但可以直接发给后端解密。
 		const encrypted = publicK.encrypt(encodeURIComponent(password), 'RSA-OAEP');
 		// 转成base64看着比较干净。

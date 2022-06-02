@@ -2,6 +2,7 @@
 import { ref } from 'vue';
 import dayjs from 'dayjs';
 import { editUserRoles, getRoleList, getUserList, removeUser } from '@/api/personnel';
+import { SPECIAL_ROLE } from '@/utils';
 import type { FhsTableColumn } from '@/utils';
 import FhsTable from '@/components/fhs-table/index.vue';
 
@@ -27,7 +28,8 @@ const columns: FhsTableColumn[] = [
 
 const getRoles = async () => {
 	const { list } = await getRoleList() as any;
-	roleList.value = list;
+	console.log('asdfasdf', list);
+	roleList.value = list.filter(({ role }:{role: string}) => role !== SPECIAL_ROLE);
 };
 const getUsers = async () => {
 	const { list } = await getUserList() as any;
@@ -92,7 +94,6 @@ getUsers();
           multiple
           placeholder="Select"
         >
-          <!--style="width: 240px;"-->
           <template v-for="item in roleList" :key="item.role">
             <el-tooltip
               placement="right"

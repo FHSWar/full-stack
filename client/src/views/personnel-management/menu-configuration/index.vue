@@ -1,15 +1,16 @@
 <script lang="ts" setup>
 import { ref } from 'vue';
 import { getRoleList } from '@/api/personnel';
+import { SPECIAL_ROLE } from '@/utils';
 import MenuConfiguration from './menu-configuration.vue';
 
 const roleList = ref([]) as any;
-const radioValue = ref('所有菜单');
+const radioValue = ref(SPECIAL_ROLE);
 const menuConfigurationRef = ref(null) as any;
 
 const getRoles = async () => {
 	const { list } = await getRoleList() as any;
-	roleList.value = list.filter((item: { role: string; }) => item.role !== '所有菜单');
+	roleList.value = list.filter((item: { role: string; }) => item.role !== SPECIAL_ROLE);
 };
 const confirmEdit = () => { menuConfigurationRef.value.confirmEdit(); };
 

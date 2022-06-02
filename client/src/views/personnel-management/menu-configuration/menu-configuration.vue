@@ -4,7 +4,7 @@ import { cloneDeep } from 'lodash';
 import type Node from 'element-plus/es/components/tree/src/model/node';
 import { computed } from '@vue/reactivity';
 import { fallbackRoutes, fallbackRoutesIdArr } from '@/router';
-import { flattenMenuTree, trimMenuTree } from '@/utils';
+import { flattenMenuTree, SPECIAL_ROLE, trimMenuTree } from '@/utils';
 import type { ExtendedMenuTreeItem, MenuTree } from '@/utils';
 import { getRoutesByRole, updateRoutesByRole } from '@/api/personnel';
 import ConfigurationDialog from './configuration-dialog.vue';
@@ -22,7 +22,7 @@ type MenuItem = {
 
 const activeNodeData = ref({} as Node['data']);
 const activeNodeParentData = ref({} as Node['data']);
-const isAll = computed(() => props.role === '所有菜单');
+const isAll = computed(() => props.role === SPECIAL_ROLE);
 const showDialogBool = ref(false);
 const treeRef = ref(null) as any;
 
@@ -45,7 +45,7 @@ watchEffect(setCheckedByRole);
 const dataSource = ref<MenuTree>([]);
 const getMenu = async () => {
 	try {
-		const { routes } = await getRoutesByRole({ role: '所有菜单' }) as any;
+		const { routes } = await getRoutesByRole({ role: SPECIAL_ROLE }) as any;
 		const remoteRoutes = JSON.parse(routes);
 		dataSource.value = remoteRoutes;
 	} catch (e) {

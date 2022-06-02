@@ -37,7 +37,7 @@ export const findMenuListChain = (leafId: string):MenuList => {
 	return result;
 };
 
-// 其他角色的操作会给“所有菜单”加上check和indeterminate标记位，不好，修掉，顺拜维护正确的pid
+// 其他角色的操作会给“@/utils/config/specialRole”加上check和indeterminate标记位，不好，修掉，顺便维护正确的pid
 export const trimMenuTree = (arr: ExtendedMenuTreeItem[]):MenuTree => {
 	const arrCopy = cloneDeep(arr);
 	const handler = (innerArr: ExtendedMenuTreeItem[], pid?: string) => {

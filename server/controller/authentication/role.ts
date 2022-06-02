@@ -1,5 +1,5 @@
-import { defaultRole } from 'config';
 import { useRouter } from '@util';
+import { defaultRole } from 'config';
 import { Role } from 'model/role';
 
 const router = useRouter();
@@ -9,7 +9,13 @@ router.get('auth/roleList', async (ctx) => {
 	const list = await Role.find({ isDelete: false });
 
 	toCliect(ctx, {
-		list: list.map(({ role, description, createdAt, updatedAt }) => ({ role, description, createdAt, updatedAt })),
+		list: list.map(({
+			role,
+			description,
+			isPermitted,
+			createdAt,
+			updatedAt
+		}) => ({ role, description, isPermitted, createdAt, updatedAt })),
 		message: '角色列表'
 	});
 });
@@ -47,6 +53,24 @@ router.post('auth/removeRole', async (ctx) => {
 
 	await Role.updateOne({ role, isDelete: false }, { isDelete: true });
 	toCliect(ctx, `已移除${role}`);
+});
+
+// 指派有权限操作数据库的角色
+router.post('auth/appointPermission', async (ctx) => {
+	const { roles: appointedRoleArr } = ctx.request.body;
+	const isEmpty = !appointedRoleArr || appointedRoleArr.length === 0;
+
+	await Role.updateMany({ isDelete: false }, { isPermitted: false });
+	isEmpty
+		// 传空就是所有角色都有权限，初始状态就是这样
+		? await Role.updateMany({ isDelete: false }, { isPermitted: false })
+		// 指定即将指定的角色加入有权限的白名单
+		: await Role.find({
+			isDelete: false,
+			$or: (appointedRoleArr as string[]).map((role) => ({ role }))
+		}).updateMany({ isPermitted: true });
+
+	toCliect(ctx, `有权限角色已变更为${isEmpty ? '所有角色' : appointedRoleArr}`);
 });
 
 export default router;
