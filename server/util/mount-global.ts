@@ -1,4 +1,3 @@
-import { model, Schema } from 'mongoose';
 import { STATUS, useLogger } from 'shared';
 import { KoaContext } from '@util';
 import wss from './web-socket';
@@ -20,8 +19,6 @@ const toCliect = (
 
 export const mountGlobal = () => {
 	global.logger = useLogger('chief', __dirname);
-	global.model = model;
-	global.Schema = Schema;
 	global.STATUS = STATUS;
 	global.toCliect = toCliect;
 	global.wss = wss;

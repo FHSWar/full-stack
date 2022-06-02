@@ -6,11 +6,12 @@ const toIgnoreDirArr = [{ layer: 1, nameArr: ['config'] }];
 
 // 通过动态引入路由文件，免去手动注册的步骤，方便开发
 export const useRoutes = (app:KoaInstance) => {
+	console.log('⟳ 路由装载中');
 	const routerFileArr = getFileRecursively(__dirname, toIgnoreDirArr, true);
-
 	routerFileArr
 		.filter((item) => item !== undefined)
 		.forEach((splitRouter) => {
 			app.use(splitRouter.routes());
 		});
+	console.log('✨路由已装载');
 };

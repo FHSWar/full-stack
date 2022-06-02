@@ -14,6 +14,7 @@ const assignRoleDialogVisible = ref(false);
 const newRoleDialogVisible = ref(false);
 const formRef = ref<FormInstance>();
 const roleValidateForm = reactive({ role: '', description: '' });
+
 const columns: FhsTableColumn[] = [
 	{ label: '角色', prop: 'role', width: 160 },
 	{ editable: true, label: '描述', prop: 'description' },
