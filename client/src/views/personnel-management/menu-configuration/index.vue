@@ -20,6 +20,9 @@ getRoles();
 <template>
   <el-row class="menu-configuration__wrapper">
     <el-col :span="7" class="menu-configuration__left-panel">
+      <el-button type="primary" @click="confirmEdit">
+        更新选中角色的菜单
+      </el-button>
       <el-radio-group v-model="radioValue">
         <el-radio label="所有菜单" size="large">
           所有菜单
@@ -28,11 +31,6 @@ getRoles();
           {{ role }}
         </el-radio>
       </el-radio-group>
-      <el-footer>
-        <el-button type="primary" @click="confirmEdit">
-          确定
-        </el-button>
-      </el-footer>
     </el-col>
     <el-col :span="1" />
     <el-col :span="16" class="menu-configuration__right-panel">
@@ -61,11 +59,6 @@ getRoles();
 			}
 		}
 
-		.el-footer {
-			display: flex;
-			justify-content: flex-end;
-		}
-
 		:deep(.el-radio__inner) {
 			margin-left: 12px;
 		}
@@ -78,6 +71,9 @@ getRoles();
 		padding: 4px;
 		background-color: var(--el-fill-color-blank);
 
+		.el-button {
+
+		}
 		.el-radio-group {
 			flex: 1;
 		}

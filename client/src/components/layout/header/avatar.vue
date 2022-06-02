@@ -61,6 +61,7 @@ const triggerMethod = (method: () => void) => { method(); };
   <span class="popover__username">{{ username }}</span>
 
   <Suspense>
+    <!-- @update维护正确的现实状态-->
     <user-info-dialog
       v-if="showDialogBool"
       :model-value="showDialogBool"

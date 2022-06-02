@@ -22,7 +22,6 @@ router.get('auth/userList', async (ctx) => {
 	toCliect(ctx, { list });
 });
 
-// todo: 完成后这里只有admin权限用户能操作
 router.post('auth/editUserRoles', async (ctx) => {
 	// verifyToken(header.authorization?.replace('Bearer ', '')) as IUser;
 	const { um, username, roles } = ctx.request.body;
@@ -39,7 +38,6 @@ router.post('auth/editUserRoles', async (ctx) => {
 	toCliect(ctx, '用户角色已更新');
 });
 
-// todo: 完成后这里只有admin权限用户能操作
 router.post('auth/removeUser', async (ctx) => {
 	const { um } = ctx.request.body as IUser;
 

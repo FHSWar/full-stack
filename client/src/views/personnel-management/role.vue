@@ -6,17 +6,14 @@ import { appointPermmittedRole, addRole, editRole, getRoleList, removeRole } fro
 import { SPECIAL_ROLE } from '@/utils';
 import type { FhsTableColumn } from '@/utils';
 import FhsTable from '@/components/fhs-table/index.vue';
+import RoleListDialog from './role-list-dialog.vue';
 
 const roleList = ref([] as any);
-const partialRoleList = ref([] as any);
 const tableData = ref([] as FhsTableColumn[]);
-const assignRoleDialog = ref(false);
+const assignRoleDialogVisible = ref(false);
 const newRoleDialogVisible = ref(false);
 const formRef = ref<FormInstance>();
-const roleValidateForm = reactive({
-	role: '',
-	description: ''
-});
+const roleValidateForm = reactive({ role: '', description: '' });
 const columns: FhsTableColumn[] = [
 	{ label: '角色', prop: 'role', width: 160 },
 	{ editable: true, label: '描述', prop: 'description' },
@@ -35,10 +32,6 @@ const getList = async () => {
 	const arr = list.filter((item: any) => item.role !== SPECIAL_ROLE);
 
 	roleList.value = arr;
-	partialRoleList.value = arr
-		.filter(({ isPermitted }:{isPermitted: boolean}) => isPermitted)
-		.map(({ role }:{role: string}) => role);
-	console.log('partialRoleList.value', partialRoleList.value, arr);
 	tableData.value = arr.map((item: any) => {
 		item.createdAt = dayjs(item.createdAt).format('YYYY-MM-DD');
 		item.updatedAt = dayjs(item.updatedAt).format('YYYY-MM-DD');
@@ -83,12 +76,11 @@ const resetForm = (formEl: FormInstance | undefined) => {
 	formEl.resetFields();
 };
 
-partialRoleList;
-const confirmEdit = async () => {
-	console.log('partialRoleList.value', partialRoleList.value);
-	await appointPermmittedRole({ roles: partialRoleList.value });
-	assignRoleDialog.value = false;
+const confirmEdit = async (roles: string[]) => {
+	await appointPermmittedRole({ roles });
+	assignRoleDialogVisible.value = false;
 };
+
 getList();
 </script>
 
@@ -102,7 +94,7 @@ getList();
         <use-icon
           class="role__warn-icon"
           icon="WarningFilled"
-          @click="assignRoleDialog = true"
+          @click="assignRoleDialogVisible = true"
         />
         <template #content>
           <div>
@@ -166,35 +158,14 @@ getList();
       </el-form>
     </el-dialog>
 
-    <el-dialog
-      center
-      draggable
-      title="指定可操作权限模块的角色"
-      v-model="assignRoleDialog"
-      width="30%"
-    >
-      <el-select
-        class="role__select"
-        v-model="partialRoleList"
-        multiple
-        placeholder="Select"
-      >
-        <template v-for="item in roleList" :key="item.role">
-          <el-tooltip
-            placement="right"
-            popper-class="dialog__tooltip--user"
-            :content="item.description"
-          >
-            <el-option :label="item.role" :value="item.role" />
-          </el-tooltip>
-        </template>
-      </el-select>
-      <template #footer>
-        <el-button type="primary" @click="confirmEdit">
-          确认
-        </el-button>
-      </template>
-    </el-dialog>
+    <suspense>
+      <role-list-dialog
+        title="指定可操作权限模块的角色"
+        :model-value="assignRoleDialogVisible"
+        @update:model-value="assignRoleDialogVisible = false"
+        @from-child="confirmEdit"
+      />
+    </suspense>
   </div>
 </template>
 
@@ -214,9 +185,6 @@ getList();
     color: var(--el-color-warning);
     font-size: large;
   }
-  &__select {
-		width: 100%;
-	}
 }
 
 </style>
