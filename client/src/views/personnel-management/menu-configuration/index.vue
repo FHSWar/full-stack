@@ -3,6 +3,7 @@ import { ref } from 'vue';
 import { getRoleList } from '@/api/personnel';
 import { SPECIAL_ROLE } from '@/utils';
 import MenuConfiguration from './menu-configuration.vue';
+import IconTooltip from '../icon-tooltip.vue';
 
 const roleList = ref([]) as any;
 const radioValue = ref(SPECIAL_ROLE);
@@ -20,12 +21,20 @@ getRoles();
 <template>
   <el-row class="menu-configuration__wrapper">
     <el-col :span="7" class="menu-configuration__left-panel">
-      <el-button type="primary" @click="confirmEdit">
-        更新选中角色的菜单
-      </el-button>
+      <div class="menu-configuration__header">
+        <el-button type="primary" @click="confirmEdit">
+          更新选中角色的菜单
+        </el-button>
+        <icon-tooltip>
+          <div>
+            {{ SPECIAL_ROLE }}可以拖拽、增删。<br>
+            各角色基于{{ SPECIAL_ROLE }}做过滤，不可拖拽，增删。
+          </div>
+        </icon-tooltip>
+      </div>
       <el-radio-group v-model="radioValue">
-        <el-radio label="所有菜单" size="large">
-          所有菜单
+        <el-radio :label="SPECIAL_ROLE" size="large">
+          {{ SPECIAL_ROLE }}
         </el-radio>
         <el-radio v-for="{ role } in roleList" :key="role" :label="role" size="large">
           {{ role }}
@@ -43,6 +52,11 @@ getRoles();
 .menu-configuration {
 	&__wrapper {
 		height: 100%;
+
+		.el-button {
+			// https://blog.csdn.net/dongcehao/article/details/79655717
+			align-self: baseline;
+		}
 
 		.el-radio-group {
 			display: block;
@@ -67,18 +81,19 @@ getRoles();
 	&__left-panel {
 		display: flex;
 		flex-direction: column;
-		border-radius: var(--el-border-radius-base);
-		padding: 4px;
-		background-color: var(--el-fill-color-blank);
 
-		.el-button {
-
-		}
 		.el-radio-group {
 			flex: 1;
+			margin-top: 4px;
+			border-radius: var(--el-border-radius-base);
+			padding: 4px;
+			background-color: var(--el-fill-color-blank);
 		}
 	}
-
+	&__header {
+		display: flex;
+		align-items: center;
+	}
 	&__right-panel {
 		border-radius: var(--el-border-radius-base);
 		padding: 4px;

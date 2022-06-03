@@ -7,6 +7,7 @@ import { SPECIAL_ROLE } from '@/utils';
 import type { FhsTableColumn } from '@/utils';
 import FhsTable from '@/components/fhs-table/index.vue';
 import RoleListDialog from './role-list-dialog.vue';
+import IconTooltip from './icon-tooltip.vue';
 
 const roleList = ref([] as any);
 const tableData = ref([] as FhsTableColumn[]);
@@ -91,20 +92,15 @@ getList();
       <el-button type="primary" @click="newRoleDialogVisible = true">
         新增角色
       </el-button>
-      <el-tooltip placement="bottom-start" :hide-after="0" :show-after="1000">
-        <use-icon
-          class="role__warn-icon"
-          icon="WarningFilled"
-          @click="assignRoleDialogVisible = true"
-        />
-        <template #content>
+      <div>
+        <icon-tooltip icon-color="var(--el-color-warning)" @click="assignRoleDialogVisible = true">
           <div>
             访客作为初始用户角色，不可删除。<br>
             所有菜单作为实际上的超级管理员角色，不可赋给用户。<br>
             指定即将指定的角色加入有权限的白名单。
           </div>
-        </template>
-      </el-tooltip>
+        </icon-tooltip>
+      </div>
     </div>
 
     <fhs-table
@@ -180,11 +176,6 @@ getList();
   &__header {
     display: flex;
     align-items: center;
-  }
-  &__warn-icon {
-    margin-left: 12px;
-    color: var(--el-color-warning);
-    font-size: large;
   }
 }
 

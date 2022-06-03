@@ -6,4 +6,4 @@ export const PUBLIC_KEY = '-----BEGIN RSA PUBLIC KEY-----\n'
 + 'tYOXw7XhAtwDn2ETXU9T2/6QfTr+nKjvW3finE/xVqOvqz9YgCEOggGf/1iw7xUPYQIDAQAB\n'
 + '-----END RSA PUBLIC KEY-----\n';
 
-export const SPECIAL_ROLE = '所有菜单';
+export const SPECIAL_ROLE = '全量菜单';
