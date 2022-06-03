@@ -1,10 +1,5 @@
 import { RouteRecordRaw } from 'vue-router';
-import Result from '@/components/result';
 import HomePage from '@/views/home-page.vue';
-import One from '@/views/test-token.vue';
-import MenuConfiguration from '@/views/personnel-management/menu-configuration/index.vue';
-import Role from '@/views/personnel-management/role.vue';
-import User from '@/views/personnel-management/user.vue';
 
 export const mainPanelRoutes:RouteRecordRaw[] = [
 	{
@@ -15,26 +10,26 @@ export const mainPanelRoutes:RouteRecordRaw[] = [
 	{
 		path: 'one',
 		name: 'one',
-		component: One
+		component: () => import('@/views/test-token.vue')
 	},
 	{
 		path: 'role',
 		name: 'role',
-		component: Role
+		component: () => import('@/views/personnel-management/role.vue')
 	},
 	{
 		path: 'user',
 		name: 'user',
-		component: User
+		component: () => import('@/views/personnel-management/user.vue')
 	},
 	{
 		path: 'menu',
 		name: 'menu',
-		component: MenuConfiguration
+		component: () => import('@/views/personnel-management/menu-configuration/index.vue')
 	},
 	{
 		path: 'result',
 		name: 'result',
-		component: Result
+		component: () => import('@/components/result')
 	}
 ];

@@ -14,5 +14,19 @@ export default defineConfig({
 		alias: {
 			'@': resolve(__dirname, './src/')
 		}
+	},
+	build: {
+		rollupOptions: {
+			output: {
+				manualChunks: {
+					'element-plus': ['element-plus'],
+					'personnel-management': [
+						'./src/views/personnel-management/menu-configuration/index.vue',
+						'./src/views/personnel-management/role.vue',
+						'./src/views/personnel-management/user.vue'
+					]
+				}
+			}
+		}
 	}
 });
