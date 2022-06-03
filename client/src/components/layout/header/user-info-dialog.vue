@@ -7,7 +7,7 @@ import { useStore } from '@/stores';
 import type { UserInfo } from '@/utils';
 import editPasswordDialog from './edit-password-dialog.vue';
 
-const { editable, userInfo } = await getUserInfo() as {editable: boolean, userInfo: UserInfo};
+const { editable, userInfo } = await getUserInfo() as {editable: string[], userInfo: UserInfo};
 const emit = defineEmits(['update:modelValue']);
 const store = useStore();
 
