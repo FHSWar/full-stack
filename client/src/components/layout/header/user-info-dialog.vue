@@ -1,12 +1,13 @@
 <script lang="ts" setup>
-import { computed, reactive, ref, toRaw } from 'vue';
+import { computed, provide, reactive, ref, toRaw } from 'vue';
 import { ElMessage } from 'element-plus';
 import type { UploadProps } from 'element-plus';
 import { getUserInfo, imgBaseUrl, updateSelfInfo, uploadAvatar } from '@/api/authorization';
 import { useStore } from '@/stores';
+import type { UserInfo } from '@/utils';
 import editPasswordDialog from './edit-password-dialog.vue';
 
-const { editable, userInfo } = await getUserInfo() as any;
+const { editable, userInfo } = await getUserInfo() as {editable: boolean, userInfo: UserInfo};
 const emit = defineEmits(['update:modelValue']);
 const store = useStore();
 
@@ -80,6 +81,7 @@ const fromChild = (str: string) => {
 	showEditPasswordBool.value = false;
 	if (str === 'closeParent') emit('update:modelValue');
 };
+provide('dialogVisible', showEditPasswordBool);
 </script>
 
 <template>
@@ -153,7 +155,6 @@ const fromChild = (str: string) => {
       </div>
     </div>
     <edit-password-dialog
-      :model-value="showEditPasswordBool"
       @update:model-value="fromChild"
     />
   </el-dialog>

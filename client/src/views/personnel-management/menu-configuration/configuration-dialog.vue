@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-import { reactive, ref } from 'vue';
+import { inject, reactive, ref } from 'vue';
 import { useRouter } from 'vue-router';
 import type { FormInstance, FormRules } from 'element-plus';
 import { iconNameArr } from '@/components/use-icon';
@@ -11,8 +11,7 @@ const pageNameArr = useRouter()
 
 const emit = defineEmits(['update:modelValue', 'append']);
 
-const closeDialog = () => { emit('update:modelValue'); };
-
+const dialogVisible = inject('dialogVisible');
 const formSize = ref('default');
 const ruleFormRef = ref<FormInstance>();
 const ruleForm = reactive({
@@ -22,7 +21,6 @@ const ruleForm = reactive({
 	insert: '',
 	desc: ''
 });
-
 const rules = reactive<FormRules>({
 	title: [
 		{ required: true, message: '请输入菜单项标题', trigger: 'blur' },
@@ -55,10 +53,17 @@ const resetForm = (formEl: FormInstance | undefined) => {
 	if (!formEl) return;
 	formEl.resetFields();
 };
+
+const closeDialog = () => { emit('update:modelValue'); };
 </script>
 
 <template>
-  <el-dialog draggable width="30%" @close="closeDialog">
+  <el-dialog
+    v-model="dialogVisible"
+    draggable
+    width="30%"
+    @close="closeDialog"
+  >
     <div class="configuration-dialog__wrapper">
       <el-form
         ref="ruleFormRef"

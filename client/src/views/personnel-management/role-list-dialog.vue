@@ -10,6 +10,7 @@ const props = defineProps<{
 }>();
 defineEmits(['fromChild']);
 
+const dialogVisible = inject('dialogVisible');
 const partialRoleArr = props.haveInjection ? inject('partialRoleArr') as any : [];
 const roleList = ref([] as any);
 const partialRoleList = ref([] as any);
@@ -27,11 +28,12 @@ partialRoleList.value = arr
 
 <template>
   <el-dialog
+    v-model="dialogVisible"
     ref="dialogEl"
     draggable
     center
-    :title="title"
     width="33%"
+    :title="title"
   >
     <el-select
       class="dialog__select"

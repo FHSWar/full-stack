@@ -10,6 +10,7 @@ const userList = ref([] as any);
 const partialRoleList = ref([] as any);
 const userEditing = ref({}) as any;
 const assignRoleDialogVisible = ref(false);
+provide('dialogVisible', assignRoleDialogVisible);
 provide('partialRoleArr', partialRoleList);
 
 const columns: FhsTableColumn[] = [
@@ -45,6 +46,7 @@ const handleButtonClick = async (desc: string, row: any) => {
 			userEditing.value = row;
 			break;
 		case '删除':
+			console.log('userEditing', userEditing.value);
 			await removeUser(userEditing.value);
 			getUsers();
 			break;
@@ -74,7 +76,6 @@ getUsers();
       <role-list-dialog
         :have-injection="true"
         :title="`${userEditing.um}角色`"
-        :model-value="assignRoleDialogVisible"
         @update:model-value="assignRoleDialogVisible = false"
         @from-child="confirmEdit"
       />

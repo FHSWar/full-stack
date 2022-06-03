@@ -23,7 +23,7 @@ if (themeConfig === null) {
 }
 
 let userInfo: UserInfo;
-temp = getLocal('userInfo') as UserInfo;
+temp = getLocal('userInfo') as unknown as UserInfo;
 if (temp !== null) userInfo = temp;
 else userInfo = {} as UserInfo;
 

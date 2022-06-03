@@ -2,7 +2,7 @@
 import { testToken } from '@/api/authorization';
 
 const test = async () => {
-	await testToken({ a: 1, b: 2, c: 3 });
+	await testToken();
 };
 </script>
 

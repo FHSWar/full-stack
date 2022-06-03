@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-import { reactive, ref } from 'vue';
+import { provide, reactive, ref } from 'vue';
 import type { FormInstance } from 'element-plus';
 import dayjs from 'dayjs';
 import { appointPermmittedRole, addRole, editRole, getRoleList, removeRole } from '@/api/personnel';
@@ -15,6 +15,7 @@ const assignRoleDialogVisible = ref(false);
 const newRoleDialogVisible = ref(false);
 const formRef = ref<FormInstance>();
 const roleValidateForm = reactive({ role: '', description: '' });
+provide('dialogVisible', assignRoleDialogVisible);
 
 const columns: FhsTableColumn[] = [
 	{ label: '角色', prop: 'role', width: 160 },
@@ -47,6 +48,7 @@ const handleButtonClick = async (desc: string, row: any) => {
 		case '编辑':
 			if (!row.editing) row.editing = true;
 			else {
+				console.log('row', row);
 				await editRole(row);
 				row.editing = false;
 			}
@@ -158,7 +160,6 @@ getList();
     <suspense>
       <role-list-dialog
         title="指定可操作权限模块的角色"
-        :model-value="assignRoleDialogVisible"
         @update:model-value="assignRoleDialogVisible = false"
         @from-child="confirmEdit"
       />

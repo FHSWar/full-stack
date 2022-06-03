@@ -1,29 +1,27 @@
 import { get, post } from '@/utils';
+import type { UserInfo } from '@/utils';
 
-type User = {
-    username: string,
-    password: string,
-    checkPassword?: string
-}
+type LoginUser = Omit<UserInfo, 'avatar'|'um'|'roles'>&{checkPassword?: string}
+// checkPassword
 
 // 登陆
-export const login = (params: User) => post('auth/login', params);
+export const login = (params: LoginUser) => post('auth/login', params);
 
 // 注册
-export const register = (params: User) => post('auth/register', params);
+export const register = (params: LoginUser) => post('auth/register', params);
 
 // 获取用户信息
 export const getUserInfo = () => get('auth/userInfo', {}, { useMessage: false });
 
 // 更新用户信息
-export const updateSelfInfo = (params: User) => post('auth/updateSelfInfo', params);
+export const updateSelfInfo = (params: LoginUser) => post('auth/updateSelfInfo', params);
 
 // 测试token
-export const testToken = (params: any) => get('test', params);
+export const testToken = () => get('test');
 
 // 上传头像
 export const imgBaseUrl = 'http://localhost:9000';
-export const uploadAvatar = (params: User) => post(
+export const uploadAvatar = (params: LoginUser&{avatar: File[]}) => post(
 	'upload/avatar',
 	params,
 	{ useFormData: true }

@@ -1,10 +1,11 @@
 <script lang="ts" setup>
-import { reactive, ref } from 'vue';
+import { inject, reactive, ref } from 'vue';
 import type { FormInstance } from 'element-plus';
 import { useStore } from '@/stores';
 import { getUserInfo, updateSelfInfo } from '@/api/authorization';
 
 const emit = defineEmits(['update:modelValue']);
+const dialogVisible = inject('dialogVisible');
 
 const form = reactive({
 	oldPassword: '',
@@ -45,6 +46,7 @@ const changePassword = async (params: typeof form) => {
 	store.token = bearer;
 
 	const { userInfo: newUserInfo } = await getUserInfo() as any;
+	console.log('newUserInfo', newUserInfo);
 	store.userInfo = newUserInfo;
 
 	emit('update:modelValue', 'closeParent');
@@ -69,7 +71,12 @@ const closeDialog = () => { emit('update:modelValue'); };
 </script>
 
 <template>
-  <el-dialog width="30%" append-to-body @close="closeDialog">
+  <el-dialog
+    v-model="dialogVisible"
+    width="30%"
+    append-to-body
+    @close="closeDialog"
+  >
     <el-form
       status-icon
       ref="ruleFormRef"

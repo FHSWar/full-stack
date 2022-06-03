@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-import { ref, watchEffect } from 'vue';
+import { provide, ref, watchEffect } from 'vue';
 import { cloneDeep } from 'lodash';
 import type Node from 'element-plus/es/components/tree/src/model/node';
 import { computed } from '@vue/reactivity';
@@ -25,6 +25,7 @@ const activeNodeParentData = ref({} as Node['data']);
 const isAll = computed(() => props.role === SPECIAL_ROLE);
 const showDialogBool = ref(false);
 const treeRef = ref(null) as any;
+provide('dialogVisible', showDialogBool);
 
 const closeDialog = () => { showDialogBool.value = false; };
 const setCheckedByRole = async () => {
@@ -167,7 +168,6 @@ export default {
     </el-tree>
     <configuration-dialog
       v-if="showDialogBool"
-      :model-value="showDialogBool"
       @append="append"
       @update:model-value="closeDialog"
     />
