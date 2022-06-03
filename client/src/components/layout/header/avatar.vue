@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-import { computed, ref } from 'vue';
+import { computed, provide, ref } from 'vue';
 import { UserFilled } from '@element-plus/icons-vue';
 import { useStore } from '@/stores';
 import { imgBaseUrl } from '@/api/authorization';
@@ -15,6 +15,7 @@ const avatarUrl = computed(() => store.userInfo.avatar);
 const showDialogBool = ref(false);
 const showDialog = async () => { showDialogBool.value = true; };
 const closeDialog = () => { showDialogBool.value = false; };
+provide('dialogVisible', showDialogBool);
 
 const optionList = [
 	{
@@ -62,11 +63,7 @@ const triggerMethod = (method: () => void) => { method(); };
 
   <Suspense>
     <!-- @update维护正确的现实状态-->
-    <user-info-dialog
-      v-if="showDialogBool"
-      :model-value="showDialogBool"
-      @update:model-value="closeDialog"
-    />
+    <user-info-dialog @from-child="closeDialog" />
   </Suspense>
 </template>
 

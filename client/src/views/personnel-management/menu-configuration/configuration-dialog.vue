@@ -1,5 +1,6 @@
 <script lang="ts" setup>
 import { inject, reactive, ref } from 'vue';
+import type { Ref } from 'vue';
 import { useRouter } from 'vue-router';
 import type { FormInstance, FormRules } from 'element-plus';
 import { iconNameArr } from '@/components/use-icon';
@@ -11,8 +12,7 @@ const pageNameArr = useRouter()
 
 const emit = defineEmits(['update:modelValue', 'append']);
 
-const dialogVisible = inject('dialogVisible');
-const formSize = ref('default');
+const dialogVisible = inject('dialogVisible') as Ref<boolean>;
 const ruleFormRef = ref<FormInstance>();
 const ruleForm = reactive({
 	title: '',
@@ -71,7 +71,6 @@ const closeDialog = () => { emit('update:modelValue'); };
         :rules="rules"
         label-width="120px"
         class="demo-ruleForm"
-        :size="formSize"
       >
         <el-form-item label="添加位置" prop="insert">
           <el-radio-group v-model="ruleForm.insert">
@@ -111,8 +110,8 @@ const closeDialog = () => { emit('update:modelValue'); };
             <el-option
               v-for="pageName in pageNameArr"
               :key="pageName"
-              :label="pageName"
-              :value="pageName"
+              :label="(pageName as string)"
+              :value="(pageName as string)"
             >
               {{ pageName }}
             </el-option>

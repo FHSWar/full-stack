@@ -1,5 +1,6 @@
 <script lang="ts" setup>
-import { computed, provide, reactive, ref, toRaw } from 'vue';
+import { computed, inject, provide, reactive, ref, toRaw } from 'vue';
+import type { Ref } from 'vue';
 import { ElMessage } from 'element-plus';
 import type { UploadProps } from 'element-plus';
 import { getUserInfo, imgBaseUrl, updateSelfInfo, uploadAvatar } from '@/api/authorization';
@@ -8,8 +9,9 @@ import type { UserInfo } from '@/utils';
 import editPasswordDialog from './edit-password-dialog.vue';
 
 const { editable, userInfo } = await getUserInfo() as {editable: string[], userInfo: UserInfo};
-const emit = defineEmits(['update:modelValue']);
+const emit = defineEmits(['fromChild']);
 const store = useStore();
+const dialogVisible = inject('dialogVisible') as Ref<boolean>;
 
 const buildReactive = (obj: any) => {
 	const keyArr = Object.keys(obj).filter((key) => !key.startsWith('_'));
@@ -67,7 +69,6 @@ const edit = async () => {
 		store.userInfo = newUserInfo;
 
 		disabled.value = true;
-		emit('update:modelValue');
 	}
 };
 
@@ -75,17 +76,20 @@ const showEditPasswordBool = ref(false);
 const showEditPassword = () => { showEditPasswordBool.value = true; };
 const closeDialog = () => {
 	showEditPasswordBool.value = false;
-	emit('update:modelValue');
 };
 const fromChild = (str: string) => {
 	showEditPasswordBool.value = false;
-	if (str === 'closeParent') emit('update:modelValue');
+	if (str === 'closeParent') emit('fromChild');
 };
 provide('dialogVisible', showEditPasswordBool);
 </script>
 
 <template>
-  <el-dialog width="30%" @close="closeDialog">
+  <el-dialog
+    v-model="dialogVisible"
+    width="30%"
+    @close="closeDialog"
+  >
     <div class="dialog__wrapper">
       <div v-if="disabled">
         <el-avatar

@@ -167,7 +167,6 @@ export default {
       </template>
     </el-tree>
     <configuration-dialog
-      v-if="showDialogBool"
       @append="append"
       @update:model-value="closeDialog"
     />

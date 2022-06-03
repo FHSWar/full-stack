@@ -1,7 +1,7 @@
 <script lang="ts" setup>
 import { computed, ref, watchEffect } from 'vue';
 import { useRouter } from 'vue-router';
-import { TabsPaneContext } from 'element-plus';
+import { TabPanelName, TabsPaneContext } from 'element-plus';
 import { constantRoutes } from '@/router';
 import { useStore } from '@/stores';
 import { findMenuListChain } from '@/utils';
@@ -59,7 +59,7 @@ const tabClick = (tab:TabsPaneContext) => {
 	maintainBreadCrumb(tabName);
 	router.push({ name: tabName });
 };
-const tabRemove = (tabName:string) => {
+const tabRemove = (tabName:TabPanelName) => {
 	const pageIndexInVisitedRoutes = visited.value.findIndex(({ page }) => page === tabName);
 	store.visitedRoutes = visited.value.filter(({ page }) => page !== tabName);
 

@@ -1,5 +1,6 @@
 <script lang="ts" setup>
 import { inject, ref, watchEffect } from 'vue';
+import type { Ref } from 'vue';
 import { getRoleList } from '@/api/personnel';
 import { SPECIAL_ROLE } from '@/utils';
 
@@ -10,7 +11,7 @@ const props = defineProps<{
 }>();
 defineEmits(['fromChild']);
 
-const dialogVisible = inject('dialogVisible');
+const dialogVisible = inject('dialogVisible') as Ref<boolean>;
 const partialRoleArr = props.haveInjection ? inject('partialRoleArr') as any : [];
 const roleList = ref([] as any);
 const partialRoleList = ref([] as any);

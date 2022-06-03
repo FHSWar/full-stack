@@ -1,11 +1,12 @@
 <script lang="ts" setup>
 import { inject, reactive, ref } from 'vue';
+import type { Ref } from 'vue';
 import type { FormInstance } from 'element-plus';
 import { useStore } from '@/stores';
 import { getUserInfo, updateSelfInfo } from '@/api/authorization';
 
 const emit = defineEmits(['update:modelValue']);
-const dialogVisible = inject('dialogVisible');
+const dialogVisible = inject('dialogVisible') as Ref<boolean>;
 
 const form = reactive({
 	oldPassword: '',
