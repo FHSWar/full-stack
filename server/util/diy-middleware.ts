@@ -5,7 +5,7 @@ import { Role } from 'model/role';
 
 export const checkPermittedRole = async (ctx: ParameterizedContext) => {
 	const { header } = ctx.request;
-	const { roles } = verifyToken(header.authorization?.replace('Bearer ', '')) as { roles: string[] };
+	const { roles } = verifyToken(header.authorization?.replace('Bearer ', '') as string) as { roles: string[] };
 	const permittedRoleDocArr = await Role.find({ isDelete: false, isPermitted: true });
 	const permittedRoleArr = permittedRoleDocArr.map((doc) => doc.role);
 

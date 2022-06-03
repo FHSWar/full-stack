@@ -11,7 +11,7 @@ const router = useRouter();
 router.get('auth/routesByRole', async (ctx) => {
 	const { role } = ctx.query as {role?: string};
 	const { header } = ctx.request;
-	const { roles } = verifyToken(header.authorization?.replace('Bearer ', '')) as {roles: string[]};
+	const { roles } = verifyToken(header.authorization?.replace('Bearer ', '') as string) as {roles: string[]};
 
 	const findRoutesJsonByRoleId = async (id: IClientRoutes['role']) => {
 		const routesDoc = await ClientRoutes.findOne({ role: id, isDelete: false }).lean();

@@ -5,7 +5,7 @@ const router = useRouter();
 
 router.get('auth/userInfo', async (ctx) => {
 	const { header } = ctx;
-	const { um, username } = verifyToken(header.authorization?.replace('Bearer ', '')) as IUser;
+	const { um, username } = verifyToken(header.authorization?.replace('Bearer ', '') as string) as IUser;
 	const userInfo = await User.findOne({ um, username }).populate('roles');
 
 	if (userInfo) {
@@ -33,7 +33,7 @@ router.post('auth/updateSelfInfo', async (ctx) => {
 		oldPassword,
 		password
 	} = ctx.request.body;
-	const userInfo = await User.findOne({ um });
+	const userInfo = await User.findOne({ um }).populate('roles');
 
 	if (userInfo) {
 		userInfo.username = username;
@@ -45,7 +45,11 @@ router.post('auth/updateSelfInfo', async (ctx) => {
 		}
 
 		toCliect(ctx, {
-			token: generateToken({ username, um: userInfo.um }),
+			token: generateToken({
+				username,
+				um: userInfo.um,
+				roles: userInfo.roles.map(({ role }) => role)
+			}),
 			message: '用户信息已更新'
 		});
 	}

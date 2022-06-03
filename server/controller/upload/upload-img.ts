@@ -6,6 +6,7 @@ import {
 	upload,
 	verifyToken
 } from '@util';
+import multer from '@koa/multer';
 
 // process.cwd(): /Users/fhs_war/Documents/trainHall/full-stack/server
 // __dirname: /Users/fhs_war/Documents/trainHall/full-stack/server/router/upload
@@ -13,7 +14,7 @@ import {
 const router = useRouter();
 
 router.post('upload/avatar', upload, async (ctx) => {
-	const { avatar } = ctx.request.files as any;
+	const { avatar } = ctx.request.files as { avatar: multer.File[] };
 	const { authorization: token } = ctx.request.header;
 	const { um, username } = verifyToken((token as string).replace('Bearer ', '')) as Omit<IUser, 'password'>;
 

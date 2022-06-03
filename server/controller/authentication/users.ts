@@ -23,7 +23,6 @@ router.get('auth/userList', async (ctx) => {
 });
 
 router.post('auth/editUserRoles', async (ctx) => {
-	// verifyToken(header.authorization?.replace('Bearer ', '')) as IUser;
 	const { um, username, roles } = ctx.request.body;
 
 	const roleArr = (roles as string[]).map((role) => ({ role }));
