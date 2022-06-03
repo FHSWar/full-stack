@@ -1,5 +1,5 @@
 import { cloneDeep } from 'lodash';
-import type { MenuTree, ExtendedMenuTreeItem } from 'client/src/utils';
+import type { MenuTree, ExtendedMenuTreeItem } from 'shared';
 
 // 组装菜单树
 export const assembleTree = (data: MenuTree) => {

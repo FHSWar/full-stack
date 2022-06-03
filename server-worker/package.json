@@ -6,7 +6,7 @@
   "keywords": ["koa"],
   "version": "1.0.0",
   "scripts": {
-    "dev": "nodemon app.ts",
+    "dev": "nodemon --quiet app.ts",
     "lint": "eslint --fix --ext .js,.ts ./"
   },
   "dependencies": {

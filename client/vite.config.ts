@@ -7,8 +7,10 @@ import { resolve } from 'path';
 export default defineConfig({
 	plugins: [
 		vue(),
-		vueJsx(), // 增加tsx支持，写复杂模版可以用一下
-		legacy() // 老旧浏览器支持，默认没有ie11，可以使用诸如Array.prototype.at()
+		// 增加tsx支持，写复杂模版可以用一下
+		vueJsx(),
+		// 老旧浏览器支持，默认没有ie11，使构建产物支持诸如可选链等新语法，会使包体积增大约十分之一，但会按需
+		legacy()
 	],
 	resolve: {
 		alias: {
@@ -19,6 +21,7 @@ export default defineConfig({
 		rollupOptions: {
 			output: {
 				manualChunks: {
+					// 1M左右
 					'element-plus': ['element-plus'],
 					'personnel-management': [
 						'./src/views/personnel-management/menu-configuration/index.vue',

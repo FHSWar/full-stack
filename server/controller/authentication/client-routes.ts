@@ -1,6 +1,5 @@
 import { uniqBy } from 'lodash';
-import { assembleTree, flattenMenuTree } from 'shared';
-import { MenuTree } from 'client/src/utils';
+import { assembleTree, flattenMenuTree, MenuTree } from 'shared';
 import { defaultRole } from 'config';
 import { ClientRoutes, IClientRoutes } from 'model/client-routes';
 import { Role } from 'model/role';

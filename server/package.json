@@ -7,7 +7,7 @@
   ],
   "version": "1.0.0",
   "scripts": {
-    "dev": "cross-env NODE_ENV=development nodemon app.ts",
+    "dev": "cross-env NODE_ENV=development nodemon --quiet app.ts",
     "lint": "eslint --fix --ext .js,.ts ./",
     "pm2": "pm2 start ./build/server/app.js --node-args=\"-r ts-node/register/transpile-only -r tsconfig-paths/register\"",
     "prd": "tsc && npm run pm2",
