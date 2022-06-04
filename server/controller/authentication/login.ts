@@ -1,7 +1,7 @@
 import { defaultRole } from 'config';
 import { Role } from 'model/role';
 import { User } from 'model/user';
-import { encryptBySHA512, decryptPassword, generateToken, useRouter } from '@util';
+import { encryptBySHA512, decryptPassword, generateToken } from '@util';
 
 const router = useRouter();
 

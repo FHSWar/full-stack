@@ -2,7 +2,6 @@ import { createWriteStream, readdirSync, unlinkSync } from 'fs';
 import multer from '@koa/multer';
 import { IUser, User } from 'model/user';
 import {
-	useRouter,
 	staticDir,
 	upload,
 	verifyToken

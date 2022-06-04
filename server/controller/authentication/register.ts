@@ -1,5 +1,5 @@
 import { defaultRole } from 'config';
-import { decryptPassword, encryptBySHA512, useRouter } from '@util';
+import { decryptPassword, encryptBySHA512 } from '@util';
 import { User } from 'model/user';
 import { Role } from 'model/role';
 

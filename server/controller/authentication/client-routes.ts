@@ -3,7 +3,7 @@ import { assembleTree, flattenMenuTree, MenuTree } from 'shared';
 import { defaultRole } from 'config';
 import { ClientRoutes, IClientRoutes } from 'model/client-routes';
 import { Role } from 'model/role';
-import { useRouter, verifyToken } from '@util';
+import { verifyToken } from '@util';
 
 const router = useRouter();
 

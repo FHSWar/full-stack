@@ -1,4 +1,3 @@
-import { useRouter } from '@util';
 import { defaultRole } from 'config';
 import { Role } from 'model/role';
 

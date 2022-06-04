@@ -1,5 +1,5 @@
 import { STATUS, useLogger } from 'shared';
-import { KoaContext } from '@util';
+import { redis, useRouter, KoaContext } from '@util';
 import wss from './web-socket';
 
 // 统一返回格式
@@ -22,6 +22,8 @@ const toCliect = (
 
 export const mountGlobal = () => {
 	global.logger = useLogger('chief', __dirname);
+	global.redis = redis;
+	global.useRouter = useRouter;
 	global.STATUS = STATUS;
 	global.toCliect = toCliect;
 	global.wss = wss;

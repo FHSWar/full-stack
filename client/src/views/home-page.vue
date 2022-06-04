@@ -3,7 +3,7 @@
 
 <template>
   <div>
-    非常homie的页面
+    <img src="/后台系统——登陆与权限.svg" alt="">
   </div>
 </template>
 <style lang="scss" scoped>

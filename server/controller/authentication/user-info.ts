@@ -1,5 +1,5 @@
 import { IUser, User } from 'model/user';
-import { useRouter, generateToken, verifyToken } from '@util';
+import { generateToken, verifyToken } from '@util';
 
 const router = useRouter();
 
