@@ -39,6 +39,7 @@ export const generateToken = (payload: {
 	username: IUser['username']
 	um: IUser['um']
 	roles: IRole['role'][]
+	timeStamp: Date
 }) => sign(payload, secretKey, { expiresIn: '7d' });
 
 export const verifyToken = (payload: string) => verify(payload, secretKey);

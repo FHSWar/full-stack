@@ -48,7 +48,8 @@ router.post('auth/updateSelfInfo', async (ctx) => {
 			token: generateToken({
 				username,
 				um: userInfo.um,
-				roles: userInfo.roles.map(({ role }) => role)
+				roles: userInfo.roles.map(({ role }) => role),
+				timeStamp: new Date()
 			}),
 			message: '用户信息已更新'
 		});

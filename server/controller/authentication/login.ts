@@ -29,7 +29,8 @@ router.post('auth/login', async (ctx) => {
 			token: generateToken({
 				username,
 				um: passwordCorrect.um,
-				roles: roleArr
+				roles: roleArr,
+				timeStamp: new Date()
 			}),
 			message: '已登陆'
 		});

@@ -69,6 +69,9 @@ router.post('auth/appointPermission', async (ctx) => {
 			$or: (appointedRoleArr as string[]).map((role) => ({ role }))
 		}).updateMany({ isPermitted: true });
 
+	await redis.ltrim('permittedRoleArr', 1, 0);
+	await Promise.all(appointedRoleArr.map((role: string) => redis.lpush('permittedRoleArr', role)));
+
 	toCliect(ctx, `有权限角色已变更为${isEmpty ? '所有角色' : appointedRoleArr}`);
 });
 
