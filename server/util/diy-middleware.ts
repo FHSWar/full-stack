@@ -36,3 +36,21 @@ export const checkPermission = () => {
 		await next();
 	};
 };
+
+// https://stackoverflow.com/questions/21978658/invalidating-json-web-tokens 调接口的退出，更安全
+export const checkJWTValidity = () => {
+	const noCheckArr = ['login', 'register'];
+
+	return async (ctx: Context, next: Next) => {
+		const { request } = ctx;
+		const { header, url } = request;
+		const token = header.authorization || '';
+
+		if (url.startsWith('/api') && !noCheckArr.includes(url.replace('/api/auth/', ''))) {
+			const isLogout = await redis.get(token);
+			if (isLogout) return toCliect(ctx, 'Token已失效', STATUS.FORBIDDEN);
+		}
+
+		await next();
+	};
+};

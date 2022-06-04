@@ -7,6 +7,9 @@ type LoginUser = Omit<UserInfo, 'avatar'|'um'|'roles'>&{checkPassword?: string}
 // 登陆
 export const login = (params: LoginUser) => post('auth/login', params);
 
+// 退出
+export const logout = () => post('auth/logout');
+
 // 注册
 export const register = (params: LoginUser) => post('auth/register', params);
 

@@ -15,16 +15,21 @@ const dialogVisible = inject('dialogVisible') as Ref<boolean>;
 const partialRoleArr = props.haveInjection ? inject('partialRoleArr') as any : [];
 const roleList = ref([] as any);
 const partialRoleList = ref([] as any);
+
 watchEffect(() => { partialRoleList.value = partialRoleArr?.value; });
+watchEffect(async () => {
+	// 解决弹窗没出现就请求接口的bug
+	if (dialogVisible.value && roleList.value.length === 0) {
+		const { list } = await getRoleList() as any;
 
-const { list } = await getRoleList() as any;
+		const arr = list.filter(({ role }:{role: string}) => role !== SPECIAL_ROLE);
+		roleList.value = arr;
+		partialRoleList.value = arr
+			.filter(({ isPermitted }:{isPermitted: boolean}) => isPermitted)
+			.map(({ role }:{role: string}) => role);
+	}
+});
 
-const arr = list.filter(({ role }:{role: string}) => role !== SPECIAL_ROLE);
-roleList.value = arr;
-
-partialRoleList.value = arr
-	.filter(({ isPermitted }:{isPermitted: boolean}) => isPermitted)
-	.map(({ role }:{role: string}) => role);
 </script>
 
 <template>

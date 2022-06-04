@@ -1,11 +1,14 @@
+import { logout } from '@/api/authorization';
 import { router } from '@/router';
 import { useStore } from '@/stores';
 
-export const useLogout = () => {
+export const useLogout = async () => {
 	const store = useStore();
-
 	router.push({ name: 'login' });
 	store.$reset();
+
+	await logout();
+
 	setTimeout(() => {
 		sessionStorage.clear();
 		localStorage.clear();

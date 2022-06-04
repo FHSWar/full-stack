@@ -5,7 +5,7 @@ const router = useRouter();
 
 router.get('auth/userList', async (ctx) => {
 	const userList = await User.find({ isDelete: false }).populate('roles');
-	console.log('123123');
+
 	const list = userList.map((u) => {
 		const { username, um, roles, createdAt, updatedAt } = u;
 

@@ -42,4 +42,14 @@ router.post('auth/login', async (ctx) => {
 	toCliect(ctx, '用户不存在', STATUS.FAILURE);
 });
 
+router.post('auth/logout', async (ctx) => {
+	const { header } = ctx.request;
+	const token = header.authorization || '';
+
+	// redis里存token黑名单，中间件做校验
+	await redis.set(token, 1);
+
+	toCliect(ctx, '已退出');
+});
+
 export default router;
