@@ -4,10 +4,9 @@ import { useStore } from '@/stores';
 
 export const useLogout = async () => {
 	const store = useStore();
+	await logout();
 	router.push({ name: 'login' });
 	store.$reset();
-
-	await logout();
 
 	setTimeout(() => {
 		sessionStorage.clear();
