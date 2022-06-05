@@ -16,7 +16,7 @@ const router = useRouter();
  * @api {post} /api/upload/avatar 更换登录人头像
  * @apiVersion 1.0.0
  * @apiName avatar
- * @apiGroup role
+ * @apiGroup user
  * @apiHeader {String} Authorization 用户授权token
  * @apiBody (query) {Object[]} avatar 用户头像
  */

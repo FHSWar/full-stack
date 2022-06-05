@@ -1,4 +1,5 @@
 export * from './axios/methods';
+export * from './composition/encrypt-password';
 export * from './composition/logout';
 export * from './composition/menu-tree-conversion';
 export * from './composition/pinia-persistance';

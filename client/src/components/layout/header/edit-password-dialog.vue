@@ -3,6 +3,7 @@ import { inject, reactive, ref } from 'vue';
 import type { Ref } from 'vue';
 import type { FormInstance } from 'element-plus';
 import { useStore } from '@/stores';
+import { encryptPassword } from '@/utils';
 import { getUserInfo, updateSelfInfo } from '@/api/authorization';
 
 const emit = defineEmits(['update:modelValue']);
@@ -41,13 +42,15 @@ const rules = reactive({
 const changePassword = async (params: typeof form) => {
 	const store = useStore();
 
+	params.password = encryptPassword(params.password);
+	params.oldPassword = encryptPassword(params.oldPassword);
+
 	// 改完信息更新token和userInfo
 	const { token } = await updateSelfInfo({ ...store.userInfo, ...params }) as any;
 	const bearer = `Bearer ${token}`;
 	store.token = bearer;
 
 	const { userInfo: newUserInfo } = await getUserInfo() as any;
-	console.log('newUserInfo', newUserInfo);
 	store.userInfo = newUserInfo;
 
 	emit('update:modelValue', 'closeParent');
