@@ -1,5 +1,5 @@
 import { cloneDeep } from 'lodash';
-import type { MenuTree, ExtendedMenuTreeItem } from 'shared';
+import type { MenuTree } from 'shared/client-util';
 
 // 组装菜单树
 export const assembleTree = (data: MenuTree) => {
@@ -40,22 +40,4 @@ export const flattenMenuTree = (arr: MenuTree) => {
 		return item;
 	});
 	return result;
-};
-
-// 其他角色的操作会给“所有菜单”加上check和indeterminate标记位，不好，修掉，顺拜维护正确的pid
-export const trimMenuTree = (arr: ExtendedMenuTreeItem[]):MenuTree => {
-	const arrCopy = cloneDeep(arr);
-	const handler = (innerArr: ExtendedMenuTreeItem[], pid?: string) => {
-		innerArr.forEach((item: ExtendedMenuTreeItem) => {
-			// 第一层的菜单项pid为空字符串
-			pid ? item.pid = pid : item.pid = '';
-			if (item.children.length !== 0) {
-				handler(item.children, item.id);
-			}
-			delete item.checked;
-			delete item.indeterminate;
-		});
-	};
-	handler(arrCopy);
-	return arrCopy;
 };

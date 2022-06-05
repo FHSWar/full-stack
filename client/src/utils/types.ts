@@ -1,23 +1,13 @@
 import type { ButtonType } from 'element-plus';
+import type { MenuTree } from 'shared/client-util';
 
 export type ShallowObject = {
   [key:string]: string|number|boolean
 }
 export type LocalStorageValue = string|number|boolean|ShallowObject
 
+export type { MenuTree };
 // 组装好的，渲染用
-export type MenuTree = {
-  children: MenuTree
-  desc?: string
-  icon?: string // 用不了keyof typeof Icons
-  id: string
-  meta?: {
-    [key:string]: any
-  }
-  page?: string // 就是路由的name
-  pid: string
-  title: string
-}[];
 export type ExtendedMenuTreeItem = MenuTree[0]&{checked?: boolean, indeterminate?: boolean}
 
 // 摊平的，方便后端存
