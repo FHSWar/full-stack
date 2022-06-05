@@ -24,6 +24,7 @@ export const checkPermittedRole = async (ctx: ParameterizedContext) => {
 	}
 
 	const redisPermittedRoleArr = await redis.lrange('permittedRoleArr', 0, redisPermittedRoleListLen);
+
 	return intersection(roles, redisPermittedRoleArr).length > 0;
 };
 
@@ -33,22 +34,24 @@ export const checkPermittedRole = async (ctx: ParameterizedContext) => {
 	两个必有角色：”访客“和”所有菜单“，这是不耦合业务的，耦合业务的角色及相关代码在此基础上开发
 */
 export const checkPermission = () => {
-	const noCheckArr = ['login', 'register', 'routesByRole', 'updateSelfInfo', 'userInfo'];
+	const noCheckArr = ['login', 'logout', 'register', 'routesByRole', 'updateSelfInfo', 'userInfo'];
+	const noCheckArrTwo = ['login', 'logout', 'register'];
 
 	return async (ctx: Context, next: Next) => {
 		const { request } = ctx;
 		const { header, url } = request;
 		const token = header.authorization || '';
 
-		// https://stackoverflow.com/questions/21978658/invalidating-json-web-tokens 调接口的退出，更安全
-		// checkJWTValidity
-		if (url.startsWith('/api') && !noCheckArr.includes(url.replace('/api/auth/', ''))) {
-			const isLogout = await redis.get(token);
-			if (isLogout) return toCliect(ctx, 'Token已失效', STATUS.FORBIDDEN);
-		}
 		if (url.startsWith('/api/auth') && !noCheckArr.includes(url.replace('/api/auth/', ''))) {
 			const isPermitted = await checkPermittedRole(ctx);
 			if (!isPermitted) return toCliect(ctx, '该角色无权限', STATUS.FORBIDDEN);
+		}
+
+		// https://stackoverflow.com/questions/21978658/invalidating-json-web-tokens 调接口的退出，更安全
+		// checkJWTValidity
+		if (url.startsWith('/api') && !noCheckArrTwo.includes(url.replace('/api/auth/', ''))) {
+			const isLogout = await redis.get(token);
+			if (isLogout) return toCliect(ctx, 'Token已失效', STATUS.FORBIDDEN);
 		}
 
 		await next();
