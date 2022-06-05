@@ -16,5 +16,5 @@ export const useRoutes = (app:KoaInstance) => {
 			app.use(splitRouter.routes()).use(splitRouter.allowedMethods());
 		});
 
-	logger.info(chalk.blue.bold('✨路由已装载'));
+	logger.info(chalk.blue.bold('✨  路由已装载'));
 };

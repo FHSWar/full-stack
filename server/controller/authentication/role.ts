@@ -3,7 +3,13 @@ import { Role } from 'model/role';
 
 const router = useRouter();
 
-// 获取角色列表
+/**
+ * @api {get} /api/auth/roleList 获取角色列表
+ * @apiVersion 1.0.0
+ * @apiName roleList
+ * @apiGroup role
+ * @apiHeader {String} Authorization 用户授权token
+ */
 router.get('auth/roleList', async (ctx) => {
 	const list = await Role.find({ isDelete: false });
 
@@ -19,7 +25,15 @@ router.get('auth/roleList', async (ctx) => {
 	});
 });
 
-// 新增角色，角色名唯一
+/**
+ * @api {post} /api/auth/addRole 新增角色，角色名唯一
+ * @apiVersion 1.0.0
+ * @apiName addRole
+ * @apiGroup role
+ * @apiHeader {String} Authorization 用户授权token
+ * @apiBody (query) {String} role 用户角色
+ * @apiBody (query) {String} description 对用户角色的描述
+ */
 router.post('auth/addRole', async (ctx) => {
 	const { role, description } = ctx.request.body;
 	if (!role || !description) {
@@ -36,7 +50,15 @@ router.post('auth/addRole', async (ctx) => {
 	toCliect(ctx, `已新增${role}`);
 });
 
-// 编辑角色，只能编辑描述
+/**
+ * @api {post} /api/auth/editRole 编辑角色，只能编辑描述
+ * @apiVersion 1.0.0
+ * @apiName editRole
+ * @apiGroup role
+ * @apiHeader {String} Authorization 用户授权token
+ * @apiBody (query) {String} role 用户角色
+ * @apiBody (query) {String} description 对用户角色的描述
+ */
 router.post('auth/editRole', async (ctx) => {
 	const { role, description } = ctx.request.body;
 
@@ -44,7 +66,14 @@ router.post('auth/editRole', async (ctx) => {
 	toCliect(ctx, `已更新${role}描述`);
 });
 
-// 移除角色，逻辑删除
+/**
+ * @api {post} /api/auth/removeRole 移除角色，逻辑删除
+ * @apiVersion 1.0.0
+ * @apiName removeRole
+ * @apiGroup role
+ * @apiHeader {String} Authorization 用户授权token
+ * @apiBody (query) {String} role 用户角色
+ */
 router.post('auth/removeRole', async (ctx) => {
 	const { role } = ctx.request.body;
 
@@ -54,7 +83,14 @@ router.post('auth/removeRole', async (ctx) => {
 	toCliect(ctx, `已移除${role}`);
 });
 
-// 指派有权限操作数据库的角色
+/**
+ * @api {post} /api/auth/appointPermission 指派有权限操作数据库的角色
+ * @apiVersion 1.0.0
+ * @apiName appointPermission
+ * @apiGroup role
+ * @apiHeader {String} Authorization 用户授权token
+ * @apiBody (query) {String[]} roles 用户角色数组
+ */
 router.post('auth/appointPermission', async (ctx) => {
 	const { roles: appointedRoleArr } = ctx.request.body;
 	const isEmpty = !appointedRoleArr || appointedRoleArr.length === 0;

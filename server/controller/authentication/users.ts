@@ -3,6 +3,13 @@ import { IUser, User } from 'model/user';
 
 const router = useRouter();
 
+/**
+ * @api {get} /api/auth/userList 用户列表
+ * @apiVersion 1.0.0
+ * @apiName userList
+ * @apiGroup user
+ * @apiHeader {String} Authorization 用户授权token
+ */
 router.get('auth/userList', async (ctx) => {
 	const userList = await User.find({ isDelete: false }).populate('roles');
 
@@ -21,6 +28,16 @@ router.get('auth/userList', async (ctx) => {
 	toCliect(ctx, { list });
 });
 
+/**
+ * @api {post} /api/auth/editUserRoles 编辑用户角色
+ * @apiVersion 1.0.0
+ * @apiName editUserRoles
+ * @apiGroup user
+ * @apiHeader {String} Authorization 用户授权token
+ * @apiBody (query) {String} um 用户工号
+ * @apiBody (query) {String} username 用户名
+ * @apiBody (query) {String[]} roles 角色数组
+ */
 router.post('auth/editUserRoles', async (ctx) => {
 	const { um, username, roles } = ctx.request.body;
 
@@ -36,12 +53,19 @@ router.post('auth/editUserRoles', async (ctx) => {
 	toCliect(ctx, '用户角色已更新');
 });
 
+/**
+ * @api {post} /api/auth/removeUser 移除用户
+ * @apiVersion 1.0.0
+ * @apiName removeUser
+ * @apiGroup user
+ * @apiHeader {String} Authorization 用户授权token
+ * @apiBody (query) {String} um 用户工号
+ */
 router.post('auth/removeUser', async (ctx) => {
 	const { um } = ctx.request.body as IUser;
 
 	// 删除是将isDelete为false的置为isDelete为true
-	const res = await User.updateOne({ um, isDelete: false }, { isDelete: true });
-	console.log('res', res);
+	await User.updateOne({ um, isDelete: false }, { isDelete: true });
 
 	toCliect(ctx, '用户角色已移除');
 });

@@ -32,9 +32,11 @@
     "prepare": "husky install"
   },
   "dependencies": {
+    "apidoc": "^0.51.1",
     "deasync": "^0.1.26"
   },
   "devDependencies": {
+    "@types/apidoc": "^0.50.0",
     "husky": "^7.0.0",
     "lint-staged": "^13.0.0",
     "npm-run-all": "^4.1.5"

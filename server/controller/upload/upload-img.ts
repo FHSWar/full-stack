@@ -12,6 +12,14 @@ import {
 
 const router = useRouter();
 
+/**
+ * @api {post} /api/upload/avatar 更换登录人头像
+ * @apiVersion 1.0.0
+ * @apiName avatar
+ * @apiGroup role
+ * @apiHeader {String} Authorization 用户授权token
+ * @apiBody (query) {Object[]} avatar 用户头像
+ */
 router.post('upload/avatar', upload, async (ctx) => {
 	const { avatar } = ctx.request.files as { avatar: multer.File[] };
 	const { authorization: token } = ctx.request.header;

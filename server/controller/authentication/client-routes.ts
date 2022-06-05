@@ -7,6 +7,14 @@ import { verifyToken } from '@util';
 
 const router = useRouter();
 
+/**
+ * @api {get} /api/auth/routesByRole 获取客户端菜单
+ * @apiVersion 1.0.0
+ * @apiName routesByRole
+ * @apiGroup client-routes
+ * @apiHeader {String} Authorization 用户授权token
+ * @apiParam (query) {String} [role] 用户角色
+ */
 router.get('auth/routesByRole', async (ctx) => {
 	const { role } = ctx.query as {role?: string};
 	const { header } = ctx.request;
@@ -64,7 +72,14 @@ router.get('auth/routesByRole', async (ctx) => {
 	toCliect(ctx, { routes: routesJson });
 });
 
-// 更新对应角色的菜单
+/**
+ * @api {post} /api/auth/updateRoutesByRole 更新对应角色的菜单
+ * @apiVersion 1.0.0
+ * @apiName updateRoutesByRole
+ * @apiGroup client-routes
+ * @apiBody (query) {String} role 用户角色
+ * @apiBody (query) {String} routes 用户菜单
+ */
 router.post('auth/updateRoutesByRole', async (ctx) => {
 	const { role, routes } = ctx.request.body;
 

@@ -1,4 +1,4 @@
-import Koa, { Context } from 'koa';
+import Koa, { Context, Next } from 'koa';
 import Router from '@koa/router';
 import WebSocket from 'ws';
 import { model, Schema } from 'mongoose';
@@ -8,6 +8,7 @@ import { STATUS, useLogger } from 'shared';
 export type KoaInstance = Koa<Koa.DefaultState, Koa.DefaultContext>
 export type KoaRouter = Router<Koa.DefaultState, Koa.DefaultContext>
 export type KoaContext = Context
+export type KoaNext = Next
 
 export type RedisType = Redis
 export type SchemaType = typeof Schema

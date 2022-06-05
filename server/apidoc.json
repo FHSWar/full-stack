@@ -1,0 +1,13 @@
+{
+    "name": "api-doc",
+    "version": "1.0.0",
+    "description": "后台管理系统接口文档",
+    "title": "接口文档",
+    "url": "http://localhost:9000",
+    "sampleUrl": "http://localhost:9000",
+    "forceLanguage": "zh-cn",
+    "template": {
+        "withCompare": true,
+        "withGenerator": true
+    }
+}
