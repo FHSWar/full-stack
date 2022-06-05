@@ -8,7 +8,8 @@ import {
 	checkPermission,
 	mountGlobal,
 	staticDir,
-	useJWT
+	useJWT,
+	useSwagger
 } from '@util';
 
 // 这个不在最上方引入，就会有其他ts文件只有函数体内才能访问全局变量的问题
@@ -21,7 +22,8 @@ app
 	.use(checkPermission()) // 自定义鉴权
 	.use(serve(staticDir)); // 提供静态资源访问
 
-useJWT(app);
-useRoutes(app);
+useJWT(app); // JWT
+useRoutes(app); // controller
+useSwagger(app); // 接口文档
 
 export const server = app.listen(9000);

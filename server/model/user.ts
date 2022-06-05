@@ -12,6 +12,27 @@ interface IUser {
 	isDelete: boolean
 }
 
+/**
+   * @swagger
+   * definitions:
+   *   User:
+   *     required:
+   *       - um
+   *       - username
+   *       - password
+   *       - roles
+   *     properties:
+   *       um:
+   *         type: string
+   *       username:
+   *         type: string
+   *       password:
+   *         type: string
+   *       roles:
+   *         type: array
+   *         items:
+   *           type: string
+   */
 const User = model<IUser>('users', new Schema<IUser>(
 	{
 		avatar: String,

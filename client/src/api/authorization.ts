@@ -22,6 +22,9 @@ export const updateSelfInfo = (params: LoginUser) => post('auth/updateSelfInfo',
 // 测试token
 export const testToken = () => get('test');
 
+// 获取接口文档（js-doc根据注释生成）
+export const swagger = () => get('swagger', {}, { useMessage: false });
+
 // 上传头像
 export const imgBaseUrl = 'http://localhost:9000';
 export const uploadAvatar = (params: LoginUser&{avatar: File[]}) => post(

@@ -5,6 +5,32 @@ import { encryptBySHA512, decryptPassword, generateToken } from '@util';
 
 const router = useRouter();
 
+/**
+   * @swagger
+   * auth/login:
+   *   post:
+   *     description: 登陆
+   *     tags: [登陆模块]
+   *     produces:
+   *       - application/json
+   *     parameters:
+   *       - name: password
+   *         description: 用户密码.
+   *         in: formData
+   *         required: true
+   *         type: string
+   *       - name: username
+   *         description: 用户名.
+   *         in: formData
+   *         required: true
+   *         type: string
+   *     responses:
+   *       200:
+   *         description: 登陆成功
+   *         token:
+   *           type: string
+   *
+   */
 router.post('auth/login', async (ctx) => {
 	const { username, password } = ctx.request.body;
 
@@ -43,6 +69,19 @@ router.post('auth/login', async (ctx) => {
 	toCliect(ctx, '用户不存在', STATUS.FAILURE);
 });
 
+/**
+   * @swagger
+   * auth/logout:
+   *   post:
+   *     description: 退出
+   *     tags: [登陆模块]
+   *     produces:
+   *       - application/json
+   *     responses:
+   *       200:
+   *         description: 已退出
+   *
+   */
 router.post('auth/logout', async (ctx) => {
 	const { header } = ctx.request;
 	const token = header.authorization || '';

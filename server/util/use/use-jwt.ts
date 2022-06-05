@@ -1,13 +1,13 @@
-import Koa from 'koa';
 import jwt from 'koa-jwt';
 import { sign, verify } from 'jsonwebtoken';
+import { KoaContext, KoaInstance, KoaNext } from '@util';
 import { secretKey } from 'config';
 import { IRole } from 'model/role';
 import { IUser } from 'model/user';
 
 // 自定义对状态码为401的处理，必须return
 // eslint-disable-next-line arrow-body-style
-const handleUnauthorized = async (ctx: Koa.Context, next: Koa.Next) => {
+const handleUnauthorized = async (ctx: KoaContext, next: KoaNext) => {
 	try {
 		return await next();
 		// ts: Catch clause variable type annotation must be 'any' or 'unknown' if specified.
@@ -24,13 +24,14 @@ const handleUnauthorized = async (ctx: Koa.Context, next: Koa.Next) => {
 	}
 };
 
-export const useJWT = (app: Koa) => {
+export const useJWT = (app: KoaInstance) => {
 	app.use(handleUnauthorized);
 	// 接入jwt
 	app.use(jwt({ secret: secretKey }).unless({
 		path: [
 			/auth\/login/,
-			/auth\/register/
+			/auth\/register/,
+			/docs/
 		]
 	}));
 };

@@ -8,3 +8,4 @@ export * from './use/use-jwt';
 export * from './use/use-koa-router';
 export * from './use/use-mongo';
 export * from './use/use-redis';
+export * from './use/use-swagger';
