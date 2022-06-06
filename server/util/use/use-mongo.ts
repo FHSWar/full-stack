@@ -1,8 +1,14 @@
 import { database } from 'config';
 import { connect } from 'mongoose';
 
+let connection:(typeof import('mongoose'));
+
 const useMongo = async () => {
-	await connect(database);
+	connection = await connect(database);
+};
+
+export const disconnect = async () => {
+	connection.disconnect();
 };
 
 useMongo();
