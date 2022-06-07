@@ -27,11 +27,13 @@ const User = model<IUser>('users', new Schema<IUser>(
 			type: String,
 			required: true
 		},
-		roles: [{
-			type: Schema.Types.ObjectId,
-			ref: 'roles',
-			required: true
-		}],
+		roles: {
+			type: [{
+				type: Schema.Types.ObjectId,
+				ref: 'roles'
+			}],
+			validate: [(arr: {[key:string]: any}[]) => arr.length > 0, '至少有一个角色']
+		},
 		isDelete: {
 			type: Boolean,
 			required: true,

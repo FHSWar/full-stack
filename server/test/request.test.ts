@@ -26,7 +26,7 @@ describe('sends users', () => {
 		const res = await request(baseUrl)
 			.get('/api/auth/userList')
 			// eslint-disable-next-line max-len
-			.set('Authorization', 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJyb2xlcyI6WyLnrqHnkIblkZgiXSwidXNlcm5hbWUiOiJhZG1pbiIsInVtIjoiTU9DSzAwMSIsInRpbWVTdGFtcCI6IjIwMjItMDYtMDdUMDQ6NDM6MzguOTY3WiIsImlhdCI6MTY1NDU3NzAxOCwiZXhwIjoxNjU1MTgxODE4fQ.hUFvd2yCm_f9KjMHk57chrpRnXUrruc6lWyDt9MYjGU');
+			.set('Authorization', 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6ImFkbWluIiwidW0iOiJNT0NLMDAxIiwicm9sZXMiOlsi566h55CG5ZGYIl0sInRpbWVTdGFtcCI6IjIwMjItMDYtMDdUMTQ6MzU6MzguMTM1WiIsImlhdCI6MTY1NDYxMjUzOCwiZXhwIjoxNjU1MjE3MzM4fQ.r-VoxVNw19rYjB00mXcC4fxi4WiehCBAafcbgVjILhM');
 		expect(res.statusCode).toEqual(200);
 		// expect(res.body).toHaveProperty('users');
 	});

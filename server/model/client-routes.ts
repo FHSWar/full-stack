@@ -13,7 +13,8 @@ const ClientRoutes = model<IClientRoutes>('client_routes', new Schema<IClientRou
 	{
 		role: {
 			type: Schema.Types.ObjectId,
-			ref: 'roles'
+			ref: 'roles',
+			required: true
 		},
 		routesJson: {
 			type: String,
