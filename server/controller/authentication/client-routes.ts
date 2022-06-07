@@ -46,7 +46,7 @@ router.get('auth/routesByRole', async (ctx) => {
 		}, [] as MenuTree);
 
 		return {
-			isEmpty: flattenMenuTree.length === 0,
+			isEmpty: flattenedRoutes.length === 0,
 			routesJson: JSON.stringify(assembleTree(uniqBy(flattenedRoutes, 'id')))
 		};
 	};
@@ -60,13 +60,16 @@ router.get('auth/routesByRole', async (ctx) => {
 
 	// 不带参请求的是可能为多角色的用户的菜单
 	const { isEmpty, routesJson } = await findRoutesJsonByRoles();
-
 	if (isEmpty) {
 		// 删除了原有角色，又未分配新角色，就返回访客的菜单
 		const fallbackRoleDoc = await Role.findOne({ role: defaultRole }).lean();
 		const routesDoc = await ClientRoutes.findOne({ role: fallbackRoleDoc!._id }).lean();
 
 		if (routesDoc !== null) return toCliect(ctx, { routes: routesDoc.routesJson });
+		return toCliect(ctx, {
+			routes: JSON.stringify([]),
+			message: '无对应角色的菜单'
+		}, STATUS.OVERTIME);
 	}
 
 	toCliect(ctx, { routes: routesJson });

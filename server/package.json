@@ -12,7 +12,7 @@
     "lint": "eslint --fix --ext .js,.ts ./",
     "pm2": "pm2 start ./build/server/app.js --node-args=\"-r ts-node/register/transpile-only -r tsconfig-paths/register\"",
     "prd": "tsc && npm run pm2",
-    "test": "jest"
+    "test": "cross-env NODE_ENV=test jest"
   },
   "dependencies": {
     "@koa/cors": "^3.3.0",

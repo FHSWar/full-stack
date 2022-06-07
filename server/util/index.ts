@@ -3,7 +3,6 @@ export * from './encrypt-decrypt';
 export * from './mount-global';
 export * from './multer';
 export * from './types';
-export * from './sum';
 export * from './use/use-jwt';
 export * from './use/use-koa-router';
 export * from './use/use-mongo';
