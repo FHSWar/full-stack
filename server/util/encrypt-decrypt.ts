@@ -6,9 +6,12 @@ export const decryptPassword = (str: string) => {
 	const { privateKeyFromPem } = pki;
 
 	const privateK = privateKeyFromPem(rsaPrivateKey);
-	const encrypted = Buffer.from(str, 'base64').toString();
 
-	return privateK.decrypt(encrypted, 'RSA-OAEP');
+	// 找到这个'binary'花了一个钟，裂了
+	const encrypted = Buffer.from(str, 'base64').toString('binary');
+	const decrypted = privateK.decrypt(encrypted, 'RSA-OAEP');
+
+	return decrypted;
 };
 
 export const encryptBySHA512 = (str: string) => {

@@ -2,9 +2,6 @@ import { cloneDeep } from 'lodash';
 import { useStore } from '@/stores';
 import type { MenuList, MenuTree, ExtendedMenuTreeItem } from '@/utils';
 
-// 摊平菜单树方法挪到shared里了，顺便通过文件夹的正确层级解决从shared引入方法报错的问题
-export { flattenMenuTree } from 'shared/client-util';
-
 // 找到菜单项的祖先节点
 export const findMenuListChain = (leafId: string):MenuList => {
 	const store = useStore();

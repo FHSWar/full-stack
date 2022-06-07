@@ -2,7 +2,6 @@ import Koa from 'koa';
 import cors from '@koa/cors';
 import bodyParser from 'koa-bodyparser';
 import serve from 'koa-static';
-
 import {
 	checkPermission,
 	mountGlobal,
