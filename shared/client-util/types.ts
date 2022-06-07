@@ -10,5 +10,3 @@ export type MenuTree = {
 	pid: string
 	title: string
 }[];
-
-export type ExtendedMenuTreeItem = MenuTree[0]&{checked?: boolean, indeterminate?: boolean}

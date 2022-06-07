@@ -1,18 +1,23 @@
 {
     "compilerOptions": {
-        "outDir": "./build",
-        "strict": true,
-        "esModuleInterop": true,
         "baseUrl": ".",
+        "esModuleInterop": true,
+        "forceConsistentCasingInFileNames": true,
+        "lib": [ "esNext" ],
+        "moduleResolution": "node",
+        "module": "commonjs",
+        "outDir": "./build",
         "paths": {
             "shared": ["../shared"],
             "config": ["config"], 
             "controller": ["controller"],
             "model": ["model"], 
             "@util": ["util"]
-        }
+        },
+        "skipLibCheck": true,
+        "strict": true,
+        "target": "es2016"
     },
-    "extends": "@tsconfig/node16/tsconfig.json",
     "ts-node": {
         "require": ["tsconfig-paths/register"]
     }
