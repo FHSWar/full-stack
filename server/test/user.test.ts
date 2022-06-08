@@ -1,8 +1,7 @@
 import { Error as MongooseError } from 'mongoose';
-import { disconnect } from '@util';
+import { useMongo, closeMongo } from '@util';
 import { Role } from 'model/role';
 import { User } from 'model/user';
-import { setUp, dropCollections, dropDatabase } from './in-memory-db';
 import { server } from '../app';
 
 const userData = {
@@ -12,16 +11,11 @@ const userData = {
 };
 
 beforeAll(async () => {
-	await setUp();
-});
-
-afterEach(async () => {
-	await dropCollections();
+	await useMongo();
 });
 
 afterAll(async () => {
-	await dropDatabase();
-	disconnect();
+	await closeMongo();
 	redis.quit();
 	server.close();
 	wss.close();

@@ -1,4 +1,4 @@
-import { defaultRole } from 'config';
+import { DEFAULT_ROLE } from 'shared';
 import { Role } from 'model/role';
 
 const router = useRouter();
@@ -77,7 +77,7 @@ router.post('auth/editRole', async (ctx) => {
 router.post('auth/removeRole', async (ctx) => {
 	const { role } = ctx.request.body;
 
-	if (role === defaultRole) return toCliect(ctx, `默认角色“${defaultRole}”不可删除`, STATUS.FORBIDDEN);
+	if (role === DEFAULT_ROLE) return toCliect(ctx, `默认角色“${DEFAULT_ROLE}”不可删除`, STATUS.FORBIDDEN);
 
 	await Role.updateOne({ role, isDelete: false }, { isDelete: true });
 	toCliect(ctx, `已移除${role}`);

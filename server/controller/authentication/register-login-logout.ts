@@ -1,4 +1,4 @@
-import { defaultRole } from 'config';
+import { DEFAULT_ROLE } from 'shared';
 import { Role } from 'model/role';
 import { User } from 'model/user';
 import { encryptBySHA512, decryptPassword, generateToken } from '@util';
@@ -10,7 +10,7 @@ const checkDefaultRole = async () => {
 	const roleDocArr = await Role.find();
 	if (roleDocArr.length === 0) {
 		await new Role({
-			role: defaultRole,
+			role: DEFAULT_ROLE,
 			description: '初始默认角色'
 		}).save();
 	}
@@ -40,7 +40,7 @@ router.post('auth/login', async (ctx) => {
 
 		// 用户角色都删除了就回退到默认角色
 		if (roleArr.length === 0) {
-			const defaultRoleDoc = await Role.findOne({ role: defaultRole, isDelete: false });
+			const defaultRoleDoc = await Role.findOne({ role: DEFAULT_ROLE, isDelete: false });
 			await User.updateOne({ username, isDelete: false }, { roles: [defaultRoleDoc!._id] });
 		}
 
@@ -115,7 +115,7 @@ router.post('auth/register', async (ctx) => {
 
 	await checkDefaultRole();
 
-	const defaultRoleDoc = await Role.findOne({ role: defaultRole, isDelete: false });
+	const defaultRoleDoc = await Role.findOne({ role: DEFAULT_ROLE, isDelete: false });
 	const doc = new User({
 		username,
 		um: umNo,

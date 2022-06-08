@@ -1,21 +1,15 @@
 import request from 'supertest';
-import { disconnect } from '@util';
+import { useMongo, closeMongo } from '@util';
 import { server } from '../app';
-import { dropCollections, dropDatabase, setUp } from './in-memory-db';
 
 const baseUrl = 'http://localhost:9000';
 
 beforeAll(async () => {
-	await setUp();
-});
-
-afterEach(async () => {
-	await dropCollections();
+	await useMongo();
 });
 
 afterAll(async () => {
-	await dropDatabase();
-	disconnect();
+	await closeMongo();
 	redis.quit();
 	server.close();
 	wss.close();
@@ -26,7 +20,7 @@ describe('sends users', () => {
 		const res = await request(baseUrl)
 			.get('/api/auth/userList')
 			// eslint-disable-next-line max-len
-			.set('Authorization', 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6ImFkbWluIiwidW0iOiJNT0NLMDAxIiwicm9sZXMiOlsi566h55CG5ZGYIl0sInRpbWVTdGFtcCI6IjIwMjItMDYtMDdUMTQ6MzU6MzguMTM1WiIsImlhdCI6MTY1NDYxMjUzOCwiZXhwIjoxNjU1MjE3MzM4fQ.r-VoxVNw19rYjB00mXcC4fxi4WiehCBAafcbgVjILhM');
+			.set('Authorization', 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6ImFkbWluIiwidW0iOiJNT0NLMDAxIiwicm9sZXMiOlsi566h55CG5ZGYIl0sInRpbWVTdGFtcCI6IjIwMjItMDYtMDhUMDU6MTI6NDUuNzU3WiIsImlhdCI6MTY1NDY2NTE2NSwiZXhwIjoxNjU1MjY5OTY1fQ.qyVzCQEwFjo9GpqIsg8AlenpsH9eva7mDWYQuXja9og');
 		expect(res.statusCode).toEqual(200);
 		// expect(res.body).toHaveProperty('users');
 	});

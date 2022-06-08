@@ -1,6 +1,5 @@
 import { uniqBy } from 'lodash';
-import { assembleTree, flattenMenuTree, MenuTree } from 'shared';
-import { defaultRole } from 'config';
+import { assembleTree, DEFAULT_ROLE, flattenMenuTree, MenuTree } from 'shared';
 import { ClientRoutes, IClientRoutes } from 'model/client-routes';
 import { Role } from 'model/role';
 import { verifyToken } from '@util';
@@ -62,7 +61,7 @@ router.get('auth/routesByRole', async (ctx) => {
 	const { isEmpty, routesJson } = await findRoutesJsonByRoles();
 	if (isEmpty) {
 		// 删除了原有角色，又未分配新角色，就返回访客的菜单
-		const fallbackRoleDoc = await Role.findOne({ role: defaultRole }).lean();
+		const fallbackRoleDoc = await Role.findOne({ role: DEFAULT_ROLE }).lean();
 		const routesDoc = await ClientRoutes.findOne({ role: fallbackRoleDoc!._id }).lean();
 
 		if (routesDoc !== null) return toCliect(ctx, { routes: routesDoc.routesJson });

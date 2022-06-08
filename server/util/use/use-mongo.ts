@@ -1,17 +1,41 @@
-import { connect } from 'mongoose';
 import { env } from 'process';
-import { database } from 'config';
+import { connect, connection } from 'mongoose';
+import { MongoMemoryServer } from 'mongodb-memory-server';
+import { database, DEV, TEST } from 'config';
 
-let connection:(typeof import('mongoose'));
+let mongo: MongoMemoryServer;
 
-const useMongo = async () => {
-	if (env.NODE_ENV === 'test') return;
-	connection = await connect(database);
+export const useMongo = async () => {
+	let uri = database;
+	switch (env.NODE_ENV) {
+		case DEV:
+			await connect(database);
+			break;
+		case TEST:
+			mongo = await MongoMemoryServer.create();
+			uri = mongo.getUri();
+
+			await connect(uri);
+			break;
+		default:
+			// do nothing
+	}
 };
 
-export const disconnect = async () => {
-	if (env.NODE_ENV === 'test') return;
-	connection.disconnect();
+export const closeMongo = async () => {
+	switch (env.NODE_ENV) {
+		case DEV:
+			connection.close();
+			break;
+		case TEST:
+			// 不加if会报错
+			if (mongo) mongo.stop();
+
+			await connection.close();
+			break;
+		default:
+			// do nothing
+	}
 };
 
-useMongo();
+if (env.NODE_ENV !== TEST) useMongo();
