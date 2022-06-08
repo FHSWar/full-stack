@@ -1,4 +1,4 @@
-import { model, Schema } from 'mongoose';
+import { model, Schema, Types } from 'mongoose';
 import { IRole } from 'model/role';
 
 interface IUser {
@@ -32,7 +32,7 @@ const User = model<IUser>('users', new Schema<IUser>(
 				type: Schema.Types.ObjectId,
 				ref: 'roles'
 			}],
-			validate: [(arr: {[key:string]: any}[]) => arr.length > 0, '至少有一个角色']
+			validate: [(arr: Types.ObjectId[]) => arr.length > 0, '至少有一个角色']
 		},
 		isDelete: {
 			type: Boolean,
