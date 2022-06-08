@@ -8,11 +8,12 @@
         "module": "commonjs",
         "outDir": "./build",
         "paths": {
+            "@/*": ["src/*"],
+            // "@util": ["src/util"],
             "shared": ["../shared"],
-            "config": ["config"], 
-            "controller": ["controller"],
-            "model": ["model"], 
-            "@util": ["util"]
+            // "config": ["src/config"], 
+            // "controller": ["src/controller"],
+            // "model": ["src/model"]
         },
         "skipLibCheck": true,
         "strict": true,

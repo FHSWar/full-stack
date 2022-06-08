@@ -1,11 +1,7 @@
 import { createWriteStream, readdirSync, unlinkSync } from 'fs';
 import multer from '@koa/multer';
-import { IUser, User } from 'model/user';
-import {
-	staticDir,
-	upload,
-	verifyToken
-} from '@util';
+import { IUser, User } from '@/model/user';
+import { staticDir, upload, verifyToken } from '@/util';
 
 // process.cwd(): /Users/fhs_war/Documents/trainHall/full-stack/server
 // __dirname: /Users/fhs_war/Documents/trainHall/full-stack/server/router/upload

@@ -1,6 +1,6 @@
 // import { createWriteStream } from 'fs';
 import morgan from 'koa-morgan';
-import { KoaInstance } from '@util';
+import { KoaInstance } from '@/util';
 
 // @ts-ignore
 morgan.token('id', (req) => req.headers.authorization);

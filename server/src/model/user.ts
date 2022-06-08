@@ -1,5 +1,5 @@
 import { model, Schema, Types } from 'mongoose';
-import { IRole } from 'model/role';
+import { IRole } from '@/model/role';
 
 interface IUser {
 	avatar?: string // 图片地址

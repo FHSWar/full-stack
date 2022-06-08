@@ -1,6 +1,6 @@
 import request from 'supertest';
 import { useMongo, closeMongo } from '@/util';
-import { server } from '../app';
+import { server } from '../../app';
 
 const baseUrl = 'http://localhost:9000';
 

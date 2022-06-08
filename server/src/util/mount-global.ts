@@ -1,5 +1,5 @@
 import { STATUS, useLogger } from 'shared';
-import { redis, useRouter, KoaContext } from '@util';
+import { redis, useRouter, KoaContext } from '@/util';
 import wss from './web-socket';
 
 // 统一返回格式

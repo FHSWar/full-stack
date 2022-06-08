@@ -1,5 +1,5 @@
 import { DEFAULT_ROLE } from 'shared';
-import { Role } from 'model/role';
+import { Role } from '@/model/role';
 
 const router = useRouter();
 

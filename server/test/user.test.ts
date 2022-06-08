@@ -1,7 +1,7 @@
 import { Error as MongooseError } from 'mongoose';
-import { useMongo, closeMongo } from '@util';
-import { Role } from 'model/role';
-import { User } from 'model/user';
+import { useMongo, closeMongo } from '@/util';
+import { Role } from '@/model/role';
+import { User } from '@/model/user';
 import { server } from '../app';
 
 const userData = {

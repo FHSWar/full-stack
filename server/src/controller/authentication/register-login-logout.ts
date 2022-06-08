@@ -1,7 +1,7 @@
 import { DEFAULT_ROLE } from 'shared';
-import { Role } from 'model/role';
-import { User } from 'model/user';
-import { encryptBySHA512, decryptPassword, generateToken } from '@util';
+import { Role } from '@/model/role';
+import { User } from '@/model/user';
+import { encryptBySHA512, decryptPassword, generateToken } from '@/util';
 
 const router = useRouter();
 const umRegex = /^[a-zA-Z][a-zA-Z0-9-]*[0-9]$/;

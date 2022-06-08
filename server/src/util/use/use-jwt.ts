@@ -1,9 +1,9 @@
 import jwt from 'koa-jwt';
 import { sign, verify } from 'jsonwebtoken';
-import { KoaContext, KoaInstance, KoaNext } from '@util';
-import { secretKey } from 'config';
-import { IRole } from 'model/role';
-import { IUser } from 'model/user';
+import { secretKey } from '@/config';
+import { IRole } from '@/model/role';
+import { IUser } from '@/model/user';
+import { KoaContext, KoaInstance, KoaNext } from '@/util';
 
 // 自定义对状态码为401的处理，必须return
 // eslint-disable-next-line arrow-body-style

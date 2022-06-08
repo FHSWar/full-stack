@@ -1,5 +1,5 @@
-import { Role } from 'model/role';
-import { IUser, User } from 'model/user';
+import { Role } from '@/model/role';
+import { IUser, User } from '@/model/user';
 
 const router = useRouter();
 

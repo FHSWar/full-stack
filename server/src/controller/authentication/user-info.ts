@@ -1,5 +1,5 @@
-import { IUser, User } from 'model/user';
-import { decryptPassword, encryptBySHA512, generateToken, verifyToken } from '@util';
+import { IUser, User } from '@/model/user';
+import { decryptPassword, encryptBySHA512, generateToken, verifyToken } from '@/util';
 
 const router = useRouter();
 

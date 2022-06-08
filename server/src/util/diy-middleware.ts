@@ -1,7 +1,7 @@
 import { Context, Next, ParameterizedContext } from 'koa';
 import { intersection } from 'lodash';
-import { verifyToken } from '@util';
-import { Role } from 'model/role';
+import { Role } from '@/model/role';
+import { verifyToken } from '@/util';
 
 export const checkPermittedRole = async (ctx: ParameterizedContext) => {
 	const { header } = ctx.request;

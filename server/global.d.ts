@@ -8,7 +8,7 @@ import {
     Status,
     useRouter,
     WebSocketServer
-} from '@util'
+} from '@/util'
 
 declare global {
     var logger: Logger

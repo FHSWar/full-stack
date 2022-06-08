@@ -1,7 +1,7 @@
 import { env } from 'process';
 import { connect, connection } from 'mongoose';
 import { MongoMemoryServer } from 'mongodb-memory-server';
-import { database, DEV, TEST } from 'config';
+import { database, DEV, TEST } from '@/config';
 
 let mongo: MongoMemoryServer;
 

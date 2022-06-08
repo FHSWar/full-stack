@@ -1,8 +1,8 @@
 import { uniqBy } from 'lodash';
 import { assembleTree, DEFAULT_ROLE, flattenMenuTree, MenuTree } from 'shared';
-import { ClientRoutes, IClientRoutes } from 'model/client-routes';
-import { Role } from 'model/role';
-import { verifyToken } from '@util';
+import { ClientRoutes, IClientRoutes } from '@/model/client-routes';
+import { Role } from '@/model/role';
+import { verifyToken } from '@/util';
 
 const router = useRouter();
 

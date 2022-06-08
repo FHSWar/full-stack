@@ -1,5 +1,5 @@
 import { md, pki } from 'node-forge';
-import { rsaPrivateKey } from 'config';
+import { rsaPrivateKey } from '@/config';
 
 // 用RSA私钥解密公钥加密过的密码
 export const decryptPassword = (str: string) => {

@@ -1,5 +1,5 @@
 import { PassThrough } from 'stream';
-import { useRouter } from '@util';
+import { useRouter } from '@/util';
 
 const router = useRouter();
 
