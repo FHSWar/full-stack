@@ -38,19 +38,15 @@ router.post('auth/login', async (ctx) => {
 			.filter((v) => v.isDelete === false)
 			.map((v) => v.role);
 
-		// 用户角色都删除了就回退到默认角色
-		if (roleArr.length === 0) {
-			const defaultRoleDoc = await Role.findOne({ role: DEFAULT_ROLE, isDelete: false });
-			await User.updateOne({ username, isDelete: false }, { roles: [defaultRoleDoc!._id] });
-		}
+		const bareToken = generateToken({
+			username,
+			um: passwordCorrect.um,
+			roles: roleArr,
+			timeStamp: new Date()
+		});
 
 		toCliect(ctx, {
-			token: generateToken({
-				username,
-				um: passwordCorrect.um,
-				roles: roleArr,
-				timeStamp: new Date()
-			}),
+			token: `Bearer ${bareToken}`,
 			message: '已登陆'
 		});
 		return;
@@ -71,10 +67,10 @@ router.post('auth/login', async (ctx) => {
  */
 router.post('auth/logout', async (ctx) => {
 	const { header } = ctx.request;
-	const token = header.authorization || '';
+	const token = header.authorization;
 
 	// redis里存token黑名单，中间件做校验
-	await redis.set(token, 1);
+	if (token) await redis.set(token, 1);
 
 	toCliect(ctx, '已退出');
 });
@@ -116,16 +112,21 @@ router.post('auth/register', async (ctx) => {
 	await checkDefaultRole();
 
 	const defaultRoleDoc = await Role.findOne({ role: DEFAULT_ROLE, isDelete: false });
-	const doc = new User({
-		username,
-		um: umNo,
-		password: encryptBySHA512(decryptPassword(password)),
-		roles: [defaultRoleDoc?._id]
-	});
 
-	await doc.save();
+	try {
+		const doc = new User({
+			username,
+			um: umNo,
+			password: encryptBySHA512(decryptPassword(password)),
+			roles: [defaultRoleDoc?._id]
+		});
 
-	toCliect(ctx, '注册成功');
+		await doc.save();
+
+		toCliect(ctx, '注册成功');
+	} catch (e) {
+		toCliect(ctx, (e as Error).toString(), STATUS.FAILURE);
+	}
 });
 
 export default router;

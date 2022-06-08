@@ -47,8 +47,7 @@ const changePassword = async (params: typeof form) => {
 
 	// 改完信息更新token和userInfo
 	const { token } = await updateSelfInfo({ ...store.userInfo, ...params }) as any;
-	const bearer = `Bearer ${token}`;
-	store.token = bearer;
+	store.token = token;
 
 	const { userInfo: newUserInfo } = await getUserInfo() as any;
 	store.userInfo = newUserInfo;

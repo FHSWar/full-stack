@@ -7,6 +7,7 @@ let mongo: MongoMemoryServer;
 
 export const useMongo = async () => {
 	let uri = database;
+
 	switch (env.NODE_ENV) {
 		case DEV:
 			await connect(database);

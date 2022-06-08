@@ -43,6 +43,7 @@ router.post('auth/editUserRoles', async (ctx) => {
 
 	const roleArr = (roles as string[]).map((role) => ({ role }));
 
+	// 这里和register接口共同确保了用户至少有一个角色
 	if (roleArr.length === 0) return toCliect(ctx, '用户至少有一个角色', STATUS.FORBIDDEN);
 
 	const roleDocArr = await Role.find({ $or: roleArr });

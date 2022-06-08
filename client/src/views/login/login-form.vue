@@ -26,8 +26,7 @@ const form = reactive({
 const handleLogin = async (callFromRegister?: boolean) => {
 	if (!callFromRegister) form.password = encryptPassword(form.password);
 
-	const suc:any = await login(form);
-	const token:string = `Bearer ${suc.token}`;
+	const { token } = await login(form) as any;
 
 	const store = useStore();
 	store.token = token;
