@@ -30,7 +30,8 @@ export const useJWT = (app: KoaInstance) => {
 	app.use(jwt({ secret: secretKey }).unless({
 		path: [
 			/auth\/login/,
-			/auth\/register/
+			/auth\/register/,
+			/log/
 		]
 	}));
 };

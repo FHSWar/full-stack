@@ -6,10 +6,9 @@ import log4js from 'log4js';
 export const useLogger = (prefix: string, root: string) => {
 	const getFilename = () => join(
 		root,
-		'../../log',
-		root.split('/').at(-2) as string,
-		'logger'
+		'../../public/static/log/logger'
 	);
+	console.log('getFilename()', getFilename(), root);
 	log4js.configure({
 		appenders: {
 			console: {
