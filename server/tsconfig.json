@@ -9,11 +9,8 @@
         "outDir": "./build",
         "paths": {
             "@/*": ["src/*"],
-            // "@util": ["src/util"],
-            "shared": ["../shared"],
-            // "config": ["src/config"], 
-            // "controller": ["src/controller"],
-            // "model": ["src/model"]
+            "test/*": ["test/*"],
+            "shared": ["../shared"]
         },
         "skipLibCheck": true,
         "strict": true,

@@ -8,7 +8,6 @@ export const useLogger = (prefix: string, root: string) => {
 		root,
 		'../../public/static/log/logger'
 	);
-	console.log('getFilename()', getFilename(), root);
 	log4js.configure({
 		appenders: {
 			console: {
