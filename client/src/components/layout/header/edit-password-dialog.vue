@@ -109,11 +109,12 @@ const closeDialog = () => { emit('update:modelValue'); };
 <style lang="scss" scoped>
 .edit-dialog {
   &__button {
-	margin: 0;
     width: 100%;
-	&:nth-of-type(2) {
-		margin-top: 8px;
-	}
-   }
+    margin: 0;
+
+    &:nth-of-type(2) {
+      margin-top: 8px;
+    }
+  }
 }
 </style>

@@ -36,6 +36,7 @@ watch(breadcrumb, async () => {
 </template>
 
 <style lang="scss" scoped>
+/* stylelint-disable-next-line selector-class-pattern */
 :deep(.el-breadcrumb__inner) {
   font-size: var(--el-font-size-small);
 

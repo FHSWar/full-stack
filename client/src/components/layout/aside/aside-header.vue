@@ -20,52 +20,60 @@ const showHeaderTitle = computed(() => !store.themeConfig.isAsideMenuCollapse);
 
 <style lang="scss" scoped>
 .side-bar {
-    &__header {
-        --vscode-icon-color: #4b9ae9;
-        position: relative;
-        border-right: var(--el-border);
-        svg {
-            position: absolute;
-            color: var(--vscode-icon-color);
-            &:first-of-type {
-                font-size: 24px;
-                bottom: 16px;
-                left: 16px;
-                animation: gearRotateAntiClockWise 6s linear 0.1s infinite;
-                transform-origin: 50% 50%;
-            }
-            &:nth-of-type(2) {
-                font-size: var(--el-font-size-large);
-                top: 10px;
-                left: 30px;
-                transform: rotate(15deg);
-                animation: gearRotateClockWise 6s linear 0.2s infinite;
-                transform-origin: 50% 50%;
-            }
-        }
-        h1 {
-            position: absolute;
-            left: 56px;
-            line-height: var(--el-header-height);
-            color: var(--el-text-color-regular);
-        }
-    }
-}
-@keyframes gearRotateClockWise {
-    0% {
+  &__header {
+    --vscode-icon-color: #4b9ae9;
+
+    position: relative;
+    border-right: var(--el-border);
+
+    svg {
+      position: absolute;
+      color: var(--vscode-icon-color);
+
+      &:first-of-type {
+        bottom: 16px;
+        left: 16px;
+        font-size: 24px;
+        transform-origin: 50% 50%;
+        animation: gear-rotate-anti-clock-wise 6s linear 0.1s infinite;
+      }
+
+      &:nth-of-type(2) {
+        top: 10px;
+        left: 30px;
+        font-size: var(--el-font-size-large);
         transform: rotate(15deg);
+        transform-origin: 50% 50%;
+        animation: gear-rotate-clock-wise 6s linear 0.2s infinite;
+      }
     }
-    100% {
-        transform: rotate(-345deg);
+
+    h1 {
+      position: absolute;
+      left: 56px;
+      line-height: var(--el-header-height);
+      color: var(--el-text-color-regular);
     }
+  }
 }
 
-@keyframes gearRotateAntiClockWise {
-    0% {
-        transform: rotate(0);
-    }
-    100% {
-        transform: rotate(360deg);
-    }
+@keyframes gear-rotate-clock-wise {
+  0% {
+    transform: rotate(15deg);
+  }
+
+  100% {
+    transform: rotate(-345deg);
+  }
+}
+
+@keyframes gear-rotate-anti-clock-wise {
+  0% {
+    transform: rotate(0);
+  }
+
+  100% {
+    transform: rotate(360deg);
+  }
 }
 </style>

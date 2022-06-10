@@ -69,12 +69,13 @@ const triggerMethod = (method: () => void) => { method(); };
 
 <style lang="scss" scoped>
 .popover {
-    &__avatar {
-        display: flex;
-        align-items: center;
-    }
-    &__username {
-        text-indent: .5em;
-    }
+  &__avatar {
+    display: flex;
+    align-items: center;
+  }
+
+  &__username {
+    text-indent: 0.5em;
+  }
 }
 </style>

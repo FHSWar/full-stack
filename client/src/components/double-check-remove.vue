@@ -40,12 +40,13 @@ const confirmAndHide = () => {
 
 <style lang="scss" scoped>
 .double-check {
-	&__popover {
-		display: flex;
-		justify-content: space-between;
-	}
+  &__popover {
+    display: flex;
+    justify-content: space-between;
+  }
 }
+
 .is-link {
-    padding: 8px 15px;
+  padding: 8px 15px;
 }
 </style>

@@ -59,6 +59,3 @@ const emit = defineEmits(['buttonClick']);
     </template>
   </el-table-column>
 </template>
-
-<style lang="scss" scoped>
-</style>

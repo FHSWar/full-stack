@@ -24,11 +24,13 @@ switch (useRoute().params.type) {
   </div>
 </template>
 
-<style scoped>
-.result__wrapper {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  height: 100%;
+<style scoped lang="scss">
+.result {
+  &__wrapper {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
+  }
 }
 </style>

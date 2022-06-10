@@ -1,4 +1,5 @@
 <script lang="ts" setup>
+/* eslint-disable vue-scoped-css/enforce-style-type */
 import { inject, ref, watchEffect } from 'vue';
 import type { Ref } from 'vue';
 import { getRoleList } from '@/api/personnel';
@@ -67,15 +68,19 @@ watchEffect(async () => {
 
 <style lang="scss" scoped>
 .dialog {
-	&__select {
-		width: 100%;
-	}
+  &__select {
+    width: 100%;
+  }
 }
 </style>
 
 <!-- scoped内对tooptip的改动不生效，:(deep)也不行 -->
-<style>
-.dialog__tooltip--user {
-	max-width: 400px;
+<style lang="scss">
+.dialog {
+  &__tooltip {
+    &--user {
+      max-width: 400px;
+    }
+  }
 }
 </style>

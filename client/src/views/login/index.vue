@@ -31,12 +31,14 @@ const showRegister = computed(() => (activeName.value !== 'login'));
     height: 100%;
     background-color: var(--el-fill-color-light);
   }
+
   &__container {
     position: absolute;
     top: 30%;
     right: 20%;
     width: 360px;
   }
+
   &__button {
     width: 100%;
   }

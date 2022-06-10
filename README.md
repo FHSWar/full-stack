@@ -14,7 +14,10 @@
    npm run dev
    ```
 
-4. ⚠️注意：要在项目根目录执行。单独启动也可也，目前server还能通过`npm run prd`编译为js项目后用pm2运行。
+4. ⚠️注意：
+   - 要在项目根目录执行。单独启动也可也，目前server还能通过`npm run prd`编译为js项目后用pm2运行。
+
+   - vscode 需要安装Volar、ESLint、Stylelint，使.vscode文件夹配置项生效。
 
 ## 目录结构
 

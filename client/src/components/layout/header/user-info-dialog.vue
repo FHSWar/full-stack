@@ -174,10 +174,12 @@ provide('dialogVisible', showEditPasswordBool);
     .el-avatar {
       margin-bottom: 16px;
     }
+
     .el-form {
       width: 88%;
     }
   }
+
   &__uploader {
     position: relative;
 
@@ -187,9 +189,10 @@ provide('dialogVisible', showEditPasswordBool);
       width: 100%;
       height: 50%;
       text-align: center;
-      background-color: rgba(120, 121, 122, 0.5);
+      background-color: rgb(120 121 122 / 50%);
     }
   }
+
   &__footer {
     display: flex;
     justify-content: end;

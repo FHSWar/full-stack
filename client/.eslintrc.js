@@ -5,6 +5,7 @@ module.exports = {
 	},
 	extends: [
 		'plugin:vue/vue3-strongly-recommended',
+		'plugin:vue-scoped-css/vue3-recommended',
 		'airbnb'
 	],
 	parserOptions: {
@@ -60,6 +61,7 @@ module.exports = {
 				max: 5
 			}
 		}],
+		'vue-scoped-css/no-unused-selector': 'off',
 		'vue/multi-word-component-names': 'off'
 	}
 };

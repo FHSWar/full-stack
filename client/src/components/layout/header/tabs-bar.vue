@@ -154,58 +154,72 @@ const triggerMethod = (method: () => void) => { method(); (popoverRef.value as a
 </template>
 <style lang="scss" scoped>
 .tabs-bar {
-    // 这一段改标签页样式的css是从vue-admin-better抄的
-    &__wrapper {
-        --tab-item-height: 32px;
-		display: flex;
-		align-items: center;
-		width: 100%;
+  // 这一段改标签页样式的css是从vue-admin-better抄的
+  &__wrapper {
+    --tab-item-height: 32px;
 
-		:deep(.el-tabs__header) {
-			margin-bottom: 0;
-			border-bottom: 0;
-			.el-tabs__nav {
-				border: 0;
-			}
+    display: flex;
+    align-items: center;
+    width: 100%;
 
-			.el-tabs__item {
-				margin-right: 4px;
-				height: var(--tab-item-height);
-				border: var(--el-border);
-				border-radius: var(--el-border-radius-base);
-				line-height: var(--tab-item-height);
-			}
-		}
+    /* stylelint-disable-next-line selector-class-pattern */
+    :deep(.el-tabs__header) {
+      margin-top: 8px;
+      margin-bottom: 0;
+      border-bottom: 0;
+
+      .el-tabs {
+        &__nav {
+          border: 0;
+        }
+
+        &__item {
+          height: var(--tab-item-height);
+          margin-right: 4px;
+          line-height: var(--tab-item-height);
+          border: var(--el-border);
+          border-radius: var(--el-border-radius-base);
+        }
+      }
     }
-	&__container {
-		flex: 1;
-	}
-	&__menu {
-		font-size: var(--el-font-size-extra-large);
-	}
-	&__menu-icon {
-		&--rotate {
-			animation: spinClockWise .2s linear;
-		}
-		&--reverse {
-			animation: spinAntiClockWise .2s linear;
-		}
-	}
+  }
+
+  &__container {
+    flex: 1;
+  }
+
+  &__menu {
+    font-size: var(--el-font-size-extra-large);
+  }
+
+  &__menu-icon {
+    &--rotate {
+      animation: spin-clock-wise 0.2s linear;
+    }
+
+    &--reverse {
+      animation: spin-anti-clock-wise 0.2s linear;
+    }
+  }
 }
-@keyframes spinClockWise {
-	from {
-		transform: rotate(0deg)
-	}
-	to {
-		transform: rotate(90deg);
-	}
+
+@keyframes spin-clock-wise {
+  from {
+    transform: rotate(0deg);
+  }
+
+  to {
+    transform: rotate(90deg);
+  }
 }
-@keyframes spinAntiClockWise {
-	from {
-		transform: rotate(90deg)
-	}
-	to {
-		transform: rotate(0deg);
-	}
+
+@keyframes spin-anti-clock-wise {
+  from {
+    transform: rotate(90deg);
+  }
+
+  to {
+    transform: rotate(0deg);
+  }
 }
 </style>

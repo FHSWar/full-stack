@@ -13,5 +13,3 @@ const test = async () => {
     </el-button>
   </div>
 </template>
-<style lang="scss" scoped>
-</style>

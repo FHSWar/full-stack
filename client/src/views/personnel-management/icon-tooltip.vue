@@ -22,8 +22,8 @@ defineEmits(['click']);
 
 <style scoped>
 .el-icon {
-    margin-left: 12px;
-    color: v-bind("iconColor");
-    font-size: large;
+  margin-left: 12px;
+  font-size: large;
+  color: v-bind("iconColor");
 }
 </style>

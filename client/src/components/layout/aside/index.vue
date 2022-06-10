@@ -63,27 +63,31 @@ initMenuTree();
 
 <style lang="scss" scoped>
 .aside-menu {
-	// https://juejin.cn/post/6844903815527956494#comment
-	&__magic-trick {
-		// 收起时菜单也应该竖向撑满
-		height: 100%;
-		&:not(.el-menu--collapse) {
-			width: 300px;
-		}
-	}
-	&__footer {
-		position: absolute;
-		bottom: 0;
-		width: 100%;
-		// var(--el-menu-item-height) 组件外用不了
-		height: 56px;
-	}
+  // https://juejin.cn/post/6844903815527956494#comment
+  &__magic-trick {
+    // 收起时菜单也应该竖向撑满
+    height: 100%;
 
-	&__toggle-icon {
-		position: absolute;
-		top: 28px;
-		transform: translate3d(0, -50%, 0) rotateY(v-bind("deg"));
-		font-size: 24px;
-	}
+    /* stylelint-disable-next-line selector-class-pattern */
+    &:not(.el-menu--collapse) {
+      width: 300px;
+    }
+  }
+
+  &__footer {
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+
+    // var(--el-menu-item-height) 组件外用不了
+    height: 56px;
+  }
+
+  &__toggle-icon {
+    position: absolute;
+    top: 28px;
+    font-size: 24px;
+    transform: translate3d(0, -50%, 0) rotateY(v-bind("deg"));
+  }
 }
 </style>

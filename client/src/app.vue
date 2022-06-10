@@ -1,4 +1,5 @@
 <script setup lang="ts">
+/* eslint-disable vue-scoped-css/enforce-style-type */
 import { usePiniaPersistance } from '@/utils';
 
 usePiniaPersistance();
@@ -9,7 +10,8 @@ usePiniaPersistance();
 </template>
 
 <style lang="scss">
-html, body {
+html,
+body {
   height: 100vh;
 
   #app {

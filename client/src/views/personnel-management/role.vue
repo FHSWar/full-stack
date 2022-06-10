@@ -170,10 +170,13 @@ getList();
 <style lang="scss" scoped>
 .role {
   &__wrapper {
-    .table__wrapper  {
-      margin-top: 16px;
+    .table {
+      &__wrapper {
+        margin-top: 16px;
+      }
     }
   }
+
   &__header {
     display: flex;
     align-items: center;

@@ -1,19 +1,50 @@
+body,
+div,
+p,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+ul,
+li,
+dl,
+dt,
+a,
+input,
+button,
+textarea,
+select {
+  padding: 0;
+  margin: 0;
+  outline: none;
+}
 
-body,div,p,h1,h2,h3,h4,h5,h6,ul,li,dl,dt,a,input,button,textarea,select{
-    margin: 0;
-    padding: 0;
-    outline: none;
+html,
+body {
+  font-family:
+    "Helvetica Neue",
+    Helvetica,
+    Arial,
+    "Microsoft Yahei",
+    "Hiragino Sans GB",
+    "Heiti SC",
+    "WenQuanYi Micro Hei",
+    sans-serif;
+  font-size: 14px;
 }
-html,body{
-    font-family:Helvetica Neue,Helvetica,Arial,Microsoft Yahei,Hiragino Sans GB,Heiti SC,WenQuanYi Micro Hei,sans-serif;
-    font-size: 14px;
+
+a {
+  text-decoration: none;
 }
-a{
-    text-decoration: none;
+
+ul,
+li {
+  list-style: none;
 }
-ul,li{
-    list-style: none;
-}
-input:focus,a:focus{
-    outline: none;
+
+input:focus,
+a:focus {
+  outline: none;
 }

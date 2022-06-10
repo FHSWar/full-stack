@@ -175,27 +175,29 @@ export default {
 
 <style lang="scss" scoped>
 .tree {
-	&__wrapper {
-        border-radius: var(--el-border-radius-base);
-		overflow: hidden;
-		height: 100%;
-		background-color: var(--el-fill-color-blank);
-	}
-	&__node {
-		flex: 1;
-		display: flex;
-		align-items: center;
-		justify-content: space-between;
-		padding-right: 24px;
-		font-size: 14px;
+  &__wrapper {
+    overflow: hidden;
+    background-color: var(--el-fill-color-blank);
+    border-radius: var(--el-border-radius-base);
+  }
 
-		.el-icon {
-			position: relative;
-			top: 1.5px;
-		}
-	}
+  &__node {
+    display: flex;
+    flex: 1;
+    align-items: center;
+    justify-content: space-between;
+    padding-right: 24px;
+    font-size: 14px;
+
+    .el-icon {
+      position: relative;
+      top: 1.5px;
+    }
+  }
 }
+
+/* stylelint-disable-next-line selector-class-pattern */
 :deep(.el-tree-node__content) {
-	height: var(--el-component-size-large);
+  height: var(--el-component-size-large);
 }
 </style>
