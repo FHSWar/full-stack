@@ -2,6 +2,7 @@ import { uniqBy } from 'lodash';
 import { assembleTree, DEFAULT_ROLE, flattenMenuTree, MenuTree } from 'shared';
 import { ClientRoutes, IClientRoutes } from '@/model/client-routes';
 import { Role } from '@/model/role';
+import { IUser } from '@/model/user';
 import { verifyToken } from '@/util';
 
 const router = useRouter();
@@ -17,7 +18,10 @@ const router = useRouter();
 router.get('auth/routesByRole', async (ctx) => {
 	const { role } = ctx.query as {role?: string};
 	const { header } = ctx.request;
-	const { roles } = verifyToken(header.authorization?.replace('Bearer ', '') as string) as {roles: string[]};
+
+	const { suc, token, err } = verifyToken(header.authorization?.replace('Bearer ', '') as string);
+	if (suc === false) return toCliect(ctx, err, STATUS.INTERNAL_ERROR);
+	const { roles } = token as Omit<IUser, 'password'>;
 
 	const findRoutesJsonByRoleId = async (id: IClientRoutes['role']) => {
 		const routesDoc = await ClientRoutes.findOne({ role: id, isDelete: false }).lean();

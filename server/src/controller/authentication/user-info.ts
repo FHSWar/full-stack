@@ -11,8 +11,12 @@ const router = useRouter();
  * @apiHeader {String} Authorization 用户授权token
  */
 router.get('auth/userInfo', async (ctx) => {
-	const { header } = ctx;
-	const { um, username } = verifyToken(header.authorization?.replace('Bearer ', '') as string) as IUser;
+	const { authorization } = ctx.header;
+
+	const { suc, token, err } = verifyToken((authorization as string).replace('Bearer ', ''));
+	if (suc === false) return toCliect(ctx, err, STATUS.INTERNAL_ERROR);
+	const { um, username } = token as Omit<IUser, 'password'>;
+
 	const userInfo = await User.findOne({ um, username }).populate('roles');
 
 	if (userInfo) {

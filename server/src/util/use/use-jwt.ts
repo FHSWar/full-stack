@@ -43,4 +43,18 @@ export const generateToken = (payload: {
 	timeStamp: Date
 }) => sign(payload, secretKey, { expiresIn: '7d' });
 
-export const verifyToken = (payload: string) => verify(payload, secretKey);
+export const verifyToken = (payload: string) => {
+	try {
+		return {
+			suc: true,
+			token: verify(payload, secretKey),
+			err: ''
+		};
+	} catch (e) {
+		return {
+			suc: false,
+			token: '',
+			err: (e as Error).toString()
+		};
+	}
+};

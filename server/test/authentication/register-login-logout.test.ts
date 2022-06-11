@@ -1,18 +1,4 @@
-import { register, login, logout } from 'test/util';
-import { useMongo, closeMongo } from '@/util';
-import { server } from '../../app';
+import { getToken, logout } from 'test/util';
 
-beforeAll(async () => {
-	await useMongo();
-});
-
-afterAll(async () => {
-	await closeMongo();
-	redis.quit();
-	server.close();
-	wss.close();
-});
-
-describe('auth/register', register);
-describe('auth/login', login);
+getToken();
 describe('auth/logout', logout);

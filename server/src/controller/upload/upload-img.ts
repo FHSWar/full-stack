@@ -18,8 +18,11 @@ const router = useRouter();
  */
 router.post('upload/avatar', upload, async (ctx) => {
 	const { avatar } = ctx.request.files as { avatar: multer.File[] };
-	const { authorization: token } = ctx.request.header;
-	const { um, username } = verifyToken((token as string).replace('Bearer ', '')) as Omit<IUser, 'password'>;
+	const { authorization } = ctx.request.header;
+
+	const { suc, token, err } = verifyToken((authorization as string).replace('Bearer ', ''));
+	if (suc === false) return toCliect(ctx, err, STATUS.INTERNAL_ERROR);
+	const { um, username } = token as Omit<IUser, 'password'>;
 
 	// 头像不能大于1M
 	if (avatar[0].size / 1024 / 1024 > 1) {

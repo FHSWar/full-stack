@@ -5,7 +5,10 @@ import { verifyToken } from '@/util';
 
 export const checkPermittedRole = async (ctx: ParameterizedContext) => {
 	const { header } = ctx.request;
-	const { roles } = verifyToken(header.authorization?.replace('Bearer ', '') as string) as { roles: string[] };
+
+	const { suc, token, err } = verifyToken(header.authorization?.replace('Bearer ', '') as string);
+	if (suc === false) return toCliect(ctx, err, STATUS.INTERNAL_ERROR);
+	const { roles } = token as { roles: string[] };
 
 	const redisPermittedRoleListLen = await redis.llen('permittedRoleArr');
 

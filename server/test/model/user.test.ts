@@ -2,7 +2,7 @@ import { Error as MongooseError } from 'mongoose';
 import { useMongo, closeMongo } from '@/util';
 import { Role } from '@/model/role';
 import { User } from '@/model/user';
-import { server } from '../app';
+import { server } from '@/../app';
 
 const userData = {
 	username: '555',
@@ -12,18 +12,16 @@ const userData = {
 
 beforeAll(async () => {
 	await useMongo();
+	await redis.ltrim('permittedRoleArr', 1, 0);
 });
 
 afterAll(async () => {
 	await closeMongo();
-	redis.quit();
 	server.close();
+	redis.quit();
 	wss.close();
 });
 
-/**
- * User model
- */
 describe('User model', () => {
 	it('create & save user successfully', async () => {
 		await new Role({ role: '访客', description: '访客' }).save();
@@ -47,9 +45,10 @@ describe('User model', () => {
 			await userWithoutRequiredField.save();
 		} catch (error) {
 			err = error as MongooseError.ValidationError;
+
+			expect(err).toBeInstanceOf(MongooseError.ValidationError);
+			expect(err?.errors.password).toBeDefined();
+			expect(err?.errors.um).toBeDefined();
 		}
-		expect(err).toBeInstanceOf(MongooseError.ValidationError);
-		expect(err?.errors.password).toBeDefined();
-		expect(err?.errors.um).toBeDefined();
 	});
 });

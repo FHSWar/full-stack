@@ -1,5 +1,7 @@
 import request from 'supertest';
 import { encryptPassword } from 'shared';
+import { closeMongo, useMongo } from '@/util';
+import { server } from '@/../app';
 
 const baseUrl = 'http://localhost:9000';
 let token:string;
@@ -49,7 +51,7 @@ export const register = () => {
 };
 
 export const login = () => {
-	it('should fail from wrong password', async () => {
+	it('should fail from encountering wrong password', async () => {
 		const res = await request(baseUrl)
 			.post('/api/auth/login')
 			.send({
@@ -59,7 +61,7 @@ export const login = () => {
 		expect(res.statusCode).toEqual(403);
 	});
 
-	it('should fail from user not exist', async () => {
+	it('should fail from encountering user not exist', async () => {
 		const res = await request(baseUrl)
 			.post('/api/auth/login')
 			.send({
@@ -90,4 +92,21 @@ export const logout = () => {
 			.set('Authorization', token);
 		expect(res.statusCode).toEqual(200);
 	});
+};
+
+export const getToken = () => {
+	beforeAll(async () => {
+		await useMongo();
+		// 测试的时候应该所有角色都有权限，正式环境redis还是会从mongodb里面读到正确的值
+		await redis.ltrim('permittedRoleArr', 1, 0);
+	});
+
+	afterAll(async () => {
+		await closeMongo();
+		redis.quit();
+		server.close();
+		wss.close();
+	});
+	describe('auth/register', register);
+	describe('auth/login', login);
 };
