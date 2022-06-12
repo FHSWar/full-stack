@@ -1,5 +1,6 @@
 import { model, Schema, Types } from 'mongoose';
 import { IRole, Role } from '@/model/role';
+import { onlyOneNotDelete } from '@/util';
 
 interface IUser {
 	avatar?: string // 图片地址
@@ -17,17 +18,21 @@ const rolesNoEmpty = async (arr: Types.ObjectId[]) => {
 
 	return roleDocArr.filter(({ isDelete }) => !isDelete).length > 0;
 };
+const umRegex = /^[a-zA-Z][a-zA-Z0-9-]*[0-9]$/;
 
 const User = model<IUser>('users', new Schema<IUser>(
 	{
 		avatar: String,
 		username: {
 			type: String,
-			required: true
+			required: true,
+			...onlyOneNotDelete
 		},
 		um: {
 			type: String,
-			required: true
+			required: true,
+			validate: [(um: string) => umRegex.test(um), 'um格式错误'],
+			...onlyOneNotDelete
 		},
 		password: {
 			type: String,
@@ -42,7 +47,6 @@ const User = model<IUser>('users', new Schema<IUser>(
 		},
 		isDelete: {
 			type: Boolean,
-			required: true,
 			default: false
 		}
 	},

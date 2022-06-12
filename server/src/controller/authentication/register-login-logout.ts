@@ -4,7 +4,6 @@ import { User } from '@/model/user';
 import { encryptBySHA512, decryptPassword, generateToken } from '@/util';
 
 const router = useRouter();
-const umRegex = /^[a-zA-Z][a-zA-Z0-9-]*[0-9]$/;
 
 const checkDefaultRole = async () => {
 	const roleDocArr = await Role.find({ isDelete: false });
@@ -41,7 +40,7 @@ router.post('auth/login', async (ctx) => {
 		// 已有角色都被删除了，就退回默认角色
 		if (roleArr.length === 0) {
 			const defaultRoleDoc = await Role.findOne({ role: DEFAULT_ROLE });
-			await passwordCorrect.update({ roles: [defaultRoleDoc?._id] });
+			await passwordCorrect.updateOne({ roles: [defaultRoleDoc?._id] });
 		}
 
 		const bareToken = generateToken({
@@ -93,28 +92,6 @@ router.post('auth/logout', async (ctx) => {
 router.post('auth/register', async (ctx) => {
 	const { username, umNo, password } = ctx.request.body;
 
-	if (!username) {
-		toCliect(ctx, '无效提交', STATUS.FAILURE);
-		return;
-	}
-
-	const user = await User.findOne({
-		$and: [
-			{ $or: [{ username }, { um: umNo }] },
-			{ isDelete: false }
-		]
-	});
-
-	if (user) {
-		toCliect(ctx, '用户名或工号已被使用', STATUS.FORBIDDEN);
-		return;
-	}
-
-	if (!umRegex.test(umNo)) {
-		toCliect(ctx, '无效提交', STATUS.FAILURE);
-		return;
-	}
-
 	await checkDefaultRole();
 
 	const defaultRoleDoc = await Role.findOne({ role: DEFAULT_ROLE });
@@ -129,9 +106,9 @@ router.post('auth/register', async (ctx) => {
 
 		await doc.save();
 
-		toCliect(ctx, '注册成功');
+		return toCliect(ctx, '注册成功');
 	} catch (e) {
-		toCliect(ctx, (e as Error).toString(), STATUS.FAILURE);
+		toCliect(ctx, (e as Error).toString(), STATUS.FORBIDDEN);
 	}
 });
 

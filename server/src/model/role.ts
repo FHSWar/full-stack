@@ -1,4 +1,6 @@
 import { model, Schema } from 'mongoose';
+// 离了谱，这里从'@/util'import不报错但会得到undefined
+import { onlyOneNotDelete } from '@/util/model-util-config';
 
 interface IRole {
     role: string
@@ -11,10 +13,11 @@ interface IRole {
 
 const Role = model<IRole>('roles', new Schema<IRole>(
 	{
-		// 用户和角色都能逻辑删除，isDelete为true只有一个，在这里不能写unique: true
+		// 用户和角色都能逻辑删除，isDelete为true只有一个
 		role: {
 			type: String,
-			required: true
+			required: true,
+			...onlyOneNotDelete
 		},
 		description: {
 			type: String,

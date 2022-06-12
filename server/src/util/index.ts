@@ -1,5 +1,6 @@
 export * from './diy-middleware';
 export * from './encrypt-decrypt';
+export * from './model-util-config';
 export * from './mount-global';
 export * from './multer';
 export * from './types';

@@ -1,4 +1,5 @@
 import { model, Schema, Types } from 'mongoose';
+import { onlyOneNotDelete } from '@/util';
 
 interface IClientRoutes {
     role: Types.ObjectId
@@ -14,7 +15,8 @@ const ClientRoutes = model<IClientRoutes>('client_routes', new Schema<IClientRou
 		role: {
 			type: Schema.Types.ObjectId,
 			ref: 'roles',
-			required: true
+			required: true,
+			...onlyOneNotDelete
 		},
 		routesJson: {
 			type: String,
@@ -22,7 +24,6 @@ const ClientRoutes = model<IClientRoutes>('client_routes', new Schema<IClientRou
 		},
 		isDelete: {
 			type: Boolean,
-			required: true,
 			default: false
 		}
 	},

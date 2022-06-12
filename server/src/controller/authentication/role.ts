@@ -36,16 +36,12 @@ router.get('auth/roleList', async (ctx) => {
  */
 router.post('auth/addRole', async (ctx) => {
 	const { role, description } = ctx.request.body;
-	if (!role || !description) {
-		toCliect(ctx, '无效提交', STATUS.FAILURE);
-		return;
+
+	try {
+		await new Role({ role, description }).save();
+	} catch (e) {
+		return toCliect(ctx, '无效提交', STATUS.FORBIDDEN);
 	}
-
-	const result = await Role.findOne({ role, isDelete: false });
-
-	if (result) return toCliect(ctx, '角色已存在', STATUS.FORBIDDEN);
-
-	await new Role({ role, description }).save();
 
 	toCliect(ctx, `已新增${role}`);
 });

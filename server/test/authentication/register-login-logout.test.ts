@@ -5,21 +5,12 @@ import { baseUrl, login, logout, register, setHook } from 'test/util';
 setHook();
 
 describe('auth/register', () => {
-	it('should fail to register', async () => {
-		const res = await request(baseUrl)
-			.post('/api/auth/register')
-			.send({ name: 'john' })
-			.set('Accept', 'application/json')
-			.expect('Content-Type', /json/);
-		expect(res.statusCode).toEqual(400);
-	});
-
 	it('should fail on decrypting password', async () => {
 		const res = await request(baseUrl)
 			.post('/api/auth/register')
 			.send({ username: '111', umNo: 'mock111', password: '111' })
 			.set('Accept', 'application/json');
-		expect(res.statusCode).toEqual(400);
+		expect(res.statusCode).toEqual(403);
 		expect(res.body.message).toEqual('Error: Encrypted message length is invalid.');
 	});
 
@@ -41,7 +32,7 @@ describe('auth/register', () => {
 			.post('/api/auth/register')
 			.send({ username: '222', umNo: '222', password: encryptPassword('222') })
 			.set('Accept', 'application/json');
-		expect(res.statusCode).toEqual(400);
+		expect(res.statusCode).toEqual(403);
 	});
 });
 
