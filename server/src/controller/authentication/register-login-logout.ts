@@ -7,7 +7,7 @@ const router = useRouter();
 const umRegex = /^[a-zA-Z][a-zA-Z0-9-]*[0-9]$/;
 
 const checkDefaultRole = async () => {
-	const roleDocArr = await Role.find();
+	const roleDocArr = await Role.find({ isDelete: false });
 	if (roleDocArr.length === 0) {
 		await new Role({
 			role: DEFAULT_ROLE,
@@ -37,6 +37,12 @@ router.post('auth/login', async (ctx) => {
 		const roleArr = passwordCorrect.roles
 			.filter((v) => v.isDelete === false)
 			.map((v) => v.role);
+
+		// 已有角色都被删除了，就退回默认角色
+		if (roleArr.length === 0) {
+			const defaultRoleDoc = await Role.findOne({ role: DEFAULT_ROLE });
+			await passwordCorrect.update({ roles: [defaultRoleDoc?._id] });
+		}
 
 		const bareToken = generateToken({
 			username,
@@ -111,12 +117,12 @@ router.post('auth/register', async (ctx) => {
 
 	await checkDefaultRole();
 
-	const defaultRoleDoc = await Role.findOne({ role: DEFAULT_ROLE, isDelete: false });
+	const defaultRoleDoc = await Role.findOne({ role: DEFAULT_ROLE });
 
 	try {
 		const doc = new User({
 			username,
-			um: umNo,
+			um: umNo.toUpperCase(),
 			password: encryptBySHA512(decryptPassword(password)),
 			roles: [defaultRoleDoc?._id]
 		});

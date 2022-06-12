@@ -8,11 +8,6 @@ export const mainPanelRoutes:RouteRecordRaw[] = [
 		component: HomePage
 	},
 	{
-		path: 'one',
-		name: 'one',
-		component: () => import('@/views/test-token.vue')
-	},
-	{
 		path: 'role',
 		name: 'role',
 		component: () => import('@/views/personnel-management/role.vue')

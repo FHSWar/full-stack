@@ -22,7 +22,6 @@ const Role = model<IRole>('roles', new Schema<IRole>(
 		},
 		isDelete: {
 			type: Boolean,
-			required: true,
 			default: false
 		},
 		// 是否有权限访问权限配置模块相关接口，都为false就都有权限

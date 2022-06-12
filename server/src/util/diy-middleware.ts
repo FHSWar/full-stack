@@ -3,11 +3,11 @@ import { intersection } from 'lodash';
 import { Role } from '@/model/role';
 import { verifyToken } from '@/util';
 
-export const checkPermittedRole = async (ctx: ParameterizedContext) => {
+export const checkPermittedRole = async (ctx: ParameterizedContext): Promise<boolean|undefined> => {
 	const { header } = ctx.request;
 
-	const { suc, token, err } = verifyToken(header.authorization?.replace('Bearer ', '') as string);
-	if (suc === false) return toCliect(ctx, err, STATUS.INTERNAL_ERROR);
+	const { suc, token } = verifyToken(header.authorization?.replace('Bearer ', '') as string);
+	if (suc === false) return;
 	const { roles } = token as { roles: string[] };
 
 	const redisPermittedRoleListLen = await redis.llen('permittedRoleArr');
@@ -47,7 +47,8 @@ export const checkPermission = () => {
 
 		if (url.startsWith('/api/auth') && !noCheckArr.includes(url.replace('/api/auth/', ''))) {
 			const isPermitted = await checkPermittedRole(ctx);
-			if (!isPermitted) return toCliect(ctx, '该角色无权限', STATUS.FORBIDDEN);
+			if (isPermitted === false) return toCliect(ctx, '该角色无权限', STATUS.FORBIDDEN);
+			if (isPermitted === undefined) return toCliect(ctx, '无效JWT', STATUS.INTERNAL_ERROR);
 		}
 
 		// https://stackoverflow.com/questions/21978658/invalidating-json-web-tokens 调接口的退出，更安全

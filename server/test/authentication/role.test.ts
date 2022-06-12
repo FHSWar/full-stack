@@ -1,11 +1,10 @@
 import request from 'supertest';
-import { getToken } from 'test/util';
+import { baseUrl, setToken } from 'test/util';
 
-const baseUrl = 'http://localhost:9000';
+setToken();
 
-getToken();
 describe('auth/addRole', () => {
-	it('should fail on add role', async () => {
+	it('should fail to add role', async () => {
 		const res = await request(baseUrl)
 			.post('/api/auth/addRole')
 			.send({ role: '访客', description: '默认角色' })

@@ -1,5 +1,5 @@
 import { model, Schema, Types } from 'mongoose';
-import { IRole } from '@/model/role';
+import { IRole, Role } from '@/model/role';
 
 interface IUser {
 	avatar?: string // 图片地址
@@ -11,6 +11,12 @@ interface IUser {
 	updatedAt: Date
 	isDelete: boolean
 }
+
+const rolesNoEmpty = async (arr: Types.ObjectId[]) => {
+	const roleDocArr = await Role.find({ $or: arr.map((_id) => ({ _id })) });
+
+	return roleDocArr.filter(({ isDelete }) => !isDelete).length > 0;
+};
 
 const User = model<IUser>('users', new Schema<IUser>(
 	{
@@ -32,7 +38,7 @@ const User = model<IUser>('users', new Schema<IUser>(
 				type: Schema.Types.ObjectId,
 				ref: 'roles'
 			}],
-			validate: [(arr: Types.ObjectId[]) => arr.length > 0, '至少有一个角色']
+			validate: [rolesNoEmpty, '至少有一个角色']
 		},
 		isDelete: {
 			type: Boolean,

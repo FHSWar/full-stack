@@ -19,9 +19,6 @@ export const getUserInfo = () => get('auth/userInfo', {}, { useMessage: false })
 // 更新用户信息
 export const updateSelfInfo = (params: LoginUser) => post('auth/updateSelfInfo', params);
 
-// 测试token
-export const testToken = () => get('test');
-
 // 上传头像
 export const imgBaseUrl = 'http://localhost:9000';
 export const uploadAvatar = (params: LoginUser&{avatar: File[]}) => post(
