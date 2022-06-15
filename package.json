@@ -45,7 +45,7 @@
   },
   "lint-staged": {
     "client/**/*.{js,ts,vue}": [
-      "npm run lint:chief"
+      "npm run lint:client"
     ],
     "server/**/*.{js,ts}": [
       "npm run lint:chief"

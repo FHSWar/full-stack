@@ -14,7 +14,7 @@ export const logout = () => post('auth/logout');
 export const register = (params: LoginUser) => post('auth/register', params);
 
 // 获取用户信息
-export const getUserInfo = () => get('auth/userInfo', {}, { useMessage: false });
+export const getUserInfo = () => get('auth/userInfo');
 
 // 更新用户信息
 export const updateSelfInfo = (params: LoginUser) => post('auth/updateSelfInfo', params);

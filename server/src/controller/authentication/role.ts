@@ -20,8 +20,7 @@ router.get('auth/roleList', async (ctx) => {
 			isPermitted,
 			createdAt,
 			updatedAt
-		}) => ({ role, description, isPermitted, createdAt, updatedAt })),
-		message: '角色列表'
+		}) => ({ role, description, isPermitted, createdAt, updatedAt }))
 	});
 });
 

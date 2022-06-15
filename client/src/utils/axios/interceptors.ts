@@ -10,13 +10,17 @@ let LoadingInstance:LoadingInstanceType;
 let store:ReturnType<typeof useStore>;
 
 const startLoading = () => {
-	LoadingInstance = ElLoading.service({
-		lock: true,
-		text: '加载中...',
-		background: 'rgba(0,0,0,0.2)'
-	});
+	setTimeout(() => {
+		if (loadingCount <= 0) return;
+
+		LoadingInstance = ElLoading.service({
+			lock: true,
+			text: '加载中...',
+			background: 'rgba(0,0,0,0.2)'
+		});
+	}, 1000);
 };
-const endLoading = () => LoadingInstance.close();
+const endLoading = () => LoadingInstance?.close();
 
 axios.interceptors.request.use(
 	(config: extendedAxiosRequestConfig) => {

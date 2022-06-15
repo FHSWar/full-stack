@@ -7,7 +7,7 @@ interface Role {
 }
 
 // 获取角色列表
-export const getRoleList = () => get('auth/roleList', {}, { useMessage: false });
+export const getRoleList = () => get('auth/roleList');
 
 // 增加角色
 export const addRole = (params: Role) => post('auth/addRole', params);

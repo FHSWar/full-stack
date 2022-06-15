@@ -14,12 +14,13 @@ export type extendedAxiosRequestConfig = AxiosRequestConfig<any>&Options
 export const get = (
 	url = '',
 	params = {},
-	options: extendedAxiosRequestConfig = defaultOption
+	options: extendedAxiosRequestConfig = {}
 ) => {
 	const config = {
 		method: 'get',
 		url,
 		params,
+		...defaultOption,
 		...options
 	};
 	return new Promise((resolve, reject) => {
@@ -37,7 +38,7 @@ export const get = (
 export const post = (
 	url = '',
 	params = {},
-	options: extendedAxiosRequestConfig = defaultOption
+	options: extendedAxiosRequestConfig = {}
 ) => {
 	let config:any;
 	if (options.useFormData) {
@@ -46,6 +47,7 @@ export const post = (
 			url,
 			data: params,
 			headers: { 'Content-Type': 'multipart/form-data; boundary=boundary' },
+			...defaultOption,
 			...options
 		};
 	} else {
@@ -53,6 +55,7 @@ export const post = (
 			method: 'post',
 			url,
 			data: { ...params },
+			...defaultOption,
 			...options
 		};
 	}
