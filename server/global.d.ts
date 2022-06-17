@@ -13,8 +13,13 @@ import {
 declare global {
     // 单测登陆态不知道放哪儿，只好丢到全局了
     var token: string
-    // todo：全局日志打印，应该要根据类型，日期分文件夹
-    var logger: Logger
+    // 全局日志打印，根据日期分文件夹，根据类型分文件
+    var logger: {
+        info: (...args: string[]) => void;
+        trace: (...args: string[]) => void;
+        debug: (...args: string[]) => void;
+        error: (...args: string[]) => void;
+    }
     // redis实例
     var redis: RedisType
     // 状态码

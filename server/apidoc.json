@@ -7,7 +7,7 @@
     "sampleUrl": "http://localhost:9000",
     "forceLanguage": "zh-cn",
     "template": {
-        "withCompare": true,
-        "withGenerator": true
+        "withCompare": false,
+        "withGenerator": false
     }
 }

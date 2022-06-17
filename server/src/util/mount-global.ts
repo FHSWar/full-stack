@@ -1,3 +1,4 @@
+import { scheduleJob } from 'node-schedule';
 import { STATUS, useLogger } from 'shared';
 import { redis, useRouter, KoaContext } from '@/util';
 import wss from './web-socket';
@@ -20,8 +21,23 @@ const toCliect = (
 	}
 };
 
+const initLogger = () => {
+	const infoLogger = useLogger('chief', process.cwd(), 'public/static/log');
+	const errorLogger = useLogger('error', process.cwd(), 'public/static/log');
+
+	return {
+		debug: (...args: string[]) => { infoLogger.debug(args); },
+		error: (...args: string[]) => { errorLogger.error(args); },
+		info: (...args: string[]) => { infoLogger.info(args); },
+		trace: (...args: string[]) => { infoLogger.trace(args); }
+	};
+};
+let logger = initLogger();
+// 每天更新文件输出的目标文件夹
+scheduleJob('0 0 * * *', () => { logger = initLogger(); logger.info('零点刷新'); });
+
 export const mountGlobal = () => {
-	global.logger = useLogger('chief', __dirname);
+	global.logger = logger;
 	global.redis = redis;
 	global.useRouter = useRouter;
 	global.STATUS = STATUS;
