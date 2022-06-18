@@ -75,7 +75,11 @@ router.post('auth/logout', async (ctx) => {
 	const token = header.authorization;
 
 	// redis里存token黑名单，中间件做校验
-	if (token) await redis.set(token, 1);
+	if (token) {
+		await redis.set(token, 1);
+		// 一个月后删掉
+		await redis.expire(token, 60 * 60 * 24 * 30);
+	}
 
 	toCliect(ctx, '已退出');
 });
