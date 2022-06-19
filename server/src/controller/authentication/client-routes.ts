@@ -19,8 +19,7 @@ router.get('auth/routesByRole', async (ctx) => {
 	const { role } = ctx.query as {role?: string};
 	const { header } = ctx.request;
 
-	const { suc, token, err } = verifyToken(header.authorization?.replace('Bearer ', '') as string);
-	if (suc === false) return toCliect(ctx, err, STATUS.INTERNAL_ERROR);
+	const { token } = verifyToken(header.authorization?.replace('Bearer ', '') as string);
 	const { roles } = token as Omit<IUser, 'password'>;
 
 	const findRoutesJsonByRoleId = async (id: IClientRoutes['role']) => {
@@ -30,7 +29,7 @@ router.get('auth/routesByRole', async (ctx) => {
 		toCliect(ctx, {
 			routes: JSON.stringify([]),
 			message: '无对应角色的菜单'
-		}, STATUS.OVERTIME);
+		}, STATUS.FAILURE);
 	};
 
 	const findRoutesJsonByRoles = async () => {
@@ -68,11 +67,19 @@ router.get('auth/routesByRole', async (ctx) => {
 		const fallbackRoleDoc = await Role.findOne({ role: DEFAULT_ROLE }).lean();
 		const routesDoc = await ClientRoutes.findOne({ role: fallbackRoleDoc!._id }).lean();
 
-		if (routesDoc !== null) return toCliect(ctx, { routes: routesDoc.routesJson });
+		if (routesDoc !== null) {
+			return toCliect(
+				ctx,
+				{
+					routes: routesDoc.routesJson,
+					message: `角色无对应路由，回退到${DEFAULT_ROLE}路由`
+				}
+			);
+		}
 		return toCliect(ctx, {
 			routes: JSON.stringify([]),
 			message: '无对应角色的菜单'
-		}, STATUS.OVERTIME);
+		}, STATUS.FAILURE);
 	}
 
 	toCliect(ctx, { routes: routesJson });

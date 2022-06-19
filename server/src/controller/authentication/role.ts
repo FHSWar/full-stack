@@ -39,7 +39,7 @@ router.post('auth/addRole', async (ctx) => {
 	try {
 		await new Role({ role, description }).save();
 	} catch (e) {
-		return toCliect(ctx, '无效提交', STATUS.FORBIDDEN);
+		return toCliect(ctx, (e as Error).toString(), STATUS.FORBIDDEN);
 	}
 
 	toCliect(ctx, `已新增${role}`);
@@ -57,8 +57,11 @@ router.post('auth/addRole', async (ctx) => {
 router.post('auth/editRole', async (ctx) => {
 	const { role, description } = ctx.request.body;
 
-	await Role.updateOne({ role, isDelete: false }, { description });
-	toCliect(ctx, `已更新${role}描述`);
+	const { modifiedCount } = await Role.updateOne({ role, isDelete: false }, { description });
+
+	modifiedCount === 1
+		? toCliect(ctx, `已更新${role}描述`)
+		: toCliect(ctx, '角色不存在', STATUS.FAILURE);
 });
 
 /**
@@ -89,6 +92,13 @@ router.post('auth/removeRole', async (ctx) => {
 router.post('auth/appointPermission', async (ctx) => {
 	const { roles: appointedRoleArr } = ctx.request.body;
 	const isEmpty = !appointedRoleArr || appointedRoleArr.length === 0;
+
+	// 这个校验没法做到数据库里，所以是无法完全规避开发人员硬要乱使用数据库的情况
+	const roleDocArr = await Promise.all(appointedRoleArr.map((role: string) => {
+		const condition = { role, isDelete: false };
+		return Role.findOne(condition).lean();
+	}));
+	if (roleDocArr !== null && roleDocArr.includes(null)) return toCliect(ctx, '不能授权给不存在的角色', STATUS.FAILURE);
 
 	await Role.updateMany({ isDelete: false }, { isPermitted: false });
 	isEmpty

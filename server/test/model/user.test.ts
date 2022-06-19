@@ -1,4 +1,6 @@
 import { Error as MongooseError } from 'mongoose';
+import schedule from 'node-schedule';
+import { DEFAULT_ROLE } from 'shared';
 import { useMongo, closeMongo } from '@/util';
 import { Role } from '@/model/role';
 import { User } from '@/model/user';
@@ -17,14 +19,15 @@ beforeAll(async () => {
 
 afterAll(async () => {
 	await closeMongo();
-	server.close();
 	redis.quit();
+	schedule.gracefulShutdown();
+	server.close();
 	wss.close();
 });
 
 describe('User model', () => {
 	it('create & save user successfully', async () => {
-		await new Role({ role: '访客', description: '访客' }).save();
+		await new Role({ role: DEFAULT_ROLE, description: DEFAULT_ROLE }).save();
 		const roles = await Role.find();
 		const validRoleId = roles[0]._id;
 		(userData as any).roles = [validRoleId];

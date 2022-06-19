@@ -2,7 +2,7 @@
     "compilerOptions": {
         "baseUrl": ".",
         "esModuleInterop": true,
-        "forceConsistentCasingInFileNames": true,
+        "forceConsistentCasingInFileNames": true,    
         "lib": [ "esNext" ],
         "moduleResolution": "node",
         "module": "commonjs",

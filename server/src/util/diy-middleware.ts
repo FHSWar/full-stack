@@ -48,7 +48,8 @@ export const checkPermission = () => {
 		if (url.startsWith('/api/auth') && !noCheckArr.includes(url.replace('/api/auth/', ''))) {
 			const isPermitted = await checkPermittedRole(ctx);
 			if (isPermitted === false) return toCliect(ctx, '该角色无权限', STATUS.FORBIDDEN);
-			if (isPermitted === undefined) return toCliect(ctx, '无效JWT', STATUS.INTERNAL_ERROR);
+			// 这里处理之后，以/api/auth开头（仅限于这一类！）的api就不用处理了
+			if (isPermitted === undefined) return toCliect(ctx, '无效JWT', STATUS.FORBIDDEN);
 		}
 
 		// https://stackoverflow.com/questions/21978658/invalidating-json-web-tokens 调接口的退出，更安全

@@ -1,10 +1,8 @@
 import request from 'supertest';
-import { DEFAULT_ROLE } from 'shared';
+import { ADMIN_ROLE, DEFAULT_ROLE } from 'shared';
 import { baseUrl, setToken, logoutLogin } from 'test/util';
 import { Role } from '@/model/role';
 import { User } from '@/model/user';
-
-const ADMIN_ROLE = '管理员';
 
 setToken();
 
@@ -21,7 +19,7 @@ describe('auth/userList', () => {
 		const res = await request(baseUrl)
 			.get('/api/auth/userList')
 			.set('Authorization', 'Bear wrong');
-		expect(res.statusCode).toEqual(500);
+		expect(res.statusCode).toEqual(403);
 	});
 });
 

@@ -1,4 +1,5 @@
 import { scheduleJob } from 'node-schedule';
+import { env } from 'process';
 import { STATUS, useLogger } from 'shared';
 import { redis, useRouter, KoaContext } from '@/util';
 import wss from './web-socket';
@@ -34,7 +35,7 @@ const initLogger = () => {
 };
 let logger = initLogger();
 // 每天更新文件输出的目标文件夹
-scheduleJob('0 0 * * *', () => { logger = initLogger(); logger.info('零点刷新'); });
+if (env.NODE_ENV !== 'test')scheduleJob('0 0 * * *', () => { logger = initLogger(); logger.info('零点刷新'); });
 
 export const mountGlobal = () => {
 	global.logger = logger;

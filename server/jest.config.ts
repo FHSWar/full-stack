@@ -10,6 +10,7 @@ export default async (): Promise<Config.InitialOptions> => ({
 		'@/(.*)': '<rootDir>/src/$1',
 		'test/(.*)': '<rootDir>/test/$1'
 	},
+	modulePathIgnorePatterns: ['<rootDir>/build/'], // 编译产物不需要扫描
 	transform: {
 		'^.+\\.ts?$': 'ts-jest'
 	},
