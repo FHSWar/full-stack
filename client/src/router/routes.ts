@@ -3,7 +3,7 @@
 */
 import { RouteRecordRaw } from 'vue-router';
 import Login from '../views/login/index.vue';
-import Home from '@/components/layout/index.vue';
+import Home from '@/components/layout/default/index.vue';
 import { mainPanelRoutes } from './main-panel';
 
 export const routes:RouteRecordRaw[] = [
