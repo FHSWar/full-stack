@@ -143,8 +143,9 @@ const triggerMethod = (method: () => void) => { method(); (popoverRef.value as a
     >
       <template #reference>
         <use-icon
-          :class="animation"
           icon="Menu"
+          :class="animation"
+          :size="18"
           @mouseenter="onMouseEnter"
         />
       </template>

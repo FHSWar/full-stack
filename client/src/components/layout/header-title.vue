@@ -4,6 +4,15 @@ import { useStore } from '@/stores';
 
 const store = useStore();
 const showHeaderTitle = computed(() => !store.themeConfig.isAsideMenuCollapse);
+const iconColor = computed(() => (store.themeConfig.layout === 'single-column'
+	? '#fff'
+	: 'var(--vscode-icon-color)'));
+const textColor = computed(() => (store.themeConfig.layout === 'single-column'
+	? '#ffd04b'
+	: 'var(--el-text-color-regular)'));
+const paddingLeft = computed(() => (store.themeConfig.layout === 'single-column'
+	? 0
+	: '20px'));
 </script>
 
 <template>
@@ -23,38 +32,37 @@ const showHeaderTitle = computed(() => !store.themeConfig.isAsideMenuCollapse);
   &__header {
     --vscode-icon-color: #4b9ae9;
 
-    position: relative;
+    display: flex;
     border-right: var(--el-border);
 
     svg {
-      position: absolute;
-      color: var(--vscode-icon-color);
+      color: v-bind("iconColor");
 
       &:first-of-type {
-        bottom: 16px;
-        left: 16px;
+        top: 20px;
         font-size: 24px;
-        transform-origin: 50% 50%;
         animation: gear-rotate-anti-clock-wise 6s linear 0.1s infinite;
       }
 
       &:nth-of-type(2) {
         top: 10px;
-        left: 30px;
+        left: -10px;
         font-size: var(--el-font-size-large);
         transform: rotate(15deg);
-        transform-origin: 50% 50%;
         animation: gear-rotate-clock-wise 6s linear 0.2s infinite;
       }
     }
 
     h1 {
-      position: absolute;
       left: 56px;
       line-height: var(--el-header-height);
-      color: var(--el-text-color-regular);
+      color: v-bind("textColor");
     }
   }
+}
+
+.el-header {
+  padding-left: v-bind("paddingLeft");
 }
 
 @keyframes gear-rotate-clock-wise {

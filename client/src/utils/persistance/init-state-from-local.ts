@@ -18,7 +18,10 @@ if (temp !== null) {
 let themeConfig: ThemeConfig;
 themeConfig = getLocal('themeConfig') as ThemeConfig;
 if (themeConfig === null) {
-	themeConfig = { isAsideMenuCollapse: false };
+	themeConfig = {
+		isAsideMenuCollapse: false,
+		layout: 'default'
+	};
 	setLocal('themeConfig', themeConfig);
 }
 

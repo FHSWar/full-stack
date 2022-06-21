@@ -32,6 +32,7 @@ export type PopoverOption = {
 
 export type ThemeConfig = {
   isAsideMenuCollapse: boolean
+  layout: 'default' | 'single-column'
 }
 
 export type UserInfo = {

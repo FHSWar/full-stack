@@ -5,6 +5,7 @@ import LayoutAside from './aside/index.vue';
 import Breadcrumb from './header/breadcrumb.vue';
 import TabsBar from './header/tabs-bar.vue';
 import Avatar from './header/avatar.vue';
+import SwitchLayout from '../switch-layout.vue';
 
 const isDark = useDark();
 const toggleDarkClass = useToggle(isDark);
@@ -25,6 +26,7 @@ const toggleDark = () => { toggleDarkClass(); };
         <breadcrumb class="common-layout__breadcrumb" />
         <avatar />
         <use-icon class="common-layout__toggle-icon" :icon="icon" @click="toggleDark" />
+        <switch-layout />
       </el-header>
       <el-header class="common-layout__header">
         <tabs-bar />
