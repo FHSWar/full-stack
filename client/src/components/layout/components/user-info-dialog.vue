@@ -6,7 +6,7 @@ import type { UploadProps } from 'element-plus';
 import { getUserInfo, imgBaseUrl, updateSelfInfo, uploadAvatar } from '@/api/authorization';
 import { useStore } from '@/stores';
 import type { UserInfo } from '@/utils';
-import editPasswordDialog from './edit-password-dialog.vue';
+import editPasswordDialog from '../default/header/edit-password-dialog.vue';
 
 const { editable, userInfo } = await getUserInfo() as {editable: string[], userInfo: UserInfo};
 const emit = defineEmits(['fromChild']);

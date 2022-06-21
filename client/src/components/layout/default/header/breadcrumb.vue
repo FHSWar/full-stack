@@ -1,8 +1,8 @@
 <script lang="ts" setup>
 import { computed, nextTick, ref, watch } from 'vue';
 import { ArrowRight } from '@element-plus/icons-vue';
-import { useStore } from '@/stores';
 import { constantRoutes } from '@/router/constant';
+import { useStore } from '@/stores';
 
 const store = useStore();
 

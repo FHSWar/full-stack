@@ -5,7 +5,7 @@ import { fallbackRoutes } from '@/router';
 import { useStore } from '@/stores';
 import { flattenMenuTree, getLocal } from '@/utils';
 import type { MenuTree } from '@/utils';
-import headerTitle from '@/components/layout/header-title.vue';
+import headerTitle from '@/components/layout/components/header-title.vue';
 import menuTree from './menu-tree.vue';
 
 const store = useStore();

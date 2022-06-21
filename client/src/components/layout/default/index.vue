@@ -1,17 +1,10 @@
 <script lang="ts" setup>
-import { computed } from 'vue';
-import { useDark, useToggle } from '@vueuse/core';
+import Avatar from '@/components/layout/components/avatar.vue';
+import LightDark from '@/components/layout/components/light-dark.vue';
+import SwitchLayout from '@/components/layout/components/switch-layout.vue';
 import LayoutAside from './aside/index.vue';
 import Breadcrumb from './header/breadcrumb.vue';
 import TabsBar from './header/tabs-bar.vue';
-import Avatar from './header/avatar.vue';
-import SwitchLayout from '../switch-layout.vue';
-
-const isDark = useDark();
-const toggleDarkClass = useToggle(isDark);
-const icon = computed(() => (isDark.value ? 'Moon' : 'Sunny'));
-const iconColor = computed(() => (isDark.value ? 'silver' : '#ff9954'));
-const toggleDark = () => { toggleDarkClass(); };
 
 </script>
 
@@ -25,7 +18,7 @@ const toggleDark = () => { toggleDarkClass(); };
       <el-header class="common-layout__header">
         <breadcrumb class="common-layout__breadcrumb" />
         <avatar />
-        <use-icon class="common-layout__toggle-icon" :icon="icon" @click="toggleDark" />
+        <light-dark />
         <switch-layout />
       </el-header>
       <el-header class="common-layout__header">
@@ -70,12 +63,6 @@ const toggleDark = () => { toggleDarkClass(); };
 
   &__breadcrumb {
     flex: 1;
-  }
-
-  &__toggle-icon {
-    margin-left: 12px;
-    font-size: var(--el-font-size-extra-large);
-    color: v-bind("iconColor");
   }
 
   &__main {

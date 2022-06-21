@@ -6,7 +6,7 @@ import { constantRoutes } from '@/router';
 import { useStore } from '@/stores';
 import { findMenuListChain } from '@/utils';
 import type { MenuList } from '@/utils';
-import PopoverOptions from './popover-options.vue';
+import PopoverOptions from '@/components/layout/components/popover-options.vue';
 
 const router = useRouter();
 const store = useStore();

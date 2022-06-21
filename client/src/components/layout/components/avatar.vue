@@ -1,6 +1,7 @@
 <script lang="ts" setup>
 import { computed, provide, ref } from 'vue';
 import { UserFilled } from '@element-plus/icons-vue';
+import { useDark } from '@vueuse/core';
 import { useStore } from '@/stores';
 import { imgBaseUrl } from '@/api/authorization';
 import { useLogout } from '@/utils';
@@ -8,6 +9,9 @@ import PopoverOptions from './popover-options.vue';
 import UserInfoDialog from './user-info-dialog.vue';
 
 const store = useStore();
+
+const isDark = useDark();
+const fontColor = computed(() => (store.themeConfig.layout === 'single-column' && !isDark.value ? 'white' : ''));
 
 const username = computed(() => store.userInfo.username);
 const avatarUrl = computed(() => store.userInfo.avatar);
@@ -75,6 +79,7 @@ const triggerMethod = (method: () => void) => { method(); };
   }
 
   &__username {
+    color: v-bind("fontColor");
     text-indent: 0.5em;
   }
 }

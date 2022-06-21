@@ -1,7 +1,9 @@
 <script lang="ts" setup>
 import { ref } from 'vue';
-import headerTitle from '@/components/layout/header-title.vue';
-import SwitchLayout from '@/components/layout/switch-layout.vue';
+import Avatar from '@/components/layout/components/avatar.vue';
+import LightDark from '@/components/layout/components/light-dark.vue';
+import headerTitle from '@/components/layout/components/header-title.vue';
+import SwitchLayout from '@/components/layout/components/switch-layout.vue';
 
 const activeIndex2 = ref('1');
 const handleSelect = (key: string, keyPath: string[]) => {
@@ -11,11 +13,9 @@ const handleSelect = (key: string, keyPath: string[]) => {
 </script>
 
 <template>
-  <el-container>
+  <el-container class="layout__wrapper">
     <el-header class="layout__header">
-      <div class="layout__title">
-        <header-title />
-      </div>
+      <header-title class="layout__title" />
       <el-menu
         :default-active="activeIndex2"
         :background-color="'#545c64'"
@@ -63,9 +63,11 @@ const handleSelect = (key: string, keyPath: string[]) => {
           Orders
         </el-menu-item>
       </el-menu>
+      <avatar />
+      <light-dark />
       <switch-layout />
     </el-header>
-    <el-main class="common-layout__main">
+    <el-main class="layout__main">
       <router-view v-slot="{ Component, route }">
         <keep-alive :include="['MenuConfiguration']">
           <transition name="fade" mode="out-in">
@@ -79,6 +81,10 @@ const handleSelect = (key: string, keyPath: string[]) => {
 
 <style lang="scss" scoped>
 .layout {
+  &__wrapper {
+    height: 100%;
+  }
+
   &__header {
     display: flex;
     align-items: center;
@@ -90,7 +96,13 @@ const handleSelect = (key: string, keyPath: string[]) => {
   }
 
   &__menu {
+    left: -20px;
     flex: 1;
+  }
+
+  &__main {
+    height: 100%;
+    background-color: var(--el-bg-color-page);
   }
 }
 </style>

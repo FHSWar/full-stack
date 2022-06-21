@@ -4,15 +4,12 @@ import { useStore } from '@/stores';
 
 const store = useStore();
 const showHeaderTitle = computed(() => !store.themeConfig.isAsideMenuCollapse);
-const iconColor = computed(() => (store.themeConfig.layout === 'single-column'
-	? '#fff'
-	: 'var(--vscode-icon-color)'));
-const textColor = computed(() => (store.themeConfig.layout === 'single-column'
-	? '#ffd04b'
-	: 'var(--el-text-color-regular)'));
-const paddingLeft = computed(() => (store.themeConfig.layout === 'single-column'
-	? 0
-	: '20px'));
+const isSingleColumn = computed(() => store.themeConfig.layout === 'single-column');
+
+const borderRight = computed(() => (isSingleColumn.value ? '' : 'var(--el-border)'));
+const iconColor = computed(() => (isSingleColumn.value ? '#ffd04b' : 'var(--vscode-icon-color)'));
+const textColor = computed(() => (isSingleColumn.value ? '#fff' : 'var(--el-text-color-regular)'));
+const paddingLeft = computed(() => (isSingleColumn.value ? 0 : '20px'));
 </script>
 
 <template>
@@ -33,7 +30,8 @@ const paddingLeft = computed(() => (store.themeConfig.layout === 'single-column'
     --vscode-icon-color: #4b9ae9;
 
     display: flex;
-    border-right: var(--el-border);
+    width: 300px;
+    border-right: v-bind("borderRight");
 
     svg {
       color: v-bind("iconColor");
