@@ -10,8 +10,7 @@ export const routes:RouteRecordRaw[] = [
 	{
 		path: '/',
 		name: 'home',
-		redirect: '/main',
-		meta: { transition: 'el-zoom-in-top' }
+		redirect: '/main'
 	},
 	{
 		path: '/login',
