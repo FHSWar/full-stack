@@ -7,13 +7,15 @@ const showHeaderTitle = computed(() => !store.themeConfig.isAsideMenuCollapse);
 const isSingleColumn = computed(() => store.themeConfig.layout === 'single-column');
 
 const borderRight = computed(() => (isSingleColumn.value ? '' : 'var(--el-border)'));
+const height = computed(() => (isSingleColumn.value ? '116px' : '56px'));
 const iconColor = computed(() => (isSingleColumn.value ? '#ffd04b' : 'var(--vscode-icon-color)'));
 const textColor = computed(() => (isSingleColumn.value ? '#fff' : 'var(--el-text-color-regular)'));
+const titleWidth = computed(() => (isSingleColumn.value ? '300px' : ''));
 const paddingLeft = computed(() => (isSingleColumn.value ? 0 : '20px'));
 </script>
 
 <template>
-  <el-header class="side-bar__header">
+  <header class="side-bar__header">
     <use-icon icon="Setting" />
     <use-icon icon="Tools" />
     <transition name="el-zoom-in-center">
@@ -21,7 +23,7 @@ const paddingLeft = computed(() => (isSingleColumn.value ? 0 : '20px'));
         后台系统
       </h1>
     </transition>
-  </el-header>
+  </header>
 </template>
 
 <style lang="scss" scoped>
@@ -30,20 +32,25 @@ const paddingLeft = computed(() => (isSingleColumn.value ? 0 : '20px'));
     --vscode-icon-color: #4b9ae9;
 
     display: flex;
-    width: 300px;
+    align-items: center;
+    width: v-bind("titleWidth");
+    height: v-bind("height");
+    padding-left: v-bind("paddingLeft");
     border-right: v-bind("borderRight");
+
+    // border-bottom: v-bind("borderRight");
 
     svg {
       color: v-bind("iconColor");
 
       &:first-of-type {
-        top: 20px;
+        top: 4px;
         font-size: 24px;
         animation: gear-rotate-anti-clock-wise 6s linear 0.1s infinite;
       }
 
       &:nth-of-type(2) {
-        top: 10px;
+        top: -8px;
         left: -10px;
         font-size: var(--el-font-size-large);
         transform: rotate(15deg);
@@ -52,7 +59,9 @@ const paddingLeft = computed(() => (isSingleColumn.value ? 0 : '20px'));
     }
 
     h1 {
-      left: 56px;
+      position: absolute;
+      left: 64px;
+      font-size: var(--el-font-size-extra-large);
       line-height: var(--el-header-height);
       color: v-bind("textColor");
     }

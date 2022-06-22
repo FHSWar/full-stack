@@ -2,9 +2,9 @@
 import Avatar from '@/components/layout/components/avatar.vue';
 import LightDark from '@/components/layout/components/light-dark.vue';
 import SwitchLayout from '@/components/layout/components/switch-layout.vue';
-import LayoutAside from './aside/index.vue';
 import Breadcrumb from './header/breadcrumb.vue';
 import TabsBar from './header/tabs-bar.vue';
+import LayoutAside from './layout-aside.vue';
 
 </script>
 
@@ -38,6 +38,8 @@ import TabsBar from './header/tabs-bar.vue';
 </template>
 
 <style lang="scss" scoped>
+@use "@/assets/style/fade-transition.scss";
+
 .common-layout {
   height: 100%;
 
@@ -53,10 +55,14 @@ import TabsBar from './header/tabs-bar.vue';
   &__header {
     display: flex;
     align-items: center;
-    height: calc(var(--el-header-height) - 12px);
 
     &:first-of-type {
-      background-color: var(--el-bg-color-page);
+      height: 52px;
+      border-bottom: var(--el-border-width) var(--el-border-style) var(--el-border-color-light);
+    }
+
+    &:nth-of-type(2) {
+      height: 56px;
       border-bottom: var(--el-border-width) var(--el-border-style) var(--el-border-color-light);
     }
   }
@@ -67,21 +73,6 @@ import TabsBar from './header/tabs-bar.vue';
 
   &__main {
     background-color: var(--el-bg-color-page);
-
-    .fade-enter-active,
-    .fade-leave-active {
-      transition: opacity 0.2s ease 0s;
-    }
-
-    .fade-enter-from,
-    .fade-leave-to {
-      opacity: 0;
-    }
-
-    .fade-leave-from,
-    .fade-enter-to {
-      opacity: 1;
-    }
   }
 }
 

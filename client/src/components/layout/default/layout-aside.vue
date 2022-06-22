@@ -1,46 +1,21 @@
 <script lang="ts" setup>
 import { computed, ref, watchEffect } from 'vue';
-import { getRoutesByRole } from '@/api/personnel';
-import { fallbackRoutes } from '@/router';
 import { useStore } from '@/stores';
-import { flattenMenuTree, getLocal } from '@/utils';
-import type { MenuTree } from '@/utils';
+import { initMenuTree } from '@/utils';
 import headerTitle from '@/components/layout/components/header-title.vue';
-import menuTree from './menu-tree.vue';
+import menuTree from '@/components/layout/components/menu-tree.vue';
 
 const store = useStore();
 // 用全局状态的值来做初始化
 const initIsCollapase = store.themeConfig.isAsideMenuCollapse;
 const isCollapse = ref(initIsCollapase);
 const deg = computed(() => (isCollapse.value ? '0' : '180deg'));
-// 全局的面包屑用constantRoutes做兜底，必有id可用
-const activePageId = computed(() => store.breadcrumb.at(-1)!.id);
-const sideMenu = ref([] as MenuTree);
 
 watchEffect(() => { store.themeConfig.isAsideMenuCollapse = isCollapse.value; });
 
 const toggleAside = () => { isCollapse.value = !isCollapse.value; };
 
-const initMenuTree = async () => {
-	// getLocal('menuTree')为truthy说明还有登陆态，复用即可，不需要请求
-	if (getLocal('menuTree')) {
-		sideMenu.value = store.menuTree;
-		return;
-	}
-
-	try {
-		const { routes } = await getRoutesByRole() as any;
-		sideMenu.value = JSON.parse(routes);
-		store.menuTree = sideMenu.value;
-		store.menuList = flattenMenuTree(sideMenu.value);
-	} catch (e) {
-		console.warn('初始状态。');
-		sideMenu.value = fallbackRoutes;
-		store.menuTree = sideMenu.value;
-		store.menuList = flattenMenuTree(sideMenu.value);
-	}
-};
-initMenuTree();
+const { activePageId, sideMenu } = initMenuTree();
 </script>
 
 <template>

@@ -1,6 +1,8 @@
 <script lang="ts" setup>
 import { shallowRef, watchEffect } from 'vue';
 import { useStore } from '@/stores';
+import { getLocal } from '@/utils';
+import type { ThemeConfig } from '@/utils';
 
 const layoutType = shallowRef(null) as any;
 const store = useStore();
@@ -16,11 +18,14 @@ const switchLayout = (type: string) => {
 		default:
 	}
 };
-switchLayout('default');
+
 watchEffect(() => {
 	switchLayout(store.themeConfig.layout);
 });
 
+// 解决反复刷新导致布局错乱的bug
+const { layout } = getLocal('themeConfig') as ThemeConfig;
+switchLayout(layout || 'default');
 </script>
 
 <template>

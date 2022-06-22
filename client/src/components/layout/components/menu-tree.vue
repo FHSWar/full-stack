@@ -16,21 +16,20 @@ const clickMenu = ({ page, id }: Omit<MenuList[number], 'icon'|'pid'|'title'|'ch
 
 <template>
   <template v-for="{children, desc, icon, id, page, title} in asideMenuTree" :key="id">
-    <el-menu-item v-if="children.length === 0" :index="id">
+    <el-menu-item v-if="children.length === 0" :index="id" @click="clickMenu({id, page})">
       <use-icon v-if="icon" :icon="icon" />
       <template #title>
-        <span v-if="!desc" class="menu-tree__item" @click="clickMenu({id, page})">
+        <span v-if="!desc">
           {{ title }}
         </span>
         <el-tooltip
           v-else
-          class="box-item"
           placement="top"
           :content="desc"
           :hide-after="0"
           :show-after="1000"
         >
-          <span class="menu-tree__item" @click="clickMenu({id, page})">
+          <span @click="clickMenu({id, page})">
             {{ title }}
           </span>
         </el-tooltip>
@@ -39,7 +38,7 @@ const clickMenu = ({ page, id }: Omit<MenuList[number], 'icon'|'pid'|'title'|'ch
     <el-sub-menu v-else :index="id">
       <template #title>
         <use-icon v-if="icon" :icon="icon" />
-        <span class="menu-tree__item" @click="clickMenu({id, page})">
+        <span @click="clickMenu({id, page})">
           {{ title }}
         </span>
       </template>
@@ -47,11 +46,3 @@ const clickMenu = ({ page, id }: Omit<MenuList[number], 'icon'|'pid'|'title'|'ch
     </el-sub-menu>
   </template>
 </template>
-
-<style lang="scss" scoped>
-.menu-tree {
-  &__item {
-    width: 100%;
-  }
-}
-</style>
