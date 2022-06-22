@@ -5,7 +5,6 @@ import SwitchLayout from '@/components/layout/components/switch-layout.vue';
 import Breadcrumb from './header/breadcrumb.vue';
 import TabsBar from './header/tabs-bar.vue';
 import LayoutAside from './layout-aside.vue';
-
 </script>
 
 <template>

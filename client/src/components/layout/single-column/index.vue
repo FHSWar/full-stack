@@ -4,7 +4,6 @@ import LightDark from '@/components/layout/components/light-dark.vue';
 import headerTitle from '@/components/layout/components/header-title.vue';
 import SwitchLayout from '@/components/layout/components/switch-layout.vue';
 import MenuTree from './header-menu.vue';
-
 </script>
 
 <template>

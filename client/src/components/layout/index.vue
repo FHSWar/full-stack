@@ -24,8 +24,12 @@ watchEffect(() => {
 });
 
 // 解决反复刷新导致布局错乱的bug
-const { layout } = getLocal('themeConfig') as ThemeConfig;
-switchLayout(layout || 'default');
+try {
+	const { layout } = getLocal('themeConfig') as ThemeConfig;
+	switchLayout(layout);
+} catch (e) {
+	switchLayout('default');
+}
 </script>
 
 <template>

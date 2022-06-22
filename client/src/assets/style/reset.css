@@ -23,6 +23,7 @@ select {
 
 html,
 body {
+  height: 100vh;
   font-family:
     "Helvetica Neue",
     Helvetica,
@@ -47,4 +48,8 @@ li {
 input:focus,
 a:focus {
   outline: none;
+}
+
+#app {
+  height: 100%;
 }
