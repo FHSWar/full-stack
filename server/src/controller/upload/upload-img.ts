@@ -3,9 +3,6 @@ import multer from '@koa/multer';
 import { IUser, User } from '@/model/user';
 import { staticDir, upload, verifyToken } from '@/util';
 
-// process.cwd(): /Users/fhs_war/Documents/trainHall/full-stack/server
-// __dirname: /Users/fhs_war/Documents/trainHall/full-stack/server/router/upload
-
 const router = useRouter();
 
 /**
@@ -20,6 +17,7 @@ router.post('upload/avatar', upload, async (ctx) => {
 	const { avatar } = ctx.request.files as { avatar: multer.File[] };
 	const { authorization } = ctx.request.header;
 
+	// 不以/api/auth打头的，自定义中间件未做处理，这里业务代码就要自己处理个
 	const { suc, token, err } = verifyToken((authorization as string).replace('Bearer ', ''));
 	if (suc === false) return toCliect(ctx, err, STATUS.INTERNAL_ERROR);
 	const { um, username } = token as Omit<IUser, 'password'>;

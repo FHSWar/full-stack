@@ -1,3 +1,4 @@
+import { promisify } from 'util';
 import { md, pki } from 'node-forge';
 import { rsaPrivateKey } from '@/config';
 
@@ -22,16 +23,14 @@ export const encryptBySHA512 = (str: string) => {
 };
 
 // 生成RSA密钥对
-export const generateRsaKeyPair = () => {
+export const generateRsaKeyPair = async () => {
 	const { rsa, publicKeyToRSAPublicKeyPem, privateKeyToPem } = pki;
+	const generateKeyPair = promisify(rsa.generateKeyPair);
 
-	rsa.generateKeyPair({ bits: 2048, workers: 2 }, (err, keypair) => {
-		if (err) return logger.error('generateKeyPair error', err.toString());
+	const { privateKey, publicKey } = await generateKeyPair({ bits: 2048, workers: 2 });
 
-		// 这里就生成了字符串的公钥和密钥了，可以把生成结果保存起来
-		console.log({
-			publicKey: publicKeyToRSAPublicKeyPem(keypair.publicKey, 72).replace(/\r/g, ''),
-			privateKey: privateKeyToPem(keypair.privateKey, 72).replace(/\r/g, '')
-		});
+	console.log({
+		publicKey: publicKeyToRSAPublicKeyPem(publicKey, 72).replace(/\r/g, ''),
+		privateKey: privateKeyToPem(privateKey, 72).replace(/\r/g, '')
 	});
 };
