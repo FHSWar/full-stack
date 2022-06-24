@@ -15,13 +15,22 @@ describe('upload/avatar', () => {
 		expect(res.statusCode).toEqual(200);
 	});
 
-	it('should fail from not having token', async () => {
+	it('should fail from uploading empty', async () => {
 		const res = await request(baseUrl)
-		// get和post搞错也要排查好久
-			.get('/api/auth/roleList')
+			.post('/api/upload/avatar')
+			.set('Authorization', global.token)
 			.set('Accept', 'application/json')
 			.expect('Content-Type', /json/);
 		expect(res.statusCode).toEqual(403);
-		console.log('asdfasdf', res.body);
+	});
+
+	it('should fail from uploading too big image', async () => {
+		const res = await request(baseUrl)
+			.post('/api/upload/avatar')
+			.attach('avatar', resolve(__dirname, './wlop.jpg'))
+			.set('Authorization', global.token)
+			.set('Accept', 'application/json')
+			.expect('Content-Type', /json/);
+		expect(res.statusCode).toEqual(504);
 	});
 });

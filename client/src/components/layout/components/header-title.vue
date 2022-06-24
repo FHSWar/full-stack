@@ -3,7 +3,6 @@ import { computed } from 'vue';
 import { useStore } from '@/stores';
 
 const store = useStore();
-const showHeaderTitle = computed(() => !store.themeConfig.isAsideMenuCollapse);
 const isSingleColumn = computed(() => store.themeConfig.layout === 'single-column');
 
 const borderRight = computed(() => (isSingleColumn.value ? '' : 'var(--el-border)'));
@@ -12,6 +11,7 @@ const iconColor = computed(() => (isSingleColumn.value ? '#ffd04b' : 'var(--vsco
 const textColor = computed(() => (isSingleColumn.value ? '#fff' : 'var(--el-text-color-regular)'));
 const titleWidth = computed(() => (isSingleColumn.value ? '300px' : ''));
 const paddingLeft = computed(() => (isSingleColumn.value ? 0 : '20px'));
+const showHeaderTitle = computed(() => !store.themeConfig.isAsideMenuCollapse || isSingleColumn.value);
 </script>
 
 <template>

@@ -14,12 +14,16 @@ const router = useRouter();
  * @apiBody (query) {Object[]} avatar 用户头像
  */
 router.post('upload/avatar', upload, async (ctx) => {
-	const { avatar } = ctx.request.files as { avatar: multer.File[] };
+	const files = ctx.request.files as { avatar: multer.File[] };
+
+	if (!files) return toCliect(ctx, '图片不能为空', STATUS.FORBIDDEN);
+
+	const avatar = files.avatar;
+
 	const { authorization } = ctx.request.header;
 
 	// 不以/api/auth打头的，自定义中间件未做处理，这里业务代码就要自己处理个
-	const { suc, token, err } = verifyToken((authorization as string).replace('Bearer ', ''));
-	if (suc === false) return toCliect(ctx, err, STATUS.INTERNAL_ERROR);
+	const { token } = verifyToken((authorization as string).replace('Bearer ', ''));
 	const { um, username } = token as Omit<IUser, 'password'>;
 
 	// 头像不能大于1M
