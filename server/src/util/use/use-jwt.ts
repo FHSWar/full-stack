@@ -43,6 +43,8 @@ export const generateToken = (payload: {
 	timeStamp: Date
 }) => sign(payload, secretKey, { expiresIn: '7d' });
 
+// 能进到业务代码的都不要开发人员处理错误，koa-jwt帮我们处理了
+// 这个catch是处理中间件解析token因错误token报错的问题
 export const verifyToken = (payload: string) => {
 	try {
 		return {
