@@ -95,11 +95,11 @@ describe('auth/editUserRoles', () => {
 	});
 });
 
-describe('auth/removeUser', () => {
+describe('auth/user', () => {
 	it('should fail from not having authorization', async () => {
 		try {
 			await request(baseUrl)
-				.post('/api/auth/removeUser')
+				.delete('/api/auth/user')
 				.send({ um: 'MOCK111' });
 		} catch (e) {
 			expect(e).toBeTruthy();
@@ -108,7 +108,7 @@ describe('auth/removeUser', () => {
 
 	it('should remove user', async () => {
 		const res = await request(baseUrl)
-			.post('/api/auth/removeUser')
+			.delete('/api/auth/user')
 			.send({ um: 'MOCK111' })
 			.set('Authorization', global.token);
 		expect(res.statusCode).toEqual(200);

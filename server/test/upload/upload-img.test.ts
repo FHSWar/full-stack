@@ -41,6 +41,5 @@ describe('upload/avatar', () => {
 			.set('Authorization', global.token);
 
 		expect(res.statusCode).toEqual(403);
-		console.log('asdfasdf', res.body);
 	});
 });

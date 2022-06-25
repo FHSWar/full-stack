@@ -65,14 +65,14 @@ router.post('auth/editRole', async (ctx) => {
 });
 
 /**
- * @api {post} /api/auth/removeRole 移除角色，逻辑删除
+ * @api {delete} /api/auth/role 移除角色，逻辑删除
  * @apiVersion 1.0.0
  * @apiName removeRole
  * @apiGroup role
  * @apiHeader {String} Authorization 用户授权token
  * @apiBody (query) {String} role 用户角色
  */
-router.post('auth/removeRole', async (ctx) => {
+router.delete('auth/role', async (ctx) => {
 	const { role } = ctx.request.body;
 
 	if (role === DEFAULT_ROLE) return toCliect(ctx, `默认角色“${DEFAULT_ROLE}”不可删除`, STATUS.FORBIDDEN);

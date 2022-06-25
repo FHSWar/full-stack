@@ -86,10 +86,10 @@ describe('auth/editRole', () => {
 	});
 });
 
-describe('auth/removeRole', () => {
+describe('auth/role', () => {
 	it('should remove role', async () => {
 		const res = await request(baseUrl)
-			.post('/api/auth/removeRole')
+			.delete('/api/auth/role')
 			.send({ role: ADMIN_ROLE })
 			.set('Authorization', global.token)
 			.set('Accept', 'application/json')
@@ -99,7 +99,7 @@ describe('auth/removeRole', () => {
 
 	it('should fail from removing default role', async () => {
 		const res = await request(baseUrl)
-			.post('/api/auth/removeRole')
+			.delete('/api/auth/role')
 			.send({ role: DEFAULT_ROLE })
 			.set('Authorization', global.token)
 			.set('Accept', 'application/json')

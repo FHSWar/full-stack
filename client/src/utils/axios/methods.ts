@@ -25,9 +25,7 @@ export const get = (
 	};
 	return new Promise((resolve, reject) => {
 		axios(config as extendedAxiosRequestConfig)
-			.then((res) => {
-				resolve(res);
-			})
+			.then((res) => { resolve(res); })
 			.catch((error) => {
 				if (options.handleError) return reject(error);
 				console.warn('silent get error', error.toString());
@@ -62,12 +60,32 @@ export const post = (
 
 	return new Promise((resolve, reject) => {
 		axios(config as extendedAxiosRequestConfig)
-			.then((res) => {
-				resolve(res);
-			})
+			.then((res) => { resolve(res); })
 			.catch((error) => {
 				if (options.handleError) return reject(error);
 				console.warn('silent post error', error.toString());
+			});
+	});
+};
+
+export const remove = (
+	url = '',
+	params = {},
+	options: extendedAxiosRequestConfig = {}
+) => {
+	const config = {
+		method: 'delete',
+		url,
+		data: params,
+		...defaultOption,
+		...options
+	};
+	return new Promise((resolve, reject) => {
+		axios(config as extendedAxiosRequestConfig)
+			.then((res) => { resolve(res); })
+			.catch((error) => {
+				if (options.handleError) return reject(error);
+				console.warn('silent get error', error.toString());
 			});
 	});
 };

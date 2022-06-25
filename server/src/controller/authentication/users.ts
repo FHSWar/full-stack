@@ -56,14 +56,14 @@ router.post('auth/editUserRoles', async (ctx) => {
 });
 
 /**
- * @api {post} /api/auth/removeUser 移除用户
+ * @api {delete} /api/auth/user 移除用户
  * @apiVersion 1.0.0
  * @apiName removeUser
  * @apiGroup user
  * @apiHeader {String} Authorization 用户授权token
  * @apiBody (query) {String} um 用户工号
  */
-router.post('auth/removeUser', async (ctx) => {
+router.delete('auth/user', async (ctx) => {
 	const { um } = ctx.request.body as IUser;
 
 	// 删除是将isDelete为false的置为isDelete为true
