@@ -20,6 +20,9 @@ router.post('upload/avatar', upload, async (ctx) => {
 
 	const avatar = files.avatar;
 
+	// multer的fileFilter很不好用啊，自己处理反而方便
+	if (!avatar[0].mimetype.startsWith('image/')) return toCliect(ctx, '错误的图片类型', STATUS.FORBIDDEN);
+
 	const { authorization } = ctx.request.header;
 
 	// 不以/api/auth打头的，自定义中间件未做处理，这里业务代码就要自己处理个

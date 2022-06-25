@@ -33,4 +33,14 @@ describe('upload/avatar', () => {
 			.expect('Content-Type', /json/);
 		expect(res.statusCode).toEqual(504);
 	});
+
+	it('should fail from uploading wrong file type', async () => {
+		const res = await request(baseUrl)
+			.post('/api/upload/avatar')
+			.attach('avatar', resolve(__dirname, './后台系统——登陆与权限.drawio'))
+			.set('Authorization', global.token);
+
+		expect(res.statusCode).toEqual(403);
+		console.log('asdfasdf', res.body);
+	});
 });
