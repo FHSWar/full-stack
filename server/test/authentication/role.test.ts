@@ -64,10 +64,10 @@ describe('auth/addRole', () => {
 	});
 });
 
-describe('auth/editRole', () => {
+describe('auth/role', () => {
 	it('should edit role', async () => {
 		const res = await request(baseUrl)
-			.post('/api/auth/editRole')
+			.patch('/api/auth/role')
 			.send({ role: ADMIN_ROLE, description: '测试改描述' })
 			.set('Authorization', global.token)
 			.set('Accept', 'application/json')
@@ -77,7 +77,7 @@ describe('auth/editRole', () => {
 
 	it('should fail to edit role', async () => {
 		const res = await request(baseUrl)
-			.post('/api/auth/editRole')
+			.patch('/api/auth/role')
 			.send({ role: '不存在的角色', description: '乱来' })
 			.set('Authorization', global.token)
 			.set('Accept', 'application/json')
@@ -150,7 +150,7 @@ describe('diy-middleware.ts', () => {
 			.send({ username: '222', umNo: 'mock222', password: encryptPassword('222') });
 		// 分配角色ADMIN_ROLE给222（改完再登陆才生效）
 		await request(baseUrl)
-			.post('/api/auth/editUserRoles')
+			.patch('/api/auth/userRoles')
 			.send({ um: 'MOCK222', username: '222', roles: [ADMIN_ROLE] })
 			.set('Authorization', global.token);
 		// 退出

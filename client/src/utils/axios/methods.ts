@@ -90,4 +90,26 @@ export const remove = (
 	});
 };
 
+export const update = (
+	url = '',
+	params = {},
+	options: extendedAxiosRequestConfig = {}
+) => {
+	const config = {
+		method: 'patch',
+		url,
+		data: params,
+		...defaultOption,
+		...options
+	};
+	return new Promise((resolve, reject) => {
+		axios(config as extendedAxiosRequestConfig)
+			.then((res) => { resolve(res); })
+			.catch((error) => {
+				if (options.handleError) return reject(error);
+				console.warn('silent get error', error.toString());
+			});
+	});
+};
+
 export default axios;

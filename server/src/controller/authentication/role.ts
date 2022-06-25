@@ -46,7 +46,7 @@ router.post('auth/addRole', async (ctx) => {
 });
 
 /**
- * @api {post} /api/auth/editRole 编辑角色，只能编辑描述
+ * @api {patch} /api/auth/role 编辑角色，只能编辑描述
  * @apiVersion 1.0.0
  * @apiName editRole
  * @apiGroup role
@@ -54,7 +54,7 @@ router.post('auth/addRole', async (ctx) => {
  * @apiBody (query) {String} role 用户角色
  * @apiBody (query) {String} description 对用户角色的描述
  */
-router.post('auth/editRole', async (ctx) => {
+router.patch('auth/role', async (ctx) => {
 	const { role, description } = ctx.request.body;
 
 	const { modifiedCount } = await Role.updateOne({ role, isDelete: false }, { description });

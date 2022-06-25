@@ -55,7 +55,7 @@ describe('auth/routesByRole', () => {
 			.send({ username: '222', umNo: 'mock222', password: encryptPassword('222') });
 		// 分配角色路人甲给222（改完再登陆才生效）
 		await request(baseUrl)
-			.post('/api/auth/editUserRoles')
+			.patch('/api/auth/userRoles')
 			.send({ um: 'MOCK222', username: '222', roles: ['路人甲'] })
 			.set('Authorization', global.token);
 		// 退出

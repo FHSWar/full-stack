@@ -29,7 +29,7 @@ router.get('auth/userList', async (ctx) => {
 });
 
 /**
- * @api {post} /api/auth/editUserRoles 编辑用户角色
+ * @api {patch} /api/auth/userRoles 编辑用户角色
  * @apiVersion 1.0.0
  * @apiName editUserRoles
  * @apiGroup user
@@ -38,7 +38,7 @@ router.get('auth/userList', async (ctx) => {
  * @apiBody (query) {String} username 用户名
  * @apiBody (query) {String[]} roles 角色数组
  */
-router.post('auth/editUserRoles', async (ctx) => {
+router.patch('auth/userRoles', async (ctx) => {
 	const { um, username, roles } = ctx.request.body;
 
 	const roleArr = (roles as string[]).map((role) => ({ role }));

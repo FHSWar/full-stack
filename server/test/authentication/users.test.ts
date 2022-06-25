@@ -23,10 +23,10 @@ describe('auth/userList', () => {
 	});
 });
 
-describe('auth/editUserRoles', () => {
+describe('auth/userRoles', () => {
 	it('should fail from not having role', async () => {
 		const res = await request(baseUrl)
-			.post('/api/auth/editUserRoles')
+			.patch('/api/auth/userRoles')
 			.send({ um: 'MOCK111', username: '111', roles: [] })
 			.set('Authorization', global.token)
 			.set('Accept', 'application/json')
@@ -36,7 +36,7 @@ describe('auth/editUserRoles', () => {
 
 	it('should fail from having wrong role', async () => {
 		const res = await request(baseUrl)
-			.post('/api/auth/editUserRoles')
+			.patch('/api/auth/userRoles')
 			.send({ um: 'MOCK111', username: '111', roles: ['不存在的角色'] })
 			.set('Authorization', global.token)
 			.set('Accept', 'application/json')
@@ -50,7 +50,7 @@ describe('auth/editUserRoles', () => {
 			description: '一般是拥有所有权限的角色'
 		}).save();
 		const res = await request(baseUrl)
-			.post('/api/auth/editUserRoles')
+			.patch('/api/auth/userRoles')
 			.send({ um: 'MOCK111', username: '111', roles: [ADMIN_ROLE] })
 			.set('Authorization', global.token)
 			.set('Accept', 'application/json')

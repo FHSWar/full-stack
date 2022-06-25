@@ -1,4 +1,4 @@
-import { get, post, remove } from '@/utils';
+import { get, post, remove, update } from '@/utils';
 import type { ExtendedMenuTreeItem, UserInfo } from '@/utils';
 
 interface Role {
@@ -13,7 +13,7 @@ export const getRoleList = () => get('auth/roleList');
 export const addRole = (params: Role) => post('auth/addRole', params);
 
 // 编辑角色描述
-export const editRole = (params: Role) => post('auth/editRole', params);
+export const editRole = (params: Role) => update('auth/role', params);
 
 // 移除角色
 export const removeRole = (params: Role) => remove('auth/role', params);
@@ -25,7 +25,7 @@ export const appointPermmittedRole = (params: {roles: string[]}) => post('auth/a
 export const getUserList = () => get('auth/userList');
 
 // 编辑用户角色
-export const editUserRoles = (params: Omit<UserInfo, 'avatar'>) => post('auth/editUserRoles', params);
+export const editUserRoles = (params: Omit<UserInfo, 'avatar'>) => update('auth/userRoles', params);
 
 // 移除用户
 export const removeUser = (params: Omit<UserInfo, 'avatar'>) => remove('auth/user', params);
