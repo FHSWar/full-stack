@@ -7,7 +7,7 @@ setToken();
 
 const addRoutes = async () => {
 	const res = await request(baseUrl)
-		.post('/api/auth/updateRoutesByRole')
+		.patch('/api/auth/routesByRole')
 		.send({ role: DEFAULT_ROLE, routes: fallbackRoutes })
 		.set('Authorization', global.token);
 	return res;
@@ -46,7 +46,7 @@ describe('auth/routesByRole', () => {
 	it('should get default role routes', async () => {
 		// 新增角色”路人甲“
 		await request(baseUrl)
-			.post('/api/auth/addRole')
+			.post('/api/auth/role')
 			.send({ role: '路人甲', description: '路人甲' })
 			.set('Authorization', global.token);
 		// 注册222
@@ -109,7 +109,7 @@ describe('auth/routesByRole', () => {
 	});
 });
 
-describe('auth/updateRoutesByRole', () => {
+describe('auth/routesByRole', () => {
 	it('should update existing routes by role', async () => {
 		const res = await addRoutes();
 		expect(res.statusCode).toEqual(200);
@@ -120,7 +120,7 @@ describe('auth/updateRoutesByRole', () => {
 		expect(roleDoc).toEqual(null);
 
 		const res = await request(baseUrl)
-			.post('/api/auth/updateRoutesByRole')
+			.patch('/api/auth/routesByRole')
 			.send({ role: ADMIN_ROLE, routes: fallbackRoutes })
 			.set('Authorization', global.token);
 		expect(res.statusCode).toEqual(200);

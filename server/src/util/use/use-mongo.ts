@@ -1,7 +1,6 @@
-import { env } from 'process';
 import mongoose from 'mongoose';
 import { MongoMemoryServer } from 'mongodb-memory-server';
-import { database, DEV, TEST } from '@/config';
+import { database, isDev, isTest } from '@/config';
 
 let mongo: MongoMemoryServer;
 
@@ -10,11 +9,11 @@ export const useMongo = async () => {
 
 	let uri = database;
 
-	switch (env.NODE_ENV) {
-		case DEV:
+	switch (true) {
+		case isDev:
 			await mongoose.connect(database);
 			break;
-		case TEST:
+		case isTest:
 			mongo = await MongoMemoryServer.create();
 			uri = mongo.getUri();
 
@@ -26,11 +25,11 @@ export const useMongo = async () => {
 };
 
 export const closeMongo = async () => {
-	switch (env.NODE_ENV) {
-		case DEV:
+	switch (true) {
+		case isDev:
 			mongoose.connection.close();
 			break;
-		case TEST:
+		case isTest:
 			// 不加if会报错
 			if (mongo) mongo.stop();
 
@@ -41,4 +40,4 @@ export const closeMongo = async () => {
 	}
 };
 
-if (env.NODE_ENV !== TEST) useMongo();
+if (!isTest) useMongo();

@@ -36,7 +36,7 @@ router.get('auth/userInfo', async (ctx) => {
 });
 
 /**
- * @api {post} /api/auth/updateSelfInfo 用户自己只能改名字、密码和头像
+ * @api {patch} /api/auth/selfInfo 用户自己只能改名字、密码和头像
  * @apiVersion 1.0.0
  * @apiName updateSelfInfo
  * @apiGroup user
@@ -45,7 +45,7 @@ router.get('auth/userInfo', async (ctx) => {
  * @apiBody (query) {String} [oldPassword] 旧密码
  * @apiBody (query) {String} [password] 新密码
  */
-router.post('auth/updateSelfInfo', async (ctx) => {
+router.patch('auth/selfInfo', async (ctx) => {
 	const {
 		um,
 		username,

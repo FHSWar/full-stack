@@ -1,6 +1,5 @@
 import { PassThrough } from 'stream';
-import { env } from 'process';
-import { TEST } from '@/config';
+import { isTest } from '@/config';
 import { useRouter } from '@/util';
 
 const router = useRouter();
@@ -27,7 +26,7 @@ router.get('sse', async (ctx) => {
 	});
 
 	// 跑单测的话要手动关掉，简单但是重要
-	if (env.NODE_ENV === TEST) setTimeout(() => { ctx.res.end(); }, 3000);
+	if (isTest) setTimeout(() => { ctx.res.end(); }, 3000);
 
 	// 用了 next 前端就报错了
 	// await next();

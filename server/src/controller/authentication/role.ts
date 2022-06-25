@@ -25,7 +25,7 @@ router.get('auth/roleList', async (ctx) => {
 });
 
 /**
- * @api {post} /api/auth/addRole 新增角色，角色名唯一
+ * @api {post} /api/auth/role 新增角色，角色名唯一
  * @apiVersion 1.0.0
  * @apiName addRole
  * @apiGroup role
@@ -33,7 +33,7 @@ router.get('auth/roleList', async (ctx) => {
  * @apiBody (query) {String} role 用户角色
  * @apiBody (query) {String} description 对用户角色的描述
  */
-router.post('auth/addRole', async (ctx) => {
+router.post('auth/role', async (ctx) => {
 	const { role, description } = ctx.request.body;
 
 	try {
@@ -82,14 +82,14 @@ router.delete('auth/role', async (ctx) => {
 });
 
 /**
- * @api {post} /api/auth/appointPermission 指派有权限操作数据库的角色
+ * @api {patch} /api/auth/rolePermission 指派有权限操作数据库的角色
  * @apiVersion 1.0.0
  * @apiName appointPermission
  * @apiGroup role
  * @apiHeader {String} Authorization 用户授权token
  * @apiBody (query) {String[]} roles 用户角色数组
  */
-router.post('auth/appointPermission', async (ctx) => {
+router.patch('auth/rolePermission', async (ctx) => {
 	const { roles: appointedRoleArr } = ctx.request.body;
 	const isEmpty = !appointedRoleArr || appointedRoleArr.length === 0;
 

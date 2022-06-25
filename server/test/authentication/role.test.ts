@@ -5,7 +5,7 @@ import { baseUrl, setToken } from 'test/util';
 setToken();
 
 const addRole = async () => request(baseUrl)
-	.post('/api/auth/addRole')
+	.post('/api/auth/role')
 	.send({ role: ADMIN_ROLE, description: '应该拥有所有权限的角色' })
 	.set('Authorization', global.token)
 	.set('Accept', 'application/json')
@@ -16,7 +16,7 @@ const appointPermission = async (cb?: ()=>Promise<'OK'>) => {
 	if (cb) expect(await cb()).toBe('OK');
 
 	return request(baseUrl)
-		.post('/api/auth/appointPermission')
+		.patch('/api/auth/rolePermission')
 		.send({ roles: [DEFAULT_ROLE] })
 		.set('Authorization', global.token)
 		.set('Accept', 'application/json')
@@ -47,7 +47,7 @@ describe('auth/roleList', () => {
 	});
 });
 
-describe('auth/addRole', () => {
+describe('auth/role', () => {
 	it('should add role', async () => {
 		const res = await addRole();
 		expect(res.statusCode).toEqual(200);
@@ -55,7 +55,7 @@ describe('auth/addRole', () => {
 
 	it('should fail from adding role repeatedly', async () => {
 		const res = await request(baseUrl)
-			.post('/api/auth/addRole')
+			.post('/api/auth/role')
 			.send({ role: DEFAULT_ROLE, description: '默认角色' })
 			.set('Authorization', global.token)
 			.set('Accept', 'application/json')
@@ -108,11 +108,11 @@ describe('auth/role', () => {
 	});
 });
 
-describe('auth/appointPermission', () => {
+describe('auth/rolePermission', () => {
 	it('should appoint permission to all roles', async () => {
 		await addRole();
 		const res = await request(baseUrl)
-			.post('/api/auth/appointPermission')
+			.patch('/api/auth/rolePermission')
 			.send({ roles: [] })
 			.set('Authorization', global.token)
 			.set('Accept', 'application/json')
@@ -132,7 +132,7 @@ describe('auth/appointPermission', () => {
 
 	it('should from appoint permission to non-existing role', async () => {
 		const res = await request(baseUrl)
-			.post('/api/auth/appointPermission')
+			.patch('/api/auth/rolePermission')
 			.send({ roles: ['不存在的角色'] })
 			.set('Authorization', global.token)
 			.set('Accept', 'application/json')

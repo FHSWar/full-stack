@@ -70,6 +70,6 @@ export const setToken = () => {
 		it('should set token', async () => {
 			await register();
 			await login();
-		});
+		}); // it第三个参数给数字就是设置单个测试的超时时间，默认是五秒
 	});
 };

@@ -24,10 +24,10 @@ describe('auth/userInfo', () => {
 	});
 });
 
-describe('auth/updateSelfInfo', () => {
+describe('auth/selfInfo', () => {
 	it('should fail from not requesting in pre-definded method', async () => {
 		const res = await request(baseUrl)
-			.post('/api/auth/updateSelfInfo')
+			.patch('/api/auth/selfInfo')
 			.send({ um: 'MOCK111', username: '111', oldPassword: '111', password: '222' })
 			.set('Authorization', global.token)
 			.set('Accept', 'application/json')
@@ -37,7 +37,7 @@ describe('auth/updateSelfInfo', () => {
 
 	it('should fail from not having right password', async () => {
 		const res = await request(baseUrl)
-			.post('/api/auth/updateSelfInfo')
+			.patch('/api/auth/selfInfo')
 			.send({
 				um: 'MOCK111',
 				username: '111',
@@ -52,7 +52,7 @@ describe('auth/updateSelfInfo', () => {
 
 	it('should update self username', async () => {
 		const res = await request(baseUrl)
-			.post('/api/auth/updateSelfInfo')
+			.patch('/api/auth/selfInfo')
 			.send({
 				um: 'MOCK111',
 				username: '一一一'
@@ -65,7 +65,7 @@ describe('auth/updateSelfInfo', () => {
 
 	it('should update self password', async () => {
 		const res = await request(baseUrl)
-			.post('/api/auth/updateSelfInfo')
+			.patch('/api/auth/selfInfo')
 			.send({
 				um: 'MOCK111',
 				username: '一一一',

@@ -86,14 +86,14 @@ router.get('auth/routesByRole', async (ctx) => {
 });
 
 /**
- * @api {post} /api/auth/updateRoutesByRole 更新对应角色的菜单
+ * @api {patch} /api/auth/routesByRole 更新对应角色的菜单
  * @apiVersion 1.0.0
  * @apiName updateRoutesByRole
  * @apiGroup client-routes
  * @apiBody (query) {String} role 用户角色
  * @apiBody (query) {String} routes 用户菜单
  */
-router.post('auth/updateRoutesByRole', async (ctx) => {
+router.patch('auth/routesByRole', async (ctx) => {
 	const { role, routes } = ctx.request.body;
 
 	let roleDoc = await Role.findOne({ role, isDelete: false }).lean();

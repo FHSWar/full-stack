@@ -1,4 +1,4 @@
-import { get, post } from '@/utils';
+import { get, post, update } from '@/utils';
 import type { UserInfo } from '@/utils';
 
 type LoginUser = Omit<UserInfo, 'avatar'|'um'|'roles'>&{checkPassword?: string}
@@ -17,7 +17,7 @@ export const register = (params: LoginUser) => post('auth/register', params);
 export const getUserInfo = () => get('auth/userInfo');
 
 // 更新用户信息
-export const updateSelfInfo = (params: LoginUser) => post('auth/updateSelfInfo', params);
+export const updateSelfInfo = (params: LoginUser) => update('auth/selfInfo', params);
 
 // 上传头像
 export const imgBaseUrl = 'http://localhost:9000';

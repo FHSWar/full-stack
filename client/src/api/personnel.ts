@@ -10,7 +10,7 @@ interface Role {
 export const getRoleList = () => get('auth/roleList');
 
 // 增加角色
-export const addRole = (params: Role) => post('auth/addRole', params);
+export const addRole = (params: Role) => post('auth/role', params);
 
 // 编辑角色描述
 export const editRole = (params: Role) => update('auth/role', params);
@@ -19,7 +19,7 @@ export const editRole = (params: Role) => update('auth/role', params);
 export const removeRole = (params: Role) => remove('auth/role', params);
 
 // 指定能操作权限配置模块的角色
-export const appointPermmittedRole = (params: {roles: string[]}) => post('auth/appointPermission', params);
+export const appointPermmittedRole = (params: {roles: string[]}) => update('auth/rolePermission', params);
 
 // 获取所有用户
 export const getUserList = () => get('auth/userList');
@@ -34,7 +34,7 @@ export const removeUser = (params: Omit<UserInfo, 'avatar'>) => remove('auth/use
 export const updateRoutesByRole = (params: {
 	role: string
 	routes: ExtendedMenuTreeItem[]
-}) => post('auth/updateRoutesByRole', params);
+}) => update('auth/routesByRole', params);
 
 // 根据角色获取路由
 export const getRoutesByRole = (params?: { role: string }) => get(
