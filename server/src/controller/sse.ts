@@ -1,17 +1,15 @@
 import { PassThrough } from 'stream';
+import { env } from 'process';
+import { TEST } from '@/config';
 import { useRouter } from '@/util';
 
 const router = useRouter();
 
+// https://javascript.info/server-sent-events
 router.get('sse', async (ctx) => {
-	/* // 这个不加也能跑
-	ctx.request.socket.setTimeout(0);
-	ctx.req.socket.setNoDelay(true);
-	ctx.req.socket.setKeepAlive(true); */
 	ctx.set({
 		'Content-Type': 'text/event-stream',
-		'Cache-Control': 'no-cache',
-		Connection: 'keep-alive'
+		'Cache-Control': 'no-cache'
 	});
 
 	const stream = new PassThrough();
@@ -25,8 +23,11 @@ router.get('sse', async (ctx) => {
 
 	stream.on('close', () => {
 		clearInterval(interval);
-		console.log('close');
+		console.log('event stream closed');
 	});
+
+	// 跑单测的话要手动关掉，简单但是重要
+	if (env.NODE_ENV === TEST) setTimeout(() => { ctx.res.end(); }, 3000);
 
 	// 用了 next 前端就报错了
 	// await next();
