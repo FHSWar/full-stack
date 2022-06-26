@@ -1,42 +1,45 @@
 import { join } from 'path';
-import log4js from 'log4js';
 import dayjs from 'dayjs';
+import { createLogger, format, transports } from 'winston';
 
-// ⚠️注意：只能将文件放在server项目的二机目录中，log才会写到monorepo的根目录，虽然有限制，但这样更简洁，也能完成需求，改造也简单
-// 返回统一配置的 logger 对象
-export const useLogger = (prefix: string, root: string, relativePath: string) => {
+const { colorize, combine, json, label, simple, timestamp } = format;
+
+const LEVEL = Symbol.for('level');
+
+const fileConfigFactory = (logPath: string, level: string) => ({
+	level,
+	filename: join(logPath, `${level}.log`),
+	// 只返回对应级别的打印（这里不combine一下json()时间戳不会写到文件里）
+	format: combine(
+		json(),
+		label({ label: __dirname }),
+		format((info: any) => {
+			if (info[LEVEL] === level) {
+				return info;
+			}
+		})(level)
+	)
+});
+
+export const useLogger = (targetFolder: string) => {
 	const date = dayjs().format('YYYY-MM-DD');
-	log4js.configure({
-		appenders: {
-			console: {
-				type: 'stdout' // 控制台输出
-			},
-			infoFile: {
-				type: 'file',
-				filename: join(root, relativePath, `${date}/logger`), // 要打入到文件的位置
-				pattern: 'info.log', // 使用正则将日志分按天或者月分为不同文件
-				alwaysIncludePattern: true // 当为 true 时，log 文件名会包含之前设置的 pattern 信息 (默认为 false，但是强烈建议开启)
-			},
-			errorFile: {
-				type: 'file',
-				filename: join(root, relativePath, `${date}/logger`),
-				pattern: 'error.log',
-				alwaysIncludePattern: true
-			}
-		},
-		categories: {
-			default: {
-				appenders: ['console', 'infoFile'],
-				// 通过环境变量设置不同的日志级别
-				level: 'all'// process.env.NODE_ENV === 'development' ? 'all' : 'info'
-			},
-			error: {
-				appenders: ['console', 'errorFile'],
-				// 通过环境变量设置不同的日志级别
-				level: 'error'
-			}
-		}
+	const logPath = join(targetFolder, date);
+
+	const logger = createLogger({
+		// defaultMeta: { service: 'server' },
+		level: 'silly',
+		format: combine(json(), timestamp()),
+		transports: [
+			new transports.File(fileConfigFactory(logPath, 'info')),
+			new transports.File(fileConfigFactory(logPath, 'debug')),
+			new transports.File(fileConfigFactory(logPath, 'warn')),
+			new transports.File(fileConfigFactory(logPath, 'error')),
+			// 这样颜色就只会输出到控制台，不会污染写入文件的日志
+			new transports.Console({ format: combine(colorize(), simple()) })
+		]
 	});
 
-	return log4js.getLogger(prefix);
+	// logger.add()可以追加transports
+
+	return logger;
 };

@@ -19,8 +19,11 @@ export const useRoutes = (app:KoaInstance) => {
 			app.use(splitRouter.routes()).use(splitRouter.allowedMethods());
 		});
 
-	// log4js结合chalk会导致日志文件有乱码，不推荐这么用
-	if (isDev) logger.info('✨路由已装载');
+	// logger结合chalk会导致日志文件有乱码，不推荐这么用
+	logger.info('✨路由已装载', { dir: __filename.replace(process.cwd(), '') });
+	// logger.error('1路由已装载');
+	// logger.debug('2路由已装载');
+	// logger.warn('2路由已装载');
 };
 
 export const useRouter = (prefix: string = '/api/') => new Router({ prefix });

@@ -14,12 +14,7 @@ declare global {
     // 单测登陆态不知道放哪儿，只好丢到全局了
     var token: string
     // 全局日志打印，根据日期分文件夹，根据类型分文件
-    var logger: {
-        info: (...args: string[]) => void;
-        trace: (...args: string[]) => void;
-        debug: (...args: string[]) => void;
-        error: (...args: string[]) => void;
-    }
+    var logger: Logger
     // redis实例
     var redis: RedisType
     // 状态码
