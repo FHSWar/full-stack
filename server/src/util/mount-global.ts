@@ -1,8 +1,6 @@
-import { scheduleJob } from 'node-schedule';
 import { STATUS, useLogger } from 'shared';
-import { isTest, logTarget } from '@/config';
-import { redis, useRouter, KoaContext } from '@/util';
-import wss from './web-socket';
+import { logTarget } from '@/config';
+import { KoaContext } from '@/util';
 
 // 统一返回格式
 const toCliect = (
@@ -22,15 +20,10 @@ const toCliect = (
 	}
 };
 
-let logger = useLogger(logTarget);
-// 每天更新文件输出的目标文件夹
-if (!isTest) scheduleJob('0 0 * * *', () => { logger = useLogger(logTarget); logger.info('零点刷新'); });
+const logger = useLogger(logTarget);
 
 export const mountGlobal = () => {
 	global.logger = logger;
-	global.redis = redis;
-	global.useRouter = useRouter;
 	global.STATUS = STATUS;
 	global.toCliect = toCliect;
-	global.wss = wss;
 };
