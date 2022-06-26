@@ -3,9 +3,17 @@ import { encryptPassword } from 'shared';
 import { closeMongo, useMongo } from '@/util';
 import { server } from '@/../app';
 
-let token:string;
+let token: string;
 
 export const baseUrl = 'http://localhost:9000';
+
+const cancelScheduleJobs = () => {
+	if (global.scheduler) {
+		Object.keys(global.scheduler).forEach((key) => {
+			scheduler[key]?.cancel();
+		});
+	}
+};
 
 export const login = async () => {
 	const res = await request(baseUrl)
@@ -57,6 +65,8 @@ export const setHook = () => {
 	});
 
 	afterAll(async () => {
+		cancelScheduleJobs();
+
 		await closeMongo();
 		redis.quit();
 		server.close();

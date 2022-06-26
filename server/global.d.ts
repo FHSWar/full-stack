@@ -6,6 +6,7 @@ import type {
 	KoaContext,
 	KoaRouter,
 	RedisType,
+	ScheduleJob,
 	Status,
 	WebSocketServer
 } from '@/util';
@@ -14,6 +15,9 @@ declare global {
     var token: string; // 单测登陆态不知道放哪儿，只好丢到全局了
     var logger: Logger; // 全局日志打印，根据日期分文件夹，根据类型分文件
     var redis: RedisType; // redis实例
+    var scheduler: { // 单测结束需要cancel掉定时器
+        [key: string]: ScheduleJob | undefined
+    };
     var STATUS: Status; // 状态码
     var toCliect: ( // 返回给前端的格式统一封装
         ctx: KoaContext,

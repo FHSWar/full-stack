@@ -2,8 +2,11 @@ import Koa, { Context, Next } from 'koa';
 import Router from '@koa/router';
 import WebSocket from 'ws';
 import { model, Schema } from 'mongoose';
+import type { Job } from 'node-schedule';
 import Redis from 'ioredis';
 import { STATUS, useLogger } from 'shared';
+
+export type ScheduleJob = Job
 
 export type KoaInstance = Koa<Koa.DefaultState, Koa.DefaultContext>
 export type KoaRouter = Router<Koa.DefaultState, Koa.DefaultContext>
