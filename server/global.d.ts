@@ -1,37 +1,30 @@
-/* eslint-disable */
-import {
-    Logger,
-    KoaInstance,
-    KoaContext,
-    KoaRouter,
-    RedisType,
-    Status,
-    useRouter,
-    WebSocketServer
-} from '@/util'
+/* eslint-disable no-unused-vars */
+/* eslint-disable no-var */
+/* eslint-disable vars-on-top */
+import type {
+	Logger,
+	KoaContext,
+	KoaRouter,
+	RedisType,
+	Status,
+	WebSocketServer
+} from '@/util';
 
 declare global {
-    // 单测登陆态不知道放哪儿，只好丢到全局了
-    var token: string
-    // 全局日志打印，根据日期分文件夹，根据类型分文件
-    var logger: Logger
-    // redis实例
-    var redis: RedisType
-    // 状态码
-    var STATUS: Status
-    // 返回给前端的格式统一封装
-    var toCliect: (
+    var token: string; // 单测登陆态不知道放哪儿，只好丢到全局了
+    var logger: Logger; // 全局日志打印，根据日期分文件夹，根据类型分文件
+    var redis: RedisType; // redis实例
+    var STATUS: Status; // 状态码
+    var toCliect: ( // 返回给前端的格式统一封装
         ctx: KoaContext,
         content: {
             message?: string
             [key: string]: any
         } | string,
         status?: Status[keyof Status]
-    ) => void
-    // 返回koa-router实例
-    var useRouter: (prefix?: string) => KoaRouter
-    // websocket实例
-    var wss: WebSocketServer
+    ) => void;
+    var useRouter: (prefix?: string) => KoaRouter; // 返回koa-router实例
+    var wss: WebSocketServer; // websocket实例
 }
 
-export { }
+export { };
