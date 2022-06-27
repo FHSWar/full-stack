@@ -8,13 +8,7 @@ import ElementPlus from 'element-plus';
 import { describe, expect, it, vi } from 'vitest';
 import Avatar from '@/components/layout/components/header-title.vue';
 
-// vi.mock('use-icon', () => '<div />');
-config.global.config.compilerOptions = {
-	isCustomElement: (tag) => {
-		console.log('tag', tag);
-		return tag === 'use-icon';
-	}
-};
+config.global.stubs['use-icon'] = () => ('<div>');
 
 describe('Avatar', () => {
 	it('should render', () => {
