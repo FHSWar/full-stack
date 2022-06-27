@@ -11,6 +11,7 @@ log
 node_modules
 */build
 */node_modules
+client/coverage
 client/dist
 client/dist-ssr
 client/*.local

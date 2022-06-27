@@ -24,7 +24,7 @@ const form = reactive({
 });
 
 const handleLogin = async (callFromRegister?: boolean) => {
-	if (!callFromRegister) form.password = encryptPassword(form.password);
+	if (!callFromRegister) form.password = await encryptPassword(form.password);
 
 	const { token } = await login(form) as any;
 
@@ -38,7 +38,7 @@ const handleLogin = async (callFromRegister?: boolean) => {
 };
 const handleRegister = async () => {
 	form.umNo = form.umNo.toUpperCase();
-	form.password = encryptPassword(form.password);
+	form.password = await encryptPassword(form.password);
 
 	await register(form);
 	handleLogin(true);

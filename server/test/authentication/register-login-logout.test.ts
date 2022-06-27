@@ -22,7 +22,7 @@ describe('auth/register', () => {
 	it('should fail to register repeatedly', async () => {
 		const res = await request(baseUrl)
 			.post('/api/auth/register')
-			.send({ username: '111', umNo: 'mock1111', password: encryptPassword('110') })
+			.send({ username: '111', umNo: 'mock1111', password: await encryptPassword('110') })
 			.set('Accept', 'application/json');
 		expect(res.statusCode).toEqual(403);
 	});
@@ -30,7 +30,7 @@ describe('auth/register', () => {
 	it('should fail on wrong um format', async () => {
 		const res = await request(baseUrl)
 			.post('/api/auth/register')
-			.send({ username: '222', umNo: '222', password: encryptPassword('222') })
+			.send({ username: '222', umNo: '222', password: await encryptPassword('222') })
 			.set('Accept', 'application/json');
 		expect(res.statusCode).toEqual(403);
 	});
@@ -42,7 +42,7 @@ describe('auth/login', () => {
 			.post('/api/auth/login')
 			.send({
 				username: '111',
-				password: encryptPassword('222')
+				password: await encryptPassword('222')
 			});
 		expect(res.statusCode).toEqual(403);
 	});
@@ -52,7 +52,7 @@ describe('auth/login', () => {
 			.post('/api/auth/login')
 			.send({
 				username: '222',
-				password: encryptPassword('222')
+				password: await encryptPassword('222')
 			});
 		expect(res.statusCode).toEqual(400);
 	});

@@ -42,8 +42,8 @@ const rules = reactive({
 const changePassword = async (params: typeof form) => {
 	const store = useStore();
 
-	params.password = encryptPassword(params.password);
-	params.oldPassword = encryptPassword(params.oldPassword);
+	params.password = await encryptPassword(params.password);
+	params.oldPassword = await encryptPassword(params.oldPassword);
 
 	// 改完信息更新token和userInfo
 	const { token } = await updateSelfInfo({ ...store.userInfo, ...params }) as any;

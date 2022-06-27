@@ -20,7 +20,7 @@ export const login = async () => {
 		.post('/api/auth/login')
 		.send({
 			username: '111',
-			password: encryptPassword('111')
+			password: await encryptPassword('111')
 		});
 	token = res.body.token;
 	global.token = res.body.token;
@@ -39,7 +39,7 @@ export const logoutLogin = async () => {
 	await request(baseUrl).post('/api/auth/logout').set('Authorization', token);
 	const res = await request(baseUrl).post('/api/auth/login').send({
 		username: '111',
-		password: encryptPassword('111')
+		password: await encryptPassword('111')
 	});
 	const userInfo = await request(baseUrl)
 		.get('/api/auth/userInfo')
@@ -52,7 +52,7 @@ export const logoutLogin = async () => {
 export const register = async () => {
 	const res = await request(baseUrl)
 		.post('/api/auth/register')
-		.send({ username: '111', umNo: 'mock111', password: encryptPassword('111') })
+		.send({ username: '111', umNo: 'mock111', password: await encryptPassword('111') })
 		.set('Accept', 'application/json');
 	return res;
 };

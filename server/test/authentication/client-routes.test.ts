@@ -52,7 +52,7 @@ describe('auth/routesByRole', () => {
 		// 注册222
 		await request(baseUrl)
 			.post('/api/auth/register')
-			.send({ username: '222', umNo: 'mock222', password: encryptPassword('222') });
+			.send({ username: '222', umNo: 'mock222', password: await encryptPassword('222') });
 		// 分配角色路人甲给222（改完再登陆才生效）
 		await request(baseUrl)
 			.patch('/api/auth/userRoles')
@@ -67,7 +67,7 @@ describe('auth/routesByRole', () => {
 			.post('/api/auth/login')
 			.send({
 				username: '222',
-				password: encryptPassword('222')
+				password: await encryptPassword('222')
 			});
 		global.token = res.body.token;
 
@@ -95,7 +95,7 @@ describe('auth/routesByRole', () => {
 			.post('/api/auth/login')
 			.send({
 				username: '111',
-				password: encryptPassword('111')
+				password: await encryptPassword('111')
 			});
 		global.token = res3.body.token;
 	});

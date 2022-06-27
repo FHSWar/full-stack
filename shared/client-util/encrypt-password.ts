@@ -1,7 +1,9 @@
-import { pki } from 'node-forge';
 import { PUBLIC_KEY } from './config';
 
-export const encryptPassword = (password: string) => {
+export const encryptPassword = async (password: string) => {
+	// 解决直接import会导致vitest报错的问题
+	const { pki } = await import('node-forge');
+
 	try {
 		const publicK = pki.publicKeyFromPem(PUBLIC_KEY);
 		// 经过url编码，后端解密后需要url解码。encrypted虽然乱码，但可以直接发给后端解密。

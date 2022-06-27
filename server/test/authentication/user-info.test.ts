@@ -41,8 +41,8 @@ describe('auth/selfInfo', () => {
 			.send({
 				um: 'MOCK111',
 				username: '111',
-				oldPassword: encryptPassword('222'),
-				password: encryptPassword('222')
+				oldPassword: await encryptPassword('222'),
+				password: await encryptPassword('222')
 			})
 			.set('Authorization', global.token)
 			.set('Accept', 'application/json')
@@ -69,8 +69,8 @@ describe('auth/selfInfo', () => {
 			.send({
 				um: 'MOCK111',
 				username: '一一一',
-				oldPassword: encryptPassword('111'),
-				password: encryptPassword('222')
+				oldPassword: await encryptPassword('111'),
+				password: await encryptPassword('222')
 			})
 			.set('Authorization', global.token)
 			.set('Accept', 'application/json')

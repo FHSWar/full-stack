@@ -147,7 +147,7 @@ describe('diy-middleware.ts', () => {
 		// 注册222
 		await request(baseUrl)
 			.post('/api/auth/register')
-			.send({ username: '222', umNo: 'mock222', password: encryptPassword('222') });
+			.send({ username: '222', umNo: 'mock222', password: await encryptPassword('222') });
 		// 分配角色ADMIN_ROLE给222（改完再登陆才生效）
 		await request(baseUrl)
 			.patch('/api/auth/userRoles')
@@ -168,7 +168,7 @@ describe('diy-middleware.ts', () => {
 			.post('/api/auth/login')
 			.send({
 				username: '222',
-				password: encryptPassword('222')
+				password: await encryptPassword('222')
 			});
 		global.token = res.body.token;
 
