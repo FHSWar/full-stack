@@ -6,8 +6,8 @@ import axios from './config';
 type LoadingInstanceType = ReturnType<typeof ElLoading.service>;
 
 let loadingCount = 0;
-let LoadingInstance:LoadingInstanceType;
-let store:ReturnType<typeof useStore>;
+let LoadingInstance: LoadingInstanceType;
+let store: ReturnType<typeof useStore>;
 
 const startLoading = () => {
 	setTimeout(() => {
@@ -58,19 +58,20 @@ axios.interceptors.response.use(
 		return data;
 	},
 	(error) => {
-		if (!error.response) return error;
-		const { config, data } = error.response;
+		const { config, data } = error;
 
 		if ((config as extendedAxiosRequestConfig)?.useLoading) {
 			loadingCount--;
 			if (loadingCount === 0) endLoading();
 		}
 
-		// 错误一定弹
-		const { message } = data;
-		if (message === 'jwt expired') useLogout();
+		// 错误一定弹，token过期直接退出
+		if (data) {
+			const { message } = data;
+			if (message === 'jwt expired') useLogout();
 
-		ElMessage.error(message || error.toString());
+			ElMessage.error(message || error.toString());
+		}
 
 		return Promise.reject(error.toString());
 	}
