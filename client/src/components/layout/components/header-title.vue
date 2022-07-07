@@ -7,8 +7,6 @@ const isSingleColumn = computed(() => store.themeConfig.layout === 'single-colum
 
 const borderRight = computed(() => (isSingleColumn.value ? '' : 'var(--el-border)'));
 const height = computed(() => (isSingleColumn.value ? '116px' : '56px'));
-const iconColor = computed(() => (isSingleColumn.value ? '#ffd04b' : 'var(--vscode-icon-color)'));
-const textColor = computed(() => (isSingleColumn.value ? '#fff' : 'var(--el-text-color-regular)'));
 const titleWidth = computed(() => (isSingleColumn.value ? '300px' : ''));
 const paddingLeft = computed(() => (isSingleColumn.value ? 0 : '20px'));
 const showHeaderTitle = computed(() => !store.themeConfig.isAsideMenuCollapse || isSingleColumn.value);
@@ -41,7 +39,7 @@ const showHeaderTitle = computed(() => !store.themeConfig.isAsideMenuCollapse ||
     // border-bottom: v-bind("borderRight");
 
     svg {
-      color: v-bind("iconColor");
+      color: var(--vscode-icon-color);
 
       &:first-of-type {
         top: 4px;
@@ -63,7 +61,7 @@ const showHeaderTitle = computed(() => !store.themeConfig.isAsideMenuCollapse ||
       left: 64px;
       font-size: var(--el-font-size-extra-large);
       line-height: var(--el-header-height);
-      color: v-bind("textColor");
+      color: var(--el-text-color-regular);
     }
   }
 }

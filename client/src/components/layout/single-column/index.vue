@@ -39,7 +39,6 @@ import MenuTree from './header-menu.vue';
     display: flex;
     align-items: center;
     height: 108px;
-    background-color: #545c64;
   }
 
   &__title {

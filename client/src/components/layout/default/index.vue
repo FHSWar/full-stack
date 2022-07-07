@@ -18,10 +18,10 @@ import LayoutAside from './layout-aside.vue';
         <breadcrumb class="common-layout__breadcrumb" />
         <avatar />
         <light-dark />
-        <switch-layout />
       </el-header>
       <el-header class="common-layout__header">
         <tabs-bar />
+        <switch-layout />
       </el-header>
       <el-main class="common-layout__main">
         <router-view v-slot="{ Component, route }">

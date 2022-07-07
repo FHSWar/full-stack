@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-import { computed, ref, watchEffect } from 'vue';
+import { computed } from 'vue';
 import { useStore } from '@/stores';
 import { initMenuTree } from '@/utils';
 import headerTitle from '@/components/layout/components/header-title.vue';
@@ -7,13 +7,10 @@ import menuTree from '@/components/layout/components/menu-tree.vue';
 
 const store = useStore();
 // 用全局状态的值来做初始化
-const initIsCollapase = store.themeConfig.isAsideMenuCollapse;
-const isCollapse = ref(initIsCollapase);
+const isCollapse = computed(() => store.themeConfig.isAsideMenuCollapse);
 const deg = computed(() => (isCollapse.value ? '0' : '180deg'));
 
-watchEffect(() => { store.themeConfig.isAsideMenuCollapse = isCollapse.value; });
-
-const toggleAside = () => { isCollapse.value = !isCollapse.value; };
+const toggleAside = () => { store.themeConfig.isAsideMenuCollapse = !store.themeConfig.isAsideMenuCollapse; };
 
 const { activePageId, sideMenu } = initMenuTree();
 </script>

@@ -17,11 +17,7 @@ const switchLayout = () => {
     class="switch-layout__icon-wrapper"
     @click="switchLayout"
   >
-    <use-icon
-      icon="Grid"
-      :size="20"
-      :color="store.themeConfig.layout === 'single-column' ? 'white': null "
-    />
+    <use-icon icon="Grid" :size="18" />
   </div>
 </template>
 

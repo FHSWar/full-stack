@@ -7,10 +7,7 @@ const { activePageId, sideMenu } = initMenuTree();
 
 <template>
   <el-menu
-    active-text-color="#ffd04b"
-    background-color="#545c64"
     mode="horizontal"
-    text-color="#fff"
     :default-active="activePageId"
     :default-openeds="[]"
   >
