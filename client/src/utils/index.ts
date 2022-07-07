@@ -1,5 +1,6 @@
 export * from './axios/methods';
 export * from './composition/logout';
+export * from './composition/auto-layout';
 export * from './composition/menu-tree-conversion';
 export * from './composition/pinia-persistance';
 export * from './export-from-shared';
