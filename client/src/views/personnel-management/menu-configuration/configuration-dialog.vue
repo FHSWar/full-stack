@@ -15,6 +15,7 @@ const emit = defineEmits(['update:modelValue', 'append']);
 const dialogVisible = inject('dialogVisible') as Ref<boolean>;
 const ruleFormRef = ref<FormInstance>();
 const ruleForm = reactive({
+	showBool: true,
 	title: '',
 	page: '',
 	icon: '',
@@ -72,6 +73,14 @@ const closeDialog = () => { emit('update:modelValue'); };
         label-width="120px"
         class="demo-ruleForm"
       >
+        <el-form-item label="显示在侧边栏" prop="showBool">
+          <el-switch
+            v-model="ruleForm.showBool"
+            inline-prompt
+            active-text="是"
+            inactive-text="否"
+          />
+        </el-form-item>
         <el-form-item label="添加位置" prop="insert">
           <el-radio-group v-model="ruleForm.insert">
             <el-radio label="同层级" name="insert" />

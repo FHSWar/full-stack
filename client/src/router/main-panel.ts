@@ -26,5 +26,10 @@ export const mainPanelRoutes:RouteRecordRaw[] = [
 		path: 'result',
 		name: 'result',
 		component: () => import('@/components/result')
+	},
+	{
+		path: 'test-new-stuff',
+		name: 'test-new-stuff',
+		component: () => import('@/views/test-new-stuff.vue')
 	}
 ];

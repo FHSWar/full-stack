@@ -15,8 +15,15 @@ const clickMenu = ({ page, id }: Omit<MenuList[number], 'icon'|'pid'|'title'|'ch
 </script>
 
 <template>
-  <template v-for="{children, desc, icon, id, page, title} in asideMenuTree" :key="id">
-    <el-menu-item v-if="children.length === 0" :index="id" @click="clickMenu({id, page})">
+  <template
+    v-for="{children, desc, icon, id, page, showBool, title} in asideMenuTree"
+    :key="id"
+  >
+    <el-menu-item
+      v-if="children.length === 0 && showBool !== false"
+      :index="id"
+      @click="clickMenu({id, page})"
+    >
       <use-icon v-if="icon" :icon="icon" />
       <template #title>
         <span v-if="!desc">
@@ -35,7 +42,7 @@ const clickMenu = ({ page, id }: Omit<MenuList[number], 'icon'|'pid'|'title'|'ch
         </el-tooltip>
       </template>
     </el-menu-item>
-    <el-sub-menu v-else :index="id">
+    <el-sub-menu v-else-if="showBool !== false" :index="id">
       <template #title>
         <use-icon v-if="icon" :icon="icon" />
         <span @click="clickMenu({id, page})">

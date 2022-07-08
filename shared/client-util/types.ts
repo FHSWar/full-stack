@@ -8,5 +8,6 @@ export type MenuTree = {
 	}
 	page?: string // 就是路由的name
 	pid: string
+	showBool?: boolean
 	title: string
 }[];

@@ -61,14 +61,25 @@ const preAppend = (node: Node, data: MenuTree) => {
 	showDialogBool.value = true;
 };
 const append = (newMenuItem: MenuItem) => {
+	const self = activeNodeData.value;
+
 	const { desc, icon, insert, page, title } = newMenuItem;
 	const id = `${Date.now()}-${Math.random()}`;
 	const parent = activeNodeParentData.value;
 	const isFirstLayer = Array.isArray(parent);
 	const pid = isFirstLayer ? '' : parent.id;
-	const self = activeNodeData.value;
 
-	const menuItem = { children: [], desc, icon, id, page, pid, title };
+	const menuItem = {
+		// 其他的都直接囫囵个插入
+		...newMenuItem,
+		children: [],
+		desc,
+		icon,
+		id,
+		page,
+		pid,
+		title
+	};
 
 	switch (insert) {
 		case '同层级':
