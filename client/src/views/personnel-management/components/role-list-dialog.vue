@@ -25,10 +25,6 @@ watchEffect(async () => {
 
 		const arr = list.filter(({ role }:{role: string}) => role !== SPECIAL_ROLE);
 		roleList.value = arr;
-		//! !! 这里有大问题
-		partialRoleList.value = arr
-			.filter(({ isPermitted }:{isPermitted: boolean}) => isPermitted)
-			.map(({ role }:{role: string}) => role);
 	}
 });
 

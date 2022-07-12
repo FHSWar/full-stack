@@ -17,10 +17,9 @@ router.get('auth/roleList', async (ctx) => {
 		list: list.map(({
 			role,
 			description,
-			isPermitted,
 			createdAt,
 			updatedAt
-		}) => ({ role, description, isPermitted, createdAt, updatedAt }))
+		}) => ({ role, description, createdAt, updatedAt }))
 	});
 });
 
@@ -79,41 +78,6 @@ router.delete('auth/role', async (ctx) => {
 
 	await Role.updateOne({ role, isDelete: false }, { isDelete: true });
 	toCliect(ctx, `已移除${role}`);
-});
-
-/**
- * @api {patch} /api/auth/rolePermission 指派有权限操作数据库的角色
- * @apiVersion 1.0.0
- * @apiName appointPermission
- * @apiGroup role
- * @apiHeader {String} Authorization 用户授权token
- * @apiBody (query) {String[]} roles 用户角色数组
- */
-router.patch('auth/rolePermission', async (ctx) => {
-	const { roles: appointedRoleArr } = ctx.request.body;
-	const isEmpty = !appointedRoleArr || appointedRoleArr.length === 0;
-
-	// 这个校验没法做到数据库里，所以是无法完全规避开发人员硬要乱使用数据库的情况
-	const roleDocArr = await Promise.all(appointedRoleArr.map((role: string) => {
-		const condition = { role, isDelete: false };
-		return Role.findOne(condition).lean();
-	}));
-	if (roleDocArr !== null && roleDocArr.includes(null)) return toCliect(ctx, '不能授权给不存在的角色', STATUS.FAILURE);
-
-	await Role.updateMany({ isDelete: false }, { isPermitted: false });
-	isEmpty
-		// 传空就是所有角色都有权限，初始状态就是这样
-		? await Role.updateMany({ isDelete: false }, { isPermitted: false })
-		// 指定即将指定的角色加入有权限的白名单
-		: await Role.find({
-			isDelete: false,
-			$or: (appointedRoleArr as string[]).map((role) => ({ role }))
-		}).updateMany({ isPermitted: true });
-
-	await redis.ltrim('permittedRoleArr', 1, 0);
-	await Promise.all(appointedRoleArr.map((role: string) => redis.lpush('permittedRoleArr', role)));
-
-	toCliect(ctx, `有权限角色已变更为${isEmpty ? '所有角色' : appointedRoleArr}`);
 });
 
 export default router;

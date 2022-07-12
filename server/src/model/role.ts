@@ -8,7 +8,6 @@ interface IRole {
     createdAt: Date
 	updatedAt: Date
     isDelete: boolean
-	isPermitted: boolean
 }
 
 const Role = model<IRole>('roles', new Schema<IRole>(
@@ -26,9 +25,7 @@ const Role = model<IRole>('roles', new Schema<IRole>(
 		isDelete: {
 			type: Boolean,
 			default: false
-		},
-		// 是否有权限访问权限配置模块相关接口，都为false就都有权限
-		isPermitted: Boolean
+		}
 	},
 	{ timestamps: true }
 ));

@@ -1,21 +1,17 @@
 <script lang="ts" setup>
-import { provide, reactive, ref } from 'vue';
+import { reactive, ref } from 'vue';
 import type { FormInstance } from 'element-plus';
 import dayjs from 'dayjs';
-import { appointPermmittedRole, addRole, editRole, getRoleList, removeRole } from '@/api/personnel';
+import { addRole, editRole, getRoleList, removeRole } from '@/api/personnel';
 import { SPECIAL_ROLE } from '@/utils';
 import type { FhsTableColumn } from '@/utils';
 import FhsTable from '@/components/fhs-table/index.vue';
-import RoleListDialog from '@/views/personnel-management/components/role-list-dialog.vue';
-import IconTooltip from '@/views/personnel-management/components/icon-tooltip.vue';
 
 const roleList = ref([] as any);
-const tableData = ref([] as FhsTableColumn[]);
-const assignRoleDialogVisible = ref(false);
+const tableData = ref([] as any[]);
 const newRoleDialogVisible = ref(false);
 const formRef = ref<FormInstance>();
 const roleValidateForm = reactive({ role: '', description: '' });
-provide('dialogVisible', assignRoleDialogVisible);
 
 const columns: FhsTableColumn[] = [
 	{ label: '角色', prop: 'role', width: 160 },
@@ -80,11 +76,6 @@ const resetForm = (formEl: FormInstance | undefined) => {
 	formEl.resetFields();
 };
 
-const confirmEdit = async (roles: string[]) => {
-	await appointPermmittedRole({ roles });
-	assignRoleDialogVisible.value = false;
-};
-
 getList();
 </script>
 
@@ -94,15 +85,6 @@ getList();
       <el-button type="primary" plain @click="newRoleDialogVisible = true">
         新增角色
       </el-button>
-      <div>
-        <icon-tooltip icon-color="var(--el-color-warning)" @click="assignRoleDialogVisible = true">
-          <div>
-            访客作为初始用户角色，不可删除。<br>
-            所有菜单作为实际上的超级管理员角色，不可赋给用户。<br>
-            指定即将指定的角色加入有权限的白名单。
-          </div>
-        </icon-tooltip>
-      </div>
     </div>
 
     <fhs-table
@@ -156,14 +138,6 @@ getList();
         </el-form-item>
       </el-form>
     </el-dialog>
-
-    <suspense>
-      <role-list-dialog
-        title="指定可操作权限模块的角色"
-        @update:model-value="assignRoleDialogVisible = false"
-        @from-child="confirmEdit"
-      />
-    </suspense>
   </div>
 </template>
 

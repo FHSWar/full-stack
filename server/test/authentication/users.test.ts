@@ -19,7 +19,7 @@ describe('auth/userList', () => {
 		const res = await request(baseUrl)
 			.get('/api/auth/userList')
 			.set('Authorization', 'Bear wrong');
-		expect(res.statusCode).toEqual(403);
+		expect(res.statusCode).toEqual(401);
 	});
 });
 

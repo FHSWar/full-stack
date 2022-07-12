@@ -28,6 +28,7 @@ const emit = defineEmits(['buttonClick']);
       <template v-for="{description, type, link, doubleCheck} in column.buttons" :key="description">
         <el-button
           v-if="!doubleCheck"
+          plain
           :type="type"
           :link="link"
           @click="emit('buttonClick', description, scope.row)"
@@ -39,6 +40,7 @@ const emit = defineEmits(['buttonClick']);
           @confirm-remove="emit('buttonClick', description, scope.row);"
         >
           <el-button
+            plain
             :type="type"
             :link="link"
             @click="emit('buttonClick', '预删除', scope.row)"

@@ -18,9 +18,6 @@ export const editRole = (params: Role) => update('auth/role', params);
 // 移除角色
 export const removeRole = (params: Role) => remove('auth/role', params);
 
-// 指定能操作权限配置模块的角色
-export const appointPermmittedRole = (params: {roles: string[]}) => update('auth/rolePermission', params);
-
 // 获取所有用户
 export const getUserList = () => get('auth/userList');
 
