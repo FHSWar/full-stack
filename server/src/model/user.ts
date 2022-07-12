@@ -1,5 +1,6 @@
-import { model, Schema, Types } from 'mongoose';
-import { IRole, Role } from '@/model/role';
+import { model, Schema } from 'mongoose';
+import { IRole } from '@/model/role';
+import { rolesNoEmpty } from '@/model/validator/role-no-empty';
 import { onlyOneNotDelete } from '@/util';
 
 interface IUser {
@@ -13,11 +14,6 @@ interface IUser {
 	isDelete: boolean
 }
 
-const rolesNoEmpty = async (arr: Types.ObjectId[]) => {
-	const roleDocArr = await Role.find({ $or: arr.map((_id) => ({ _id })) });
-
-	return roleDocArr.filter(({ isDelete }) => !isDelete).length > 0;
-};
 const umRegex = /^[a-zA-Z][a-zA-Z0-9-]*[0-9]$/;
 
 const User = model<IUser>('users', new Schema<IUser>(
