@@ -4,7 +4,7 @@ import dayjs from 'dayjs';
 import { editUserRoles, getUserList, removeUser } from '@/api/personnel';
 import type { FhsTableColumn } from '@/utils';
 import FhsTable from '@/components/fhs-table/index.vue';
-import RoleListDialog from './role-list-dialog.vue';
+import RoleListDialog from '@/views/personnel-management/components/role-list-dialog.vue';
 
 const userList = ref([] as any);
 const partialRoleList = ref([] as any);

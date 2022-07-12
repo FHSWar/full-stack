@@ -3,7 +3,7 @@ import { ref } from 'vue';
 import { getRoleList } from '@/api/personnel';
 import { SPECIAL_ROLE } from '@/utils';
 import MenuConfiguration from './menu-configuration.vue';
-import IconTooltip from '../icon-tooltip.vue';
+import IconTooltip from '@/views/personnel-management/components/icon-tooltip.vue';
 
 const roleList = ref([]) as any;
 const radioValue = ref(SPECIAL_ROLE);
@@ -22,7 +22,7 @@ getRoles();
   <el-row class="menu-configuration__wrapper">
     <el-col :span="7" class="menu-configuration__left-panel">
       <div class="menu-configuration__header">
-        <el-button type="primary" @click="confirmEdit">
+        <el-button type="primary" plain @click="confirmEdit">
           更新选中角色的菜单
         </el-button>
         <icon-tooltip>

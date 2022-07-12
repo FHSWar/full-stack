@@ -20,7 +20,12 @@ export const mainPanelRoutes:RouteRecordRaw[] = [
 	{
 		path: 'menu',
 		name: 'menu',
-		component: () => import('@/views/personnel-management/menu-configuration/index.vue')
+		component: () => import('@/views/personnel-management/menu/index.vue')
+	},
+	{
+		path: 'api-permission',
+		name: 'api-permission',
+		component: () => import('@/views/personnel-management/api.vue')
 	},
 	{
 		path: 'result',

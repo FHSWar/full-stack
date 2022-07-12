@@ -6,8 +6,8 @@ import { appointPermmittedRole, addRole, editRole, getRoleList, removeRole } fro
 import { SPECIAL_ROLE } from '@/utils';
 import type { FhsTableColumn } from '@/utils';
 import FhsTable from '@/components/fhs-table/index.vue';
-import RoleListDialog from './role-list-dialog.vue';
-import IconTooltip from './icon-tooltip.vue';
+import RoleListDialog from '@/views/personnel-management/components/role-list-dialog.vue';
+import IconTooltip from '@/views/personnel-management/components/icon-tooltip.vue';
 
 const roleList = ref([] as any);
 const tableData = ref([] as FhsTableColumn[]);
@@ -91,7 +91,7 @@ getList();
 <template>
   <div class="role__wrapper">
     <div class="role__header">
-      <el-button type="primary" @click="newRoleDialogVisible = true">
+      <el-button type="primary" plain @click="newRoleDialogVisible = true">
         新增角色
       </el-button>
       <div>
