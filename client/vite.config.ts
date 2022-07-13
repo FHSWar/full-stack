@@ -7,6 +7,7 @@ import vueJsx from '@vitejs/plugin-vue-jsx';
 import legacy from '@vitejs/plugin-legacy';
 
 export default defineConfig({
+	base: './',
 	build: {
 		rollupOptions: {
 			output: {

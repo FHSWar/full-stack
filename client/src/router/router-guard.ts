@@ -1,4 +1,4 @@
-import { createRouter, createWebHistory, NavigationGuardNext, RouteLocationNormalized } from 'vue-router';
+import { createRouter, createWebHashHistory, NavigationGuardNext, RouteLocationNormalized } from 'vue-router';
 import { useStore } from '@/stores';
 import { routes } from './routes';
 
@@ -9,7 +9,7 @@ interface RouterGuard {
 }
 
 const router = createRouter({
-	history: createWebHistory(),
+	history: createWebHashHistory(),
 	routes
 });
 

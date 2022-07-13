@@ -61,19 +61,11 @@ const ruleForm = reactive({
 	description: ''
 });
 const rules = reactive<FormRules>({
-	role: [
-		{ required: true, message: '角色是必须字段' },
-		{ type: 'string', message: '' }
-	],
-	description: [
-		{ required: true, message: '描述是必须字段' },
-		{ type: 'string', message: '' }
-	]
+	role: [{ type: 'string', required: true, message: '角色是必须字段' }],
+	description: [{ type: 'string', required: true, message: '描述是必须字段' }]
 });
 const showDialogBool = ref(false);
-provide('dialogVisible', showDialogBool);
-provide('ruleForm', ruleForm);
-provide('rules', rules);
+
 const append = async () => {
 	await addRole(ruleForm);
 	showDialogBool.value = false;
@@ -82,6 +74,10 @@ const append = async () => {
 const closeDialog = () => { showDialogBool.value = false; };
 
 getList();
+
+provide('dialogVisible', showDialogBool);
+provide('ruleForm', ruleForm);
+provide('rules', rules);
 </script>
 
 <template>
@@ -103,7 +99,7 @@ getList();
       @update:model-value="closeDialog"
     >
       <el-form-item
-        label="角色"
+        label="角色名称"
         prop="role"
       >
         <el-input
@@ -113,7 +109,7 @@ getList();
         />
       </el-form-item>
       <el-form-item
-        label="描述"
+        label="角色描述"
         prop="description"
       >
         <el-input

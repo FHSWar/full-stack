@@ -74,7 +74,6 @@ getUsers();
 
     <suspense>
       <role-list-dialog
-        :have-injection="true"
         :title="`${userEditing.um}角色`"
         @update:model-value="assignRoleDialogVisible = false"
         @from-child="confirmEdit"

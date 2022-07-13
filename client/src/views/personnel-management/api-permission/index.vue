@@ -45,7 +45,7 @@ const handleButtonClick = async (desc: string, row: any) => {
 const showDialogBool = ref(false);
 provide('dialogVisible', showDialogBool);
 const addApiPermission = () => { showDialogBool.value = true; };
-const append = () => { console.log('appendappend'); };
+const append = (ruleForm: any) => { console.log('appendappend', ruleForm); };
 const closeDialog = () => { showDialogBool.value = false; };
 </script>
 
