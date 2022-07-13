@@ -14,7 +14,8 @@ export default defineConfig({
 					// 1M左右
 					'element-plus': ['element-plus'],
 					'personnel-management': [
-						'./src/views/personnel-management/menu-configuration/index.vue',
+						'./src/views/personnel-management/api-permission/index.vue',
+						'./src/views/personnel-management/menu/index.vue',
 						'./src/views/personnel-management/role.vue',
 						'./src/views/personnel-management/user.vue'
 					]

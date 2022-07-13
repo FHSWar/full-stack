@@ -1,7 +1,9 @@
 <script lang="ts" setup>
-import { ref } from 'vue';
+import { provide, ref } from 'vue';
+// import { getRestrictedApiList, addRestrictedApi } from '@/api/personnel';
 import type { FhsTableColumn } from '@/utils';
 import FhsTable from '@/components/fhs-table/index.vue';
+import ConfigurationDialog from './configuration-dialog.vue';
 
 const tableData = ref([{
 	apiRoute: '123123'
@@ -23,10 +25,6 @@ const columns: FhsTableColumn[] = [
 	}
 ];
 
-const addApiPermission = () => {
-	console.log('addApiPermission');
-};
-
 const handleButtonClick = async (desc: string, row: any) => {
 	switch (desc) {
 		case '编辑描述':
@@ -43,6 +41,12 @@ const handleButtonClick = async (desc: string, row: any) => {
 			break;
 	}
 };
+
+const showDialogBool = ref(false);
+provide('dialogVisible', showDialogBool);
+const addApiPermission = () => { showDialogBool.value = true; };
+const append = () => { console.log('appendappend'); };
+const closeDialog = () => { showDialogBool.value = false; };
 </script>
 
 <template>
@@ -55,6 +59,11 @@ const handleButtonClick = async (desc: string, row: any) => {
       :table-columns="columns"
       :table-data="tableData"
       @button-click="handleButtonClick"
+    />
+
+    <configuration-dialog
+      @append="append"
+      @update:model-value="closeDialog"
     />
   </div>
 </template>

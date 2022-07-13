@@ -4,6 +4,7 @@ import { rolesNoEmpty } from '@/model/validator/role-no-empty';
 
 interface IApiPermission {
 	apiRoute: string
+	belongModule: string
 	description: string
 	roles: IRole[] // 用Types.ObjectId[]要强转，不好。mongoose populate之后得到 Role数组，好。
     createdAt: Date
@@ -15,6 +16,10 @@ interface IApiPermission {
 const ApiPermission = model<IApiPermission>('client_routes', new Schema<IApiPermission>(
 	{
 		apiRoute: {
+			type: String,
+			required: true
+		},
+		belongModule: {
 			type: String,
 			required: true
 		},

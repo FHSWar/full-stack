@@ -39,3 +39,9 @@ export const getRoutesByRole = (params?: { role: string }) => get(
 	params,
 	{ handleError: true, useMessage: true }
 );
+
+// 获取加了限制的接口们
+export const getRestrictedApiList = () => get('auth/api-permission');
+
+// 对接口加上限制
+export const addRestrictedApi = () => post('auth/api-permission');

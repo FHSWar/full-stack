@@ -1,17 +1,15 @@
 <script lang="ts" setup>
-import { reactive, ref } from 'vue';
-import type { FormInstance } from 'element-plus';
+import { provide, reactive, ref } from 'vue';
+import type { FormRules } from 'element-plus';
 import dayjs from 'dayjs';
 import { addRole, editRole, getRoleList, removeRole } from '@/api/personnel';
 import { SPECIAL_ROLE } from '@/utils';
 import type { FhsTableColumn } from '@/utils';
 import FhsTable from '@/components/fhs-table/index.vue';
+import FormDialog from '@/components/form-dialog.vue';
 
 const roleList = ref([] as any);
 const tableData = ref([] as any[]);
-const newRoleDialogVisible = ref(false);
-const formRef = ref<FormInstance>();
-const roleValidateForm = reactive({ role: '', description: '' });
 
 const columns: FhsTableColumn[] = [
 	{ label: '角色', prop: 'role', width: 160 },
@@ -58,23 +56,30 @@ const handleButtonClick = async (desc: string, row: any) => {
 	}
 };
 
-const submitForm = (formEl: FormInstance | undefined) => {
-	if (!formEl) return;
-	formEl.validate(async (valid) => {
-		if (valid) {
-			newRoleDialogVisible.value = false;
-			await addRole(roleValidateForm);
-			getList();
-		} else {
-			console.warn('error submit!');
-			return false;
-		}
-	});
+const ruleForm = reactive({
+	role: '',
+	description: ''
+});
+const rules = reactive<FormRules>({
+	role: [
+		{ required: true, message: '角色是必须字段' },
+		{ type: 'string', message: '' }
+	],
+	description: [
+		{ required: true, message: '描述是必须字段' },
+		{ type: 'string', message: '' }
+	]
+});
+const showDialogBool = ref(false);
+provide('dialogVisible', showDialogBool);
+provide('ruleForm', ruleForm);
+provide('rules', rules);
+const append = async () => {
+	await addRole(ruleForm);
+	showDialogBool.value = false;
+	getList();
 };
-const resetForm = (formEl: FormInstance | undefined) => {
-	if (!formEl) return;
-	formEl.resetFields();
-};
+const closeDialog = () => { showDialogBool.value = false; };
 
 getList();
 </script>
@@ -82,7 +87,7 @@ getList();
 <template>
   <div class="role__wrapper">
     <div class="role__header">
-      <el-button type="primary" plain @click="newRoleDialogVisible = true">
+      <el-button type="primary" plain @click="showDialogBool = true">
         新增角色
       </el-button>
     </div>
@@ -93,51 +98,32 @@ getList();
       @button-click="handleButtonClick"
     />
 
-    <el-dialog draggable v-model="newRoleDialogVisible" width="30%">
-      <el-form
-        ref="formRef"
-        label-width="100px"
-        :model="roleValidateForm"
+    <form-dialog
+      @append="append"
+      @update:model-value="closeDialog"
+    >
+      <el-form-item
+        label="角色"
+        prop="role"
       >
-        <el-form-item
-          label="角色"
-          prop="role"
-          :rules="[
-            { required: true, message: '角色是必须字段' },
-            { type: 'string', message: '' },
-          ]"
-        >
-          <el-input
-            v-model.string="roleValidateForm.role"
-            type="text"
-            autocomplete="off"
-          />
-        </el-form-item>
-        <el-form-item
-          label="描述"
-          prop="description"
-          :rules="[
-            { required: true, message: '描述是必须字段' },
-            { type: 'string', message: '' },
-          ]"
-        >
-          <el-input
-            autosize
-            type="textarea"
-            v-model.string="roleValidateForm.description"
-            autocomplete="off"
-          />
-        </el-form-item>
-        <el-form-item>
-          <el-button @click="resetForm(formRef)">
-            重置
-          </el-button>
-          <el-button type="primary" @click="submitForm(formRef)">
-            提交
-          </el-button>
-        </el-form-item>
-      </el-form>
-    </el-dialog>
+        <el-input
+          v-model="ruleForm.role"
+          type="text"
+          autocomplete="off"
+        />
+      </el-form-item>
+      <el-form-item
+        label="描述"
+        prop="description"
+      >
+        <el-input
+          autosize
+          type="textarea"
+          v-model="ruleForm.description"
+          autocomplete="off"
+        />
+      </el-form-item>
+    </form-dialog>
   </div>
 </template>
 
