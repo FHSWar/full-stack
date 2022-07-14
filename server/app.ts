@@ -4,7 +4,8 @@ import bodyParser from 'koa-bodyparser';
 import serve from 'koa-static';
 import { isTest } from '@/config';
 import {
-	checkPermission,
+	guardLoginState,
+	guardRestrictedApi,
 	mountGlobal,
 	staticDir,
 	useJWT,
@@ -22,7 +23,8 @@ const app = new Koa();
 app
 	.use(cors()) // 解决服务端报跨域问题
 	.use(bodyParser()) // 处理 post 请求体
-	.use(checkPermission()) // 自定义鉴权
+	.use(guardLoginState()) // 接口都需要登陆态，除非是注册或者登陆
+	.use(guardRestrictedApi()) // 自定义鉴权
 	.use(serve(staticDir)); // 提供静态资源访问
 
 useJWT(app); // 使用JWT

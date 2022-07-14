@@ -1,4 +1,5 @@
-export * from './diy-middleware';
+export * from './diy-middleware/guard-login-state';
+export * from './diy-middleware/guard-restricted-api';
 export * from './mount-global';
 export * from './types';
 export * from './use/use-database';
