@@ -34,7 +34,7 @@ getList();
     class="dialog__select"
     v-model="partialRoleList"
     multiple
-    placeholder="Select"
+    placeholder="请选择角色"
   >
     <template v-for="item in roleList" :key="item.role">
       <el-tooltip

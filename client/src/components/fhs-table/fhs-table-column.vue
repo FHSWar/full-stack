@@ -39,19 +39,19 @@ defineEmits(['buttonClick']);
           plain
           :type="type"
           :link="link"
-          @click="emit('buttonClick', description, scope.row)"
+          @click="$emit('buttonClick', description, scope.row)"
         >
           {{ scope.row.editing && isEditButton ? '确认': description }}
         </el-button>
         <double-check-remove
           v-else
-          @confirm-remove="emit('buttonClick', description, scope.row);"
+          @confirm-remove="$emit('buttonClick', description, scope.row);"
         >
           <el-button
             plain
             :type="type"
             :link="link"
-            @click="emit('buttonClick', '预删除', scope.row)"
+            @click="$emit('buttonClick', '预删除', scope.row)"
           >
             {{ description }}
           </el-button>
@@ -63,7 +63,7 @@ defineEmits(['buttonClick']);
       <el-input
         autosize
         type="textarea"
-        v-model="scope.row.description"
+        v-model="scope.row[column.prop]"
         :disabled="!scope.row.editing"
       />
     </template>

@@ -2,7 +2,7 @@ import { model, Schema } from 'mongoose';
 import { IRole } from '@/model/role';
 import { onlyOneNotDelete, rolesNoEmpty } from '@/model/validator';
 
-interface IApiPermission {
+interface IApiRestriction {
 	apiRoute: string
 	belongModule: string
 	description: string
@@ -13,7 +13,7 @@ interface IApiPermission {
 }
 
 // model 第一个字符串存到数据库会忽略大小写，因此用下划线区分单词，一开始就写成存储时的命名，减小理解成本
-const ApiPermission = model<IApiPermission>('api_restriction', new Schema<IApiPermission>(
+const ApiRestriction = model<IApiRestriction>('api_restriction', new Schema<IApiRestriction>(
 	{
 		apiRoute: {
 			type: String,
@@ -43,4 +43,4 @@ const ApiPermission = model<IApiPermission>('api_restriction', new Schema<IApiPe
 	{ timestamps: true }
 ));
 
-export { IApiPermission, ApiPermission };
+export { IApiRestriction, ApiRestriction };

@@ -72,12 +72,10 @@ getUsers();
       @button-click="handleButtonClick"
     />
 
-    <suspense>
-      <role-list-dialog
-        :title="`${userEditing.um}角色`"
-        @update:model-value="assignRoleDialogVisible = false"
-        @from-child="confirmEdit"
-      />
-    </suspense>
+    <role-list-dialog
+      :title="`${userEditing.um}角色`"
+      v-model="assignRoleDialogVisible"
+      @from-child="confirmEdit"
+    />
   </div>
 </template>

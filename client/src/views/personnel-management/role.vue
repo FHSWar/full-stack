@@ -82,11 +82,9 @@ provide('rules', rules);
 
 <template>
   <div class="role__wrapper">
-    <div class="role__header">
-      <el-button type="primary" plain @click="showDialogBool = true">
-        新增角色
-      </el-button>
-    </div>
+    <el-button type="primary" plain @click="showDialogBool = true">
+      新增角色
+    </el-button>
 
     <fhs-table
       :table-columns="columns"
@@ -131,11 +129,6 @@ provide('rules', rules);
         margin-top: 16px;
       }
     }
-  }
-
-  &__header {
-    display: flex;
-    align-items: center;
   }
 }
 

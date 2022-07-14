@@ -1,10 +1,11 @@
 <script lang="ts" setup>
-import { provide, reactive } from 'vue';
+import { inject, provide, reactive } from 'vue';
+import type { Ref } from 'vue';
 import type { FormRules } from 'element-plus';
 import FormDialog from '@/components/form-dialog.vue';
 import RoleList from '@/views/personnel-management/components/role-list.vue';
 
-const options: string[] = []; // '权限配置'
+const options = inject('moduleArr') as Ref<string[]>; // '权限配置'
 
 const ruleForm = reactive({
 	apiRoute: '',
@@ -23,7 +24,6 @@ const rules = reactive<FormRules>({
 provide('partialRoleArr', ruleForm.roles);
 provide('ruleForm', ruleForm);
 provide('rules', rules);
-
 </script>
 
 <template>
@@ -37,10 +37,16 @@ provide('rules', rules);
       </el-select>
     </el-form-item>
     <el-form-item label="接口路径" prop="apiRoute">
-      <el-input v-model="ruleForm.apiRoute" type="text" autocomplete="off" />
+      <el-input
+        v-model="ruleForm.apiRoute" type="text" autocomplete="off"
+        placeholder="请输入接口路径"
+      />
     </el-form-item>
     <el-form-item label="接口作用描述" prop="description">
-      <el-input autosize type="textarea" v-model="ruleForm.description" autocomplete="off" />
+      <el-input
+        autosize type="textarea" v-model="ruleForm.description" autocomplete="off"
+        placeholder="请描述接口作用"
+      />
     </el-form-item>
     <el-form-item label="有权限的角色" prop="roles">
       <!-- 自定义v-model的使用，还挺好用 -->

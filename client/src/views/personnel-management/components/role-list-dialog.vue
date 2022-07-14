@@ -8,7 +8,6 @@ defineEmits(['fromChild']);
 
 const dialogVisible = inject('dialogVisible') as Ref<boolean>;
 const partialRoleList = ref([] as any);
-
 </script>
 
 <template>

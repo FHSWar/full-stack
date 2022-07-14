@@ -6,7 +6,7 @@ interface Role {
 	description: string
 }
 
-interface ApiPermission {
+export interface ApiRestriction {
 	apiRoute: string
 	belongModule: string
 	description: string
@@ -50,5 +50,14 @@ export const getRoutesByRole = (params?: { role: string }) => get(
 // 获取加了限制的接口们
 export const getRestrictedApiList = () => get('auth/api-restriction');
 
+// 获取加了限制的接口们的所属模块们
+export const getRestrictedApiModule = () => get('auth/api-restriction-modules');
+
 // 对接口加上限制
-export const addRestrictedApi = (params: ApiPermission) => post('auth/api-restriction', params);
+export const addRestrictedApi = (params: ApiRestriction) => post('auth/api-restriction', params);
+
+// 调整对应被限制接口的信息
+export const updateRestrictedApi = (params: ApiRestriction) => update('auth/api-restriction', params);
+
+// 移除对对应接口的限制
+export const removeRestrictedApi = (params: ApiRestriction) => remove('auth/api-restriction', params);

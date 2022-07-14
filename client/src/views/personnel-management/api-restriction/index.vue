@@ -1,13 +1,26 @@
 <script lang="ts" setup>
 import dayjs from 'dayjs';
-import { provide, ref } from 'vue';
-import { addRestrictedApi, getRestrictedApiList } from '@/api/personnel';
-import type { FhsTableColumn } from '@/utils';
+import { provide, ref, watchEffect } from 'vue';
+import {
+	addRestrictedApi,
+	getRestrictedApiList,
+	getRestrictedApiModule,
+	removeRestrictedApi,
+	updateRestrictedApi
+} from '@/api/personnel';
+import type { ApiRestriction } from '@/api/personnel';
 import FhsTable from '@/components/fhs-table/index.vue';
+import type { FhsTableColumn } from '@/utils';
+import RoleListDialog from '@/views/personnel-management/components/role-list-dialog.vue';
 import ConfigurationDialog from './configuration-dialog.vue';
 
+const apiEditing = ref<ApiRestriction>();
+const assignRoleDialogVisible = ref(false);
+const modules = ref<string[]>();
+const roles = ref<string[]>();
 const tableData = ref([] as any[]);
 const columns: FhsTableColumn[] = [
+	{ editable: true, label: '所属模块', prop: 'belongModule', width: 120 },
 	{ label: '接口路径', prop: 'apiRoute', width: 160 },
 	{ label: '授权角色', prop: 'roles' },
 	{ editable: true, label: '描述', prop: 'description' },
@@ -22,6 +35,12 @@ const columns: FhsTableColumn[] = [
 		]
 	}
 ];
+const confirmEdit = async () => {
+	assignRoleDialogVisible.value = false;
+	console.log('apiEditing.value', apiEditing.value);
+
+	await updateRestrictedApi(apiEditing.value as ApiRestriction);
+};
 const getData = async () => {
 	const { list } = await getRestrictedApiList() as { list: any };
 
@@ -33,17 +52,22 @@ const getData = async () => {
 const handleButtonClick = async (desc: string, row: any) => {
 	switch (desc) {
 		case '编辑角色':
-			console.log('编辑角色来一个！');
+			apiEditing.value = row;
+			roles.value = row.roles;
+			assignRoleDialogVisible.value = true;
 			break;
 		case '编辑描述':
+			apiEditing.value = row;
 			if (!row.editing) row.editing = true;
 			else {
-				console.log('row', row);
 				row.editing = false;
+
+				await confirmEdit();
 			}
 			break;
 		case '删除':
-			console.log('删除删除');
+			await removeRestrictedApi(row);
+			await getData();
 			break;
 		default:
 			break;
@@ -51,25 +75,51 @@ const handleButtonClick = async (desc: string, row: any) => {
 };
 
 const showDialogBool = ref(false);
-provide('dialogVisible', showDialogBool);
-const addApiPermission = () => { showDialogBool.value = true; };
+const addApiRestriction = () => { showDialogBool.value = true; };
 const append = async (ruleForm: any) => {
 	showDialogBool.value = false;
+
 	await addRestrictedApi(ruleForm);
+	await getData();
 };
 const closeDialog = () => { showDialogBool.value = false; };
 
+watchEffect(async () => {
+	if (showDialogBool.value === true) {
+		const { list } = await getRestrictedApiModule() as any;
+
+		modules.value = list;
+	}
+});
+
 getData();
+
+provide('dialogVisible', showDialogBool);
+provide('moduleArr', modules);
+provide('partialRoleArr', roles);
 </script>
 
 <template>
   <div>
-    <el-button type="primary" plain @click="addApiPermission">
+    <el-button type="primary" plain @click="addApiRestriction">
       新增需鉴权接口
     </el-button>
 
     <fhs-table :table-columns="columns" :table-data="tableData" @button-click="handleButtonClick" />
 
     <configuration-dialog @append="append" @update:model-value="closeDialog" />
+
+    <role-list-dialog
+      :title="`接口：${apiEditing?.apiRoute}`" v-model="assignRoleDialogVisible"
+      @from-child="confirmEdit"
+    />
   </div>
 </template>
+
+<style lang="scss" scoped>
+.table {
+  &__wrapper {
+    margin-top: 16px;
+  }
+}
+</style>

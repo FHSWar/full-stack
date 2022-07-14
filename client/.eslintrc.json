@@ -46,10 +46,7 @@
 		"no-restricted-syntax": "off", // 允许 for...of 之类的语法
 		"no-unused-expressions": "off", // 优雅三元可以有
 		"object-curly-spacing": ["error", "always"], // {}头尾留空格
-		"object-curly-newline": ["error", {
-			"ImportDeclaration": "never",
-			"ExportDeclaration": { "multiline": true, "minProperties": 6 }
-		}],
+		"object-curly-newline": "off",
 		"prefer-destructuring": "off",
 		"vue/max-attributes-per-line": ["error", {
 			"singleline": {
