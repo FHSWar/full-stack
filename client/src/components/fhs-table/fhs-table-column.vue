@@ -3,8 +3,7 @@ import type { FhsTableColumn } from '@/utils';
 import DoubleCheckRemove from '@/components/double-check-remove.vue';
 
 defineProps<{column: FhsTableColumn}>();
-
-const emit = defineEmits(['buttonClick']);
+defineEmits(['buttonClick']);
 </script>
 
 <template>
@@ -25,7 +24,16 @@ const emit = defineEmits(['buttonClick']);
     </template>
     <!-- 偶尔会用到按钮 -->
     <template v-else-if="column.buttons" #default="scope">
-      <template v-for="{description, type, link, doubleCheck} in column.buttons" :key="description">
+      <template
+        v-for="{
+          description,
+          doubleCheck,
+          link,
+          type,
+          isEditButton
+        } in column.buttons"
+        :key="description"
+      >
         <el-button
           v-if="!doubleCheck"
           plain
@@ -33,7 +41,7 @@ const emit = defineEmits(['buttonClick']);
           :link="link"
           @click="emit('buttonClick', description, scope.row)"
         >
-          {{ scope.row.editing ? '确认': description }}
+          {{ scope.row.editing && isEditButton ? '确认': description }}
         </el-button>
         <double-check-remove
           v-else

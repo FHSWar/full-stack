@@ -58,7 +58,7 @@ axios.interceptors.response.use(
 		return data;
 	},
 	(error) => {
-		const { config, data } = error;
+		const { config, response } = error;
 
 		if ((config as extendedAxiosRequestConfig)?.useLoading) {
 			loadingCount--;
@@ -66,8 +66,8 @@ axios.interceptors.response.use(
 		}
 
 		// 错误一定弹，token过期直接退出
-		if (data) {
-			const { message } = data;
+		if (response.data) {
+			const { message } = response.data;
 			if (message === 'jwt expired') useLogout();
 
 			ElMessage.error(message || error.toString());

@@ -1,6 +1,6 @@
 <script lang="ts" setup>
-import { provide, ref } from 'vue';
 import dayjs from 'dayjs';
+import { provide, ref } from 'vue';
 import { editUserRoles, getUserList, removeUser } from '@/api/personnel';
 import type { FhsTableColumn } from '@/utils';
 import FhsTable from '@/components/fhs-table/index.vue';

@@ -1,7 +1,7 @@
 import { model, Schema } from 'mongoose';
 import { IRole } from '@/model/role';
 import { rolesNoEmpty } from '@/model/validator/role-no-empty';
-import { onlyOneNotDelete } from '@/util';
+import { onlyOneNotDelete } from '@/model/validator';
 
 interface IUser {
 	avatar?: string // 图片地址

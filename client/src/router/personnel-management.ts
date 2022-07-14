@@ -17,8 +17,8 @@ export const personnelManagement: RouteRecordRaw[] = [
 		component: () => import('@/views/personnel-management/menu/index.vue')
 	},
 	{
-		path: 'api-permission',
-		name: 'api-permission',
-		component: () => import('@/views/personnel-management/api-permission/index.vue')
+		path: 'api-restriction',
+		name: 'api-restriction',
+		component: () => import('@/views/personnel-management/api-restriction/index.vue')
 	}
 ];

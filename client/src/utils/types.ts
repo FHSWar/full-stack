@@ -51,6 +51,7 @@ export type FhsTableColumn = {
     type?: ButtonType
     link?: boolean
     doubleCheck?: boolean
+    isEditButton?: boolean
 	}[]
   children?: FhsTableColumn[]
   editable?: boolean

@@ -1,5 +1,4 @@
 export * from './diy-middleware';
-export * from './model-util-config';
 export * from './mount-global';
 export * from './types';
 export * from './use/use-database';

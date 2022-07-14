@@ -1,5 +1,5 @@
 import { model, Schema, Types } from 'mongoose';
-import { onlyOneNotDelete } from '@/util';
+import { onlyOneNotDelete } from '@/model/validator';
 
 interface IClientRoutes {
     role: Types.ObjectId
