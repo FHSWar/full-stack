@@ -21,7 +21,8 @@ const roles = ref<string[]>();
 const tableData = ref([] as any[]);
 const columns: FhsTableColumn[] = [
 	{ editable: true, label: '所属模块', prop: 'belongModule', width: 120 },
-	{ label: '接口路径', prop: 'apiRoute', width: 160 },
+	{ label: '请求方式', prop: 'requestMethod', width: 100 },
+	{ label: '接口路径', prop: 'apiRoute' },
 	{ label: '授权角色', prop: 'roles' },
 	{ editable: true, label: '描述', prop: 'description' },
 	{ label: '更新时间', prop: 'updatedAt', align: 'right', width: 120 },
@@ -32,15 +33,10 @@ const columns: FhsTableColumn[] = [
 			{ description: '编辑角色', type: 'primary' },
 			{ description: '编辑描述', isEditButton: true },
 			{ description: '删除', link: true, doubleCheck: true }
-		]
+		],
+		width: 300
 	}
 ];
-const confirmEdit = async () => {
-	assignRoleDialogVisible.value = false;
-	console.log('apiEditing.value', apiEditing.value);
-
-	await updateRestrictedApi(apiEditing.value as ApiRestriction);
-};
 const getData = async () => {
 	const { list } = await getRestrictedApiList() as { list: any };
 
@@ -48,6 +44,15 @@ const getData = async () => {
 		item.updatedAt = dayjs(item.updatedAt).format('YYYY-MM-DD');
 		return item;
 	});
+};
+const confirmEdit = async () => {
+	assignRoleDialogVisible.value = false;
+
+	await updateRestrictedApi({
+		...apiEditing.value as ApiRestriction,
+		roles: roles.value as string[]
+	});
+	await getData();
 };
 const handleButtonClick = async (desc: string, row: any) => {
 	switch (desc) {
@@ -110,7 +115,8 @@ provide('partialRoleArr', roles);
     <configuration-dialog @append="append" @update:model-value="closeDialog" />
 
     <role-list-dialog
-      :title="`接口：${apiEditing?.apiRoute}`" v-model="assignRoleDialogVisible"
+      v-model="assignRoleDialogVisible"
+      :title="`接口：${apiEditing?.apiRoute}`"
       @from-child="confirmEdit"
     />
   </div>

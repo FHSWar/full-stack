@@ -24,7 +24,11 @@ const getList = async () => {
 
 // 注入的partialRoleArr可能是ref的也可能是reactive的属性，于是或运算一个
 watchEffect(() => { partialRoleList.value = partialRoleArr?.value || partialRoleArr; });
-watchEffect(() => { emit('update:modelValue', partialRoleList.value); });
+watchEffect(() => {
+	// 其实不应该用双绑的，provide做响应式就可以了
+	emit('update:modelValue', partialRoleList.value);
+	partialRoleArr.value = partialRoleList.value;
+});
 
 getList();
 </script>

@@ -42,8 +42,8 @@ const handleButtonClick = async (desc: string, row: any) => {
 		case '编辑':
 			if (!row.editing) row.editing = true;
 			else {
-				console.log('row', row);
 				await editRole(row);
+
 				row.editing = false;
 			}
 			break;

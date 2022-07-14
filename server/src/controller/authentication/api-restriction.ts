@@ -7,10 +7,10 @@ router.get('auth/api-restriction', async (ctx) => {
 	const apiList = await ApiRestriction.find({ isDelete: false }).populate('roles').lean();
 
 	const list = apiList.map((item) => {
-		const { apiRoute, belongModule, description, roles, updatedAt } = item;
+		const { apiRoute, belongModule, description, requestMethod, roles, updatedAt } = item;
 		const roleStrArr = roles.map(({ role }) => role);
 
-		return { apiRoute, belongModule, description, updatedAt, roles: roleStrArr };
+		return { apiRoute, belongModule, description, updatedAt, requestMethod, roles: roleStrArr };
 	});
 
 	toCliect(ctx, { list });
@@ -24,7 +24,7 @@ router.get('auth/api-restriction-modules', async (ctx) => {
 
 router.post('auth/api-restriction', async (ctx) => {
 	const { body } = ctx.request;
-	const { apiRoute, belongModule, description, roles } = body;
+	const { apiRoute, belongModule, description, requestMethod, roles } = body;
 
 	try {
 		const roleArr = (roles as string[]).map((role) => ({ role }));
@@ -33,6 +33,7 @@ router.post('auth/api-restriction', async (ctx) => {
 			apiRoute,
 			belongModule,
 			description,
+			requestMethod,
 			roles: roleDocArr.map((doc) => doc._id)
 		}).save();
 	} catch (e) {
@@ -44,14 +45,15 @@ router.post('auth/api-restriction', async (ctx) => {
 
 router.patch('auth/api-restriction', async (ctx) => {
 	const { body } = ctx.request;
-	const { apiRoute, belongModule, description, roles } = body;
+	const { apiRoute, belongModule, description, requestMethod, roles } = body;
 
 	try {
 		const roleArr = (roles as string[]).map((role) => ({ role }));
 		const roleDocArr = await Role.find({ $or: roleArr, isDelete: false });
+
 		// 只能给用户更新所属模块，描述和有权角色
 		await ApiRestriction.updateOne(
-			{ apiRoute, isDelete: false },
+			{ apiRoute, requestMethod, isDelete: false },
 			{
 				belongModule,
 				description,

@@ -5,17 +5,25 @@ import type { FormRules } from 'element-plus';
 import FormDialog from '@/components/form-dialog.vue';
 import RoleList from '@/views/personnel-management/components/role-list.vue';
 
-const options = inject('moduleArr') as Ref<string[]>; // '权限配置'
+const options = inject('moduleArr') as Ref<string[]>;
+const requestMethods = [
+	{ description: '增--POST', value: 'POST' },
+	{ description: '删--DELETE', value: 'DELETE' },
+	{ description: '改--PATCH', value: 'PATCH' },
+	{ description: '查--GET', value: 'GET' }
+];
 
 const ruleForm = reactive({
 	apiRoute: '',
 	belongModule: '',
 	description: '',
+	requestMethod: '',
 	roles: [] as string[] // 管理员
 });
 
 const rules = reactive<FormRules>({
 	belongModule: [{ type: 'string', required: true, message: '所属模块是必须字段' }],
+	requestMethod: [{ type: 'string', required: true, message: '请求方式是必须字段' }],
 	apiRoute: [{ type: 'string', required: true, message: '角色是必须字段' }],
 	description: [{ type: 'string', required: true, message: '描述是必须字段' }],
 	roles: [{ type: 'array', required: true, trigger: 'change', message: '有权角色是必须字段' }]
@@ -34,6 +42,18 @@ provide('rules', rules);
         placeholder="请选择或输入所属模块"
       >
         <el-option v-for="item in options" :key="item" :label="item" :value="item" />
+      </el-select>
+    </el-form-item>
+    <el-form-item label="请求方式" prop="requestMethod">
+      <el-select
+        :reserve-keyword="false" v-model="ruleForm.requestMethod"
+        placeholder="请选择请求接口方式"
+      >
+        <el-option
+          v-for="{description, value} in requestMethods"
+          :key="description" :label="description"
+          :value="value"
+        />
       </el-select>
     </el-form-item>
     <el-form-item label="接口路径" prop="apiRoute">

@@ -61,7 +61,7 @@ const submitForm = (formEl: FormInstance | undefined) => {
 		if (valid) {
 			changePassword(form);
 		} else {
-			console.log('表单格式错误!');
+			console.warn('表单格式错误!');
 			return false;
 		}
 	});

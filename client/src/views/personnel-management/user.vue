@@ -46,9 +46,8 @@ const handleButtonClick = async (desc: string, row: any) => {
 			userEditing.value = row;
 			break;
 		case '删除':
-			console.log('userEditing', userEditing.value);
 			await removeUser(userEditing.value);
-			getUsers();
+			await getUsers();
 			break;
 		default:
 			break;
