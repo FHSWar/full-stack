@@ -2,8 +2,7 @@ import { uniqBy } from 'lodash';
 import { assembleTree, DEFAULT_ROLE, flattenMenuTree, MenuTree } from 'shared';
 import { ClientRoutes, IClientRoutes } from '@/model/client-routes';
 import { Role } from '@/model/role';
-import { IUser } from '@/model/user';
-import { verifyToken } from '@/util';
+import { findRoleDocArr, verifyToken } from '@/util';
 
 const router = useRouter();
 
@@ -16,11 +15,11 @@ const router = useRouter();
  * @apiParam (query) {String} [role] 用户角色
  */
 router.get('auth/routesByRole', async (ctx) => {
-	const { role } = ctx.query as {role?: string};
+	const { role } = ctx.query as { role?: string };
 	const { header } = ctx.request;
 
 	const { token } = verifyToken(header.authorization?.replace('Bearer ', '') as string);
-	const { roles } = token as Omit<IUser, 'password'>;
+	const { roles } = token as { roles: string[] };
 
 	const findRoutesJsonByRoleId = async (id: IClientRoutes['role']) => {
 		const routesDoc = await ClientRoutes.findOne({ role: id, isDelete: false }).lean();
@@ -33,10 +32,8 @@ router.get('auth/routesByRole', async (ctx) => {
 	};
 
 	const findRoutesJsonByRoles = async () => {
-		const roleDocArr = await Role.find({
-			role: { $in: roles },
-			isDelete: false
-		}).lean();
+		const roleDocArr = await findRoleDocArr(roles);
+
 		const roleObjectIdArr = roleDocArr.map((item) => item._id);
 		const clientRoutesDocArr = await ClientRoutes.find({
 			role: { $in: roleObjectIdArr },

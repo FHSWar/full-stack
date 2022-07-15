@@ -1,6 +1,11 @@
-import { Role } from '@/model/role';
 import { IUser, User } from '@/model/user';
-import { decryptPassword, encryptBySHA512, generateToken, verifyToken } from '@/util';
+import {
+	decryptPassword,
+	encryptBySHA512,
+	findRoleDocArr,
+	generateToken,
+	verifyToken
+} from '@/util';
 
 const router = useRouter();
 
@@ -74,18 +79,19 @@ router.get('auth/userInfo', async (ctx) => {
 router.patch('auth/userRoles', async (ctx) => {
 	const { um, username, roles } = ctx.request.body;
 
-	const roleArr = (roles as string[]).map((role) => ({ role }));
+	try {
+		const roleDocArr = await findRoleDocArr(roles as string[]);
 
-	// login、editUserRoles、register、User共同确保了用户至少有一个角色
-	if (roleArr.length === 0) return toCliect(ctx, '用户至少有一个角色', STATUS.FORBIDDEN);
-	const roleDocArr = await Role.find({ $or: roleArr, isDelete: false });
-	if (roleDocArr.length === 0) return toCliect(ctx, '无效角色', STATUS.FORBIDDEN);
+		if (roleDocArr.length === 0) return toCliect(ctx, '无效角色', STATUS.FORBIDDEN);
 
-	await User.updateOne(
-		{ um, username, isDelete: false },
-		{ roles: roleDocArr.map((roleDoc) => roleDoc._id) }
-	);
-	toCliect(ctx, '用户角色已更新');
+		await User.updateOne(
+			{ um, username, isDelete: false },
+			{ roles: roleDocArr.map((roleDoc) => roleDoc._id) }
+		);
+		toCliect(ctx, '用户角色已更新');
+	} catch (e) {
+		return toCliect(ctx, (e as Error).toString(), STATUS.FORBIDDEN);
+	}
 });
 
 /**

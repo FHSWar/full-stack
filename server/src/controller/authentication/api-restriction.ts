@@ -1,5 +1,5 @@
 import { ApiRestriction, IApiRestriction } from '@/model/api-restriction';
-import { Role } from '@/model/role';
+import { findRoleDocArr } from '@/util';
 
 const router = useRouter();
 
@@ -27,8 +27,8 @@ router.post('auth/api-restriction', async (ctx) => {
 	const { apiRoute, belongModule, description, requestMethod, roles } = body;
 
 	try {
-		const roleArr = (roles as string[]).map((role) => ({ role }));
-		const roleDocArr = await Role.find({ $or: roleArr, isDelete: false });
+		const roleDocArr = await findRoleDocArr(roles as string[]);
+
 		await new ApiRestriction({
 			apiRoute,
 			belongModule,
@@ -48,8 +48,7 @@ router.patch('auth/api-restriction', async (ctx) => {
 	const { apiRoute, belongModule, description, requestMethod, roles } = body;
 
 	try {
-		const roleArr = (roles as string[]).map((role) => ({ role }));
-		const roleDocArr = await Role.find({ $or: roleArr, isDelete: false });
+		const roleDocArr = await findRoleDocArr(roles as string[]);
 
 		// 只能给用户更新所属模块，描述和有权角色
 		await ApiRestriction.updateOne(
