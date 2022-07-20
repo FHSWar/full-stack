@@ -45,6 +45,7 @@
     "eslint-plugin-vue-scoped-css": "^2.2.0",
     "happy-dom": "^6.0.4",
     "postcss-html": "^1.5.0",
+    "rollup-plugin-visualizer": "^5.7.1",
     "sass": "^1.52.3",
     "stylelint": "^14.9.1",
     "stylelint-config-html": "^1.1.0",

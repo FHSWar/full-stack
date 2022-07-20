@@ -2,13 +2,13 @@ import type { ButtonType } from 'element-plus';
 import type { MenuTree } from 'shared/client-util';
 
 export type ShallowObject = {
-  [key:string]: string|number|boolean
+  [key: string]: string | number | boolean
 }
-export type LocalStorageValue = string|number|boolean|ShallowObject
+export type LocalStorageValue = string | number | boolean | ShallowObject
 
 export type { MenuTree };
 // 组装好的，渲染用
-export type ExtendedMenuTreeItem = MenuTree[0]&{checked?: boolean, indeterminate?: boolean}
+export type ExtendedMenuTreeItem = MenuTree[0] & { checked?: boolean, indeterminate?: boolean }
 
 // 摊平的，方便后端存
 export type MenuList = {
@@ -16,7 +16,7 @@ export type MenuList = {
   icon?: string
   id: string
   meta?: {
-    [key:string]: any
+    [key: string]: any
   }
   page?: string
   pid: string
@@ -52,7 +52,7 @@ export type FhsTableColumn = {
     link?: boolean
     doubleCheck?: boolean
     isEditButton?: boolean
-	}[]
+  }[]
   children?: FhsTableColumn[]
   editable?: boolean
   // editable为true且editing为true即可编辑

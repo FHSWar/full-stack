@@ -24,7 +24,7 @@ export const useAutoLayout = () => {
 				store.themeConfig.isAsideMenuCollapse = false;
 				break;
 			default:
-      // do nothing
+				// do nothing
 		}
 	});
 

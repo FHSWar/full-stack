@@ -16,7 +16,6 @@ export const usePiniaPersistance = () => {
 	watchEffect(() => { setLocal('token', token.value); });
 	watchEffect(() => { setLocal('themeConfig', isAsideMenuCollapse.value, 'isAsideMenuCollapse'); });
 	watchEffect(() => { setLocal('themeConfig', layout.value, 'layout'); });
-	watchEffect(() => { setLocal('themeConfig', layout.value, 'layout'); });
 	watchEffect(() => { setLocal('userInfo', (userInfo as any).value); });
 	watch(menuTree, () => { setLocal('menuTree', (menuTree as any).value); }, { deep: true });
 	watch(breadcrumb, () => { setSession('breadcrumb', (breadcrumb as any).value); }, { deep: true });
