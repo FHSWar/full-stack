@@ -6,7 +6,7 @@
 	"extends": [
 		"plugin:vue/vue3-strongly-recommended",
 		"plugin:vue-scoped-css/vue3-recommended",
-		"airbnb"
+		"airbnb-base"
 	],
 	"parserOptions": {
 		"ecmaVersion": "latest",
