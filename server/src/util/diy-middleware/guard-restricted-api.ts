@@ -9,7 +9,7 @@ let restrictedApiList: {
     roles: string[]
 }[] = [];
 
-// ! 这里可以优化，比如存一份到redis，而不是每次从硬盘读数据
+//! 这里可以优化，比如存一份到redis，而不是每次从硬盘读数据
 const getRestrictedApiList = async () => {
 	const apiList = await ApiRestriction.find({ isDelete: false }).populate('roles').lean();
 

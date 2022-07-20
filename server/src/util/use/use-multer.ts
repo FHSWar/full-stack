@@ -1,3 +1,4 @@
+// eslint-disable-next-line import/no-extraneous-dependencies
 import multer from '@koa/multer';
 
 // eslint-disable-next-line no-unused-vars

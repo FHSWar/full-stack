@@ -1,4 +1,5 @@
 import { createWriteStream, readdirSync, unlinkSync } from 'fs';
+// eslint-disable-next-line import/no-extraneous-dependencies
 import multer from '@koa/multer';
 import { IUser, User } from '@/model/user';
 import { staticDir, upload, verifyToken } from '@/util';
