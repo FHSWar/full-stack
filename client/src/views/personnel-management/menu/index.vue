@@ -86,7 +86,7 @@ getRoles();
     .el-radio-group {
       flex: 1;
       padding: 4px;
-      margin-top: 4px;
+      margin-top: 16px;
       background-color: var(--el-fill-color-blank);
       border-radius: var(--el-border-radius-base);
     }

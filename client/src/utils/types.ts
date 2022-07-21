@@ -57,8 +57,10 @@ export type FhsTableColumn = {
   editable?: boolean
   // editable为true且editing为true即可编辑
   editing?: boolean
+  fixed?: true | 'left' | 'right'
   label: string
   width?: number
+  minWidth?: number
   prop?: string
-  // sortable?: boolean
+  sortable?: boolean
 }

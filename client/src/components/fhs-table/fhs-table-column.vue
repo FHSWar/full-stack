@@ -9,10 +9,14 @@ defineEmits(['buttonClick']);
 <template>
   <!-- 一般就是数据展示 -->
   <el-table-column
+    show-overflow-tooltip
     :align="column.align"
+    :fixed="column.fixed"
     :label="column.label"
     :prop="column.prop"
+    :sortable="column.sortable"
     :width="column.width"
+    :min-width="column.minWidth"
   >
     <!-- 更更偶尔会用到多行表头 -->
     <template v-if="column?.children?.length" #default>
@@ -60,12 +64,18 @@ defineEmits(['buttonClick']);
     </template>
     <!-- 更偶尔会用到行内编辑 -->
     <template v-else-if="column.editable" #default="scope">
-      <el-input
-        autosize
-        type="textarea"
-        v-model="scope.row[column.prop]"
-        :disabled="!scope.row.editing"
-      />
+      <template v-if="scope.row.editing">
+        <el-input
+          v-model="scope.row[column.prop]"
+          autosize
+          type="textarea"
+        />
+      </template>
+      <template v-else>
+        <span>
+          {{ scope.row[column.prop] || '-' }}
+        </span>
+      </template>
     </template>
   </el-table-column>
 </template>

@@ -1,0 +1,21 @@
+/* stylelint-disable selector-class-pattern */
+/* stylelint-disable selector-pseudo-class-no-unknown */
+
+:deep(.el-table__inner-wrapper) {
+  position: relative;
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  overflow: auto;
+}
+
+:deep(.el-table__body-wrapper) {
+  position: relative;
+  flex: 1;
+}
+
+:deep(.el-table__empty-block) {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+}

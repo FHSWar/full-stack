@@ -25,7 +25,10 @@
     display: flex;
     flex: 1;
     flex-direction: column;
-    height: 100%;
+    height: calc(100% - 48px);
+
+    // 为了保持内容不超出容器 https://blog.csdn.net/zgh0711/article/details/78270555
+    overflow: hidden;
   }
 }
 </style>
