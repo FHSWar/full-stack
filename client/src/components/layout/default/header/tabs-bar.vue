@@ -117,9 +117,9 @@ const triggerMethod = (method: () => void) => { method(); (popoverRef.value as a
 <template>
   <div class="tabs-bar__wrapper">
     <el-tabs
+      v-model="activeTabName"
       type="card"
       class="tabs-bar__container"
-      v-model="activeTabName"
       @tab-click="tabClick"
       @tab-remove="tabRemove"
     >

@@ -12,8 +12,8 @@ const partialRoleList = ref([] as any);
 
 <template>
   <el-dialog
-    v-model="dialogVisible"
     ref="dialogEl"
+    v-model="dialogVisible"
     draggable
     center
     width="33%"

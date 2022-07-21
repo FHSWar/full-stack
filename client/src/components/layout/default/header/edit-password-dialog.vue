@@ -81,8 +81,8 @@ const closeDialog = () => { emit('update:modelValue'); };
     @close="closeDialog"
   >
     <el-form
-      status-icon
       ref="ruleFormRef"
+      status-icon
       label-width="68px"
       :model="form"
       :rules="rules"

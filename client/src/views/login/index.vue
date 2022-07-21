@@ -9,15 +9,15 @@ const showRegister = computed(() => (activeName.value !== 'login'));
 <template>
   <div class="login__wrapper">
     <el-tabs
-      class="login__container"
       v-model="activeName"
+      class="login__container"
       type="border-card"
     >
       <el-tab-pane label="登陆" name="login" stretch>
         <login-view :key="'first'" />
       </el-tab-pane>
       <el-tab-pane label="注册" name="register">
-        <login-view v-if="showRegister" :show-double-check="true" :key="'second'" />
+        <login-view v-if="showRegister" :key="'second'" :show-double-check="true" />
       </el-tab-pane>
     </el-tabs>
   </div>

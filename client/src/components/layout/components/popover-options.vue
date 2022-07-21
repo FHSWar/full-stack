@@ -8,9 +8,9 @@ const emit = defineEmits(['method']);
 <template>
   <div class="options__container">
     <p
-      class="options__item"
       v-for="{icon, desc, method} in options"
       :key="desc"
+      class="options__item"
       @click="emit('method', method)"
     >
       <use-icon :icon="icon" />

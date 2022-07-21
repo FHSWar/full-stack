@@ -22,7 +22,7 @@ watch(breadcrumb, async () => {
   <el-breadcrumb class="breadcrumb__wrapper" :separator-icon="ArrowRight">
     <template v-for="{ icon, id, page, title } in breadcrumb" :key="id">
       <transition name="el-fade-in">
-        <el-breadcrumb-item v-if="page" :to="{ name: page }" v-show="showBreadcrumb">
+        <el-breadcrumb-item v-if="page" v-show="showBreadcrumb" :to="{ name: page }">
           <use-icon v-if="icon" :icon="icon" />
           {{ title }}
         </el-breadcrumb-item>

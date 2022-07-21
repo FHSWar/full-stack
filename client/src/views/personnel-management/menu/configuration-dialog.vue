@@ -56,14 +56,14 @@ provide('rules', rules);
       </el-radio-group>
     </el-form-item>
     <el-form-item label="菜单项标题" prop="title">
-      <el-input placeholder="请输入菜单项标题" v-model="ruleForm.title" />
+      <el-input v-model="ruleForm.title" placeholder="请输入菜单项标题" />
     </el-form-item>
     <el-form-item label="菜单项图标" prop="icon">
       <el-select
+        v-model="ruleForm.icon"
         filterable
         allow-create
         placeholder="图标名称"
-        v-model="ruleForm.icon"
         :teleported="false"
       >
         <el-option
@@ -78,10 +78,10 @@ provide('rules', rules);
     </el-form-item>
     <el-form-item label="菜单项页面" prop="page">
       <el-select
+        v-model="ruleForm.page"
         filterable
         allow-create
         placeholder="跳转的页面"
-        v-model="ruleForm.page"
         :teleported="false"
       >
         <el-option

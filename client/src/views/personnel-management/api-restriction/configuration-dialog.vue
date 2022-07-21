@@ -38,7 +38,7 @@ provide('rules', rules);
   <form-dialog>
     <el-form-item label="所属模块" prop="belongModule">
       <el-select
-        allow-create filterable :reserve-keyword="false" v-model="ruleForm.belongModule"
+        v-model="ruleForm.belongModule" allow-create filterable :reserve-keyword="false"
         placeholder="请选择或输入所属模块"
       >
         <el-option v-for="item in options" :key="item" :label="item" :value="item" />
@@ -46,7 +46,7 @@ provide('rules', rules);
     </el-form-item>
     <el-form-item label="请求方式" prop="requestMethod">
       <el-select
-        :reserve-keyword="false" v-model="ruleForm.requestMethod"
+        v-model="ruleForm.requestMethod" :reserve-keyword="false"
         placeholder="请选择请求接口方式"
       >
         <el-option
@@ -64,7 +64,7 @@ provide('rules', rules);
     </el-form-item>
     <el-form-item label="接口作用描述" prop="description">
       <el-input
-        autosize type="textarea" v-model="ruleForm.description" autocomplete="off"
+        v-model="ruleForm.description" autosize type="textarea" autocomplete="off"
         placeholder="请描述接口作用"
       />
     </el-form-item>

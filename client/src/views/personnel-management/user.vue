@@ -74,8 +74,8 @@ getUsers();
     </template>
 
     <role-list-dialog
-      :title="`${userEditing.um}角色`"
       v-model="assignRoleDialogVisible"
+      :title="`${userEditing.um}角色`"
       @from-child="confirmEdit"
     />
   </main-div>

@@ -35,8 +35,8 @@ getList();
 
 <template>
   <el-select
-    class="dialog__select"
     v-model="partialRoleList"
+    class="dialog__select"
     multiple
     placeholder="请选择角色"
   >
