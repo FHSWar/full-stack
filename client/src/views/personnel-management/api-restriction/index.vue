@@ -105,12 +105,14 @@ provide('partialRoleArr', roles);
 </script>
 
 <template>
-  <div>
+  <main-div>
     <el-button type="primary" plain @click="addApiRestriction">
       新增需鉴权接口
     </el-button>
 
-    <fhs-table :table-columns="columns" :table-data="tableData" @button-click="handleButtonClick" />
+    <template #fillUp>
+      <fhs-table :table-columns="columns" :table-data="tableData" @button-click="handleButtonClick" />
+    </template>
 
     <configuration-dialog @append="append" @update:model-value="closeDialog" />
 
@@ -119,7 +121,7 @@ provide('partialRoleArr', roles);
       :title="`接口：${apiEditing?.apiRoute}`"
       @from-child="confirmEdit"
     />
-  </div>
+  </main-div>
 </template>
 
 <style lang="scss" scoped>

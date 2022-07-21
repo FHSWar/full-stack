@@ -8,9 +8,11 @@ import 'element-plus/theme-chalk/dark/css-vars.css';
 
 import { router } from '@/router/index';
 import app from '@/app.vue';
+import MainDiv from '@/components/main-div.vue';
 import { useIcon } from '@/components/use-icon';
 
 createApp(app)
+	.component('main-div', MainDiv)
 	.component('use-icon', useIcon)
 	.use(ElementPlus, {
 		locale: zhCn

@@ -64,17 +64,19 @@ getUsers();
 </script>
 
 <template>
-  <div>
-    <fhs-table
-      :table-columns="columns"
-      :table-data="userList"
-      @button-click="handleButtonClick"
-    />
+  <main-div>
+    <template #fillUp>
+      <fhs-table
+        :table-columns="columns"
+        :table-data="userList"
+        @button-click="handleButtonClick"
+      />
+    </template>
 
     <role-list-dialog
       :title="`${userEditing.um}角色`"
       v-model="assignRoleDialogVisible"
       @from-child="confirmEdit"
     />
-  </div>
+  </main-div>
 </template>

@@ -81,55 +81,28 @@ provide('rules', rules);
 </script>
 
 <template>
-  <div class="role__wrapper">
+  <main-div>
     <el-button type="primary" plain @click="showDialogBool = true">
       新增角色
     </el-button>
-
-    <fhs-table
-      :table-columns="columns"
-      :table-data="tableData"
-      @button-click="handleButtonClick"
-    />
-
-    <form-dialog
-      @append="append"
-      @update:model-value="closeDialog"
-    >
-      <el-form-item
-        label="角色名称"
-        prop="role"
-      >
-        <el-input
-          v-model="ruleForm.role"
-          type="text"
-          autocomplete="off"
-        />
+    <template #fillUp>
+      <fhs-table :table-columns="columns" :table-data="tableData" @button-click="handleButtonClick" />
+    </template>
+    <form-dialog @append="append" @update:model-value="closeDialog">
+      <el-form-item label="角色名称" prop="role">
+        <el-input v-model="ruleForm.role" type="text" autocomplete="off" />
       </el-form-item>
-      <el-form-item
-        label="角色描述"
-        prop="description"
-      >
-        <el-input
-          autosize
-          type="textarea"
-          v-model="ruleForm.description"
-          autocomplete="off"
-        />
+      <el-form-item label="角色描述" prop="description">
+        <el-input autosize type="textarea" v-model="ruleForm.description" autocomplete="off" />
       </el-form-item>
     </form-dialog>
-  </div>
+  </main-div>
 </template>
 
 <style lang="scss" scoped>
-.role {
+.table {
   &__wrapper {
-    .table {
-      &__wrapper {
-        margin-top: 16px;
-      }
-    }
+    margin-top: 16px;
   }
 }
-
 </style>

@@ -23,10 +23,39 @@ const buttonClick = (desc: string, row: any) => {
       <fhs-table-column :column="column" @button-click="buttonClick" />
     </template>
     <template #empty>
-      <div>
+      <div class="empty">
         <result />
         暂无数据
       </div>
     </template>
   </el-table>
 </template>
+
+<style lang="scss" scoped>
+/* stylelint-disable-next-line selector-class-pattern */
+:deep(.el-table__inner-wrapper) {
+  position: relative;
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+}
+
+/* stylelint-disable-next-line selector-class-pattern */
+:deep(.el-table__body-wrapper) {
+  position: relative;
+  flex: 1;
+}
+/* stylelint-disable-next-line selector-class-pattern */
+:deep(.el-table__empty-block) {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+}
+
+.table {
+  &__wrapper {
+    display: flex;
+    flex: 1;
+  }
+}
+</style>
