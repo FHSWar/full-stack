@@ -5,7 +5,6 @@ import { useStore } from '@/stores';
 const store = useStore();
 const isSingleColumn = computed(() => store.themeConfig.layout === 'single-column');
 
-const borderRight = computed(() => (isSingleColumn.value ? '' : 'var(--el-border)'));
 const height = computed(() => (isSingleColumn.value ? '116px' : '56px'));
 const titleWidth = computed(() => (isSingleColumn.value ? '300px' : ''));
 const paddingLeft = computed(() => (isSingleColumn.value ? 0 : '20px'));
@@ -34,11 +33,9 @@ const showHeaderTitle = computed(() => !store.themeConfig.isAsideMenuCollapse ||
     width: v-bind("titleWidth");
     height: v-bind("height");
     padding-left: v-bind("paddingLeft");
-    border-right: v-bind("borderRight");
-
-    // border-bottom: v-bind("borderRight");
 
     svg {
+      flex-shrink: 0;
       color: var(--vscode-icon-color);
 
       &:first-of-type {
@@ -57,8 +54,7 @@ const showHeaderTitle = computed(() => !store.themeConfig.isAsideMenuCollapse ||
     }
 
     h1 {
-      position: absolute;
-      left: 64px;
+      flex-shrink: 0;
       font-size: var(--el-font-size-extra-large);
       line-height: var(--el-header-height);
       color: var(--el-text-color-regular);

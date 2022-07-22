@@ -6,17 +6,20 @@ import headerTitle from '@/components/layout/components/header-title.vue';
 import menuTree from '@/components/layout/components/menu-tree.vue';
 
 const store = useStore();
+
 // 用全局状态的值来做初始化
 const isCollapse = computed(() => store.themeConfig.isAsideMenuCollapse);
 const deg = computed(() => (isCollapse.value ? '0' : '180deg'));
 
-const toggleAside = () => { store.themeConfig.isAsideMenuCollapse = !store.themeConfig.isAsideMenuCollapse; };
+const toggleAside = () => {
+	store.themeConfig.isAsideMenuCollapse = !store.themeConfig.isAsideMenuCollapse;
+};
 
 const { activePageId, sideMenu } = initMenuTree();
 </script>
 
 <template>
-  <el-scrollbar class="aside-menu__wrapper">
+  <el-scrollbar class="aside-menu">
     <header-title />
     <!-- 一个侧边菜单只应有一个el-menu作为根，不应该被递归到 -->
     <el-menu
@@ -24,10 +27,15 @@ const { activePageId, sideMenu } = initMenuTree();
       :default-active="activePageId"
       :default-openeds="[]"
       :collapse="isCollapse"
+      :collapse-transition="false"
     >
       <menu-tree :aside-menu-tree="sideMenu" />
-      <el-menu-item class="aside-menu__footer" index="footer-menu-item">
-        <use-icon class="aside-menu__toggle-icon" icon="Expand" @click="toggleAside" />
+      <el-menu-item
+        class="aside-menu__footer"
+        index="footer-menu-item"
+        @click="toggleAside"
+      >
+        <use-icon class="aside-menu__toggle-icon" icon="Expand" />
       </el-menu-item>
     </el-menu>
   </el-scrollbar>
@@ -35,15 +43,20 @@ const { activePageId, sideMenu } = initMenuTree();
 
 <style lang="scss" scoped>
 .aside-menu {
+  .el-menu {
+    user-select: none;
+    border-right: none;
+  }
+
   // https://juejin.cn/post/6844903815527956494#comment
   &__magic-trick {
     // 收起时菜单也应该竖向撑满
     height: 100%;
 
-    /* stylelint-disable-next-line selector-class-pattern */
+    /* 在不用aside动画，collapse-transition为false时用这个，是个次优的方案
     &:not(.el-menu--collapse) {
       width: 300px;
-    }
+    } */
   }
 
   &__footer {

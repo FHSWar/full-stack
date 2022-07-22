@@ -9,7 +9,7 @@ defineProps<{
   tableColumns: FhsTableColumnType[]
   tableData: any[]
 }>();
-const headerColor = { backgroundColor: '#f5f7fa' };
+const headerColor = { backgroundColor: 'var(--el-fill-color-lighter)' };
 
 const emit = defineEmits(['buttonClick', 'selectChange']);
 

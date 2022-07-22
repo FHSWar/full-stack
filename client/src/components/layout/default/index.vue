@@ -1,10 +1,13 @@
 <script lang="ts" setup>
+import { useAsideWidth } from './use-aside-width';
 import Avatar from '@/components/layout/components/avatar.vue';
 import LightDark from '@/components/layout/components/light-dark.vue';
 import SwitchLayout from '@/components/layout/components/switch-layout.vue';
 import Breadcrumb from './header/breadcrumb.vue';
 import TabsBar from './header/tabs-bar.vue';
 import LayoutAside from './layout-aside.vue';
+
+const asideWidth = useAsideWidth();
 </script>
 
 <template>
@@ -42,12 +45,19 @@ import LayoutAside from './layout-aside.vue';
 .common-layout {
   height: 100%;
 
+  .el-aside {
+    width: v-bind("asideWidth");
+    transition: width 0.1s;
+  }
+
   &__aside {
+    border-right: 1px solid var(--el-border-color);
     /* stylelint-disable-next-line selector-class-pattern */
     :deep(.el-scrollbar__view) {
       display: flex;
       flex-direction: column;
       height: 100%;
+      overflow-x: hidden;
     }
   }
 
