@@ -16,6 +16,7 @@ const toggleDark = () => { toggleDarkClass(); };
 
 <style lang="scss" scoped>
 .toggle-icon {
+  flex-shrink: 0;
   margin-left: 12px;
   font-size: var(--el-font-size-extra-large);
   color: v-bind("iconColor");

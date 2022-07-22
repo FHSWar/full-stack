@@ -7,6 +7,7 @@ import { useStore } from '@/stores';
 import { findMenuListChain } from '@/utils';
 import type { MenuList } from '@/utils';
 import PopoverOptions from '@/components/layout/components/popover-options.vue';
+import SwitchLayout from '@/components/layout/components/switch-layout.vue';
 
 const router = useRouter();
 const store = useStore();
@@ -144,6 +145,7 @@ const triggerMethod = (method: () => void) => { method(); (popoverRef.value as a
       <template #reference>
         <use-icon
           icon="Menu"
+          class="tabs-bar__menu-icon"
           :class="animation"
           :size="18"
           @mouseenter="onMouseEnter"
@@ -151,8 +153,10 @@ const triggerMethod = (method: () => void) => { method(); (popoverRef.value as a
       </template>
       <popover-options :options="optionList" @method="triggerMethod" />
     </el-popover>
+    <switch-layout />
   </div>
 </template>
+
 <style lang="scss" scoped>
 .tabs-bar {
   // 这一段改标签页样式的css是从vue-admin-better抄的
@@ -166,18 +170,25 @@ const triggerMethod = (method: () => void) => { method(); (popoverRef.value as a
     /* stylelint-disable-next-line selector-class-pattern */
     :deep(.el-tabs__header) {
       margin-top: 8px;
+      margin-right: 16px;
       margin-bottom: 0;
       border-bottom: 0;
 
       .el-tabs {
         &__nav {
           border: 0;
+
+          &-prev,
+          &-next {
+            top: -4px;
+          }
         }
 
         &__item {
           height: var(--tab-item-height);
           margin-right: 4px;
           line-height: var(--tab-item-height);
+          user-select: none;
           border: var(--el-border);
           border-radius: var(--el-border-radius-base);
         }
@@ -187,6 +198,7 @@ const triggerMethod = (method: () => void) => { method(); (popoverRef.value as a
 
   &__container {
     flex: 1;
+    overflow: auto;
   }
 
   &__menu {
@@ -194,6 +206,9 @@ const triggerMethod = (method: () => void) => { method(); (popoverRef.value as a
   }
 
   &__menu-icon {
+    flex-shrink: 0;
+    margin-right: 8px;
+
     &--rotate {
       animation: spin-clock-wise 0.2s linear;
     }

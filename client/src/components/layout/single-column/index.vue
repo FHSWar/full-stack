@@ -9,7 +9,7 @@ import MenuTree from './header-menu.vue';
 <template>
   <el-container class="layout__wrapper">
     <el-header class="layout__header">
-      <header-title class="layout__title" />
+      <header-title />
       <menu-tree class="layout__menu" />
       <avatar />
       <light-dark />
@@ -39,10 +39,6 @@ import MenuTree from './header-menu.vue';
     display: flex;
     align-items: center;
     height: 108px;
-  }
-
-  &__title {
-    flex: 0 0 auto;
   }
 
   &__menu {

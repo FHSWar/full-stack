@@ -22,7 +22,6 @@
   },
   "scripts": {
     "dev": "npm-run-all --parallel dev:*",
-    "dev:client": "cd client && npm run dev",
     "dev:server": "cd server && npm run dev",
     "dev:server-worker": "cd server-worker && npm run dev",
     "lint": "npm-run-all --parallel lint:*",

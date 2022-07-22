@@ -51,5 +51,12 @@ a:focus {
 }
 
 #app {
+  max-width: 100%;
   height: 100%;
+  overflow-x: hidden;
+}
+
+/* 弹框太窄会失去可用性 */
+.el-dialog {
+  min-width: 480px;
 }

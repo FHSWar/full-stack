@@ -26,7 +26,6 @@ const switchLayout = () => {
   &__icon-wrapper {
     display: flex;
     align-items: center;
-    margin-left: 8px;
   }
 }
 </style>

@@ -2,7 +2,6 @@
 import { useAsideWidth } from './use-aside-width';
 import Avatar from '@/components/layout/components/avatar.vue';
 import LightDark from '@/components/layout/components/light-dark.vue';
-import SwitchLayout from '@/components/layout/components/switch-layout.vue';
 import Breadcrumb from './header/breadcrumb.vue';
 import TabsBar from './header/tabs-bar.vue';
 import LayoutAside from './layout-aside.vue';
@@ -24,7 +23,6 @@ const asideWidth = useAsideWidth();
       </el-header>
       <el-header class="common-layout__header">
         <tabs-bar />
-        <switch-layout />
       </el-header>
       <el-main class="common-layout__main">
         <router-view v-slot="{ Component, route }">
@@ -47,7 +45,7 @@ const asideWidth = useAsideWidth();
 
   .el-aside {
     width: v-bind("asideWidth");
-    transition: width 0.1s;
+    transition: width 0.25s;
   }
 
   &__aside {
@@ -62,17 +60,12 @@ const asideWidth = useAsideWidth();
   }
 
   &__header {
-    display: flex;
-    align-items: center;
+    height: 52px;
+    border-bottom: var(--el-border-width) var(--el-border-style) var(--el-border-color-light);
 
     &:first-of-type {
-      height: 52px;
-      border-bottom: var(--el-border-width) var(--el-border-style) var(--el-border-color-light);
-    }
-
-    &:nth-of-type(2) {
-      height: 56px;
-      border-bottom: var(--el-border-width) var(--el-border-style) var(--el-border-color-light);
+      display: flex;
+      align-items: center;
     }
   }
 

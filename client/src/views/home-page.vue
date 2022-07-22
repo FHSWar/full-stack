@@ -10,6 +10,6 @@ const toNew = () => { router.push({ name: 'test-new-stuff' }); };
     <el-button @click="toNew">
       跳转到不在侧边栏的路由
     </el-button>
-    <img src="/后台系统——登陆与权限.svg" alt="">
+    <img src="@/assets/images/后台系统——登陆与权限.svg" alt="">
   </div>
 </template>

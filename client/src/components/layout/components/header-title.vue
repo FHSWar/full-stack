@@ -1,18 +1,30 @@
 <script lang="ts" setup>
-import { computed } from 'vue';
+import { computed, ref } from 'vue';
+import { useElementSize } from '@vueuse/core';
 import { useStore } from '@/stores';
 
 const store = useStore();
+const isCollapse = computed(() => store.themeConfig.isAsideMenuCollapse);
 const isSingleColumn = computed(() => store.themeConfig.layout === 'single-column');
+
+const headerRef = ref<HTMLHeadElement>();
+const { width } = useElementSize(headerRef);
 
 const height = computed(() => (isSingleColumn.value ? '116px' : '56px'));
 const titleWidth = computed(() => (isSingleColumn.value ? '300px' : ''));
 const paddingLeft = computed(() => (isSingleColumn.value ? 0 : '20px'));
-const showHeaderTitle = computed(() => !store.themeConfig.isAsideMenuCollapse || isSingleColumn.value);
+
+const isDefaultNarrow = computed(() => !isSingleColumn.value && isCollapse.value);
+const isSingleNarrow = computed(() => width.value < 150);
+
+const showHeaderTitle = computed(() => {
+	if (isSingleColumn.value) return !isSingleNarrow.value;
+	return !isDefaultNarrow.value;
+});
 </script>
 
 <template>
-  <header class="side-bar__header">
+  <header ref="headerRef" class="side-bar__header">
     <use-icon icon="Setting" />
     <use-icon icon="Tools" />
     <transition name="el-zoom-in-center">
@@ -24,6 +36,8 @@ const showHeaderTitle = computed(() => !store.themeConfig.isAsideMenuCollapse ||
 </template>
 
 <style lang="scss" scoped>
+@use "@/assets/style/rotate-animation.scss";
+
 .side-bar {
   &__header {
     --vscode-icon-color: #4b9ae9;
@@ -64,25 +78,5 @@ const showHeaderTitle = computed(() => !store.themeConfig.isAsideMenuCollapse ||
 
 .el-header {
   padding-left: v-bind("paddingLeft");
-}
-
-@keyframes gear-rotate-clock-wise {
-  0% {
-    transform: rotate(15deg);
-  }
-
-  100% {
-    transform: rotate(-345deg);
-  }
-}
-
-@keyframes gear-rotate-anti-clock-wise {
-  0% {
-    transform: rotate(0);
-  }
-
-  100% {
-    transform: rotate(360deg);
-  }
 }
 </style>

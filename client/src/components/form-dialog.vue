@@ -31,7 +31,7 @@ const closeDialog = () => { emit('update:modelValue'); };
 </script>
 
 <template>
-  <el-dialog v-model="dialogVisible" draggable width="30%" @close="closeDialog">
+  <el-dialog v-model="dialogVisible" draggable @close="closeDialog">
     <div class="configuration-dialog__wrapper">
       <el-form
         ref="ruleFormRef" :model="ruleForm" :rules="rules" label-width="120px"
