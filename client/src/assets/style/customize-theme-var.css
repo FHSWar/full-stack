@@ -10,5 +10,5 @@ html.dark {
 
 .el-aside,
 .el-header {
-  background-color: var(--customize-background-color);
+  background-color: var(--el-bg-color-page);
 }
