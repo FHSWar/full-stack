@@ -28,7 +28,7 @@ import MenuTree from './header-menu.vue';
 </template>
 
 <style lang="scss" scoped>
-@use "@/assets/style/fade-transition.scss";
+@use "@/assets/style/fade-transition.css";
 
 .layout {
   &__wrapper {

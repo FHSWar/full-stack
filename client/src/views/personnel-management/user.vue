@@ -15,14 +15,14 @@ provide('partialRoleArr', partialRoleList);
 
 const columns: FhsTableColumn[] = [
 	{ label: '用户名', prop: 'username', width: 120 },
-	{ label: 'UM号', prop: 'um', width: 120 },
+	{ label: 'UM号', prop: 'um', width: 120, fixed: true },
 	{ label: '角色', prop: 'roles' },
 	{ label: '更新时间', prop: 'updatedAt', align: 'right', width: 120 },
 	{ label: '创建时间', prop: 'createdAt', align: 'right', width: 120 },
 	{
 		label: '操作',
 		align: 'center',
-		buttons: [{ description: '编辑' }, { description: '删除', link: true, doubleCheck: true }],
+		buttons: [{ description: '编辑角色' }, { description: '删除', link: true, doubleCheck: true }],
 		width: 200
 	}
 ];

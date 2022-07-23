@@ -22,7 +22,7 @@ const tableData = ref([] as any[]);
 const columns: FhsTableColumn[] = [
 	{ editable: true, label: '所属模块', prop: 'belongModule', width: 120 },
 	{ label: '请求方式', prop: 'requestMethod', width: 100 },
-	{ label: '接口路径', prop: 'apiRoute' },
+	{ fixed: true, label: '接口路径', prop: 'apiRoute', width: 180 },
 	{ label: '授权角色', prop: 'roles' },
 	{ editable: true, label: '描述', prop: 'description' },
 	{ label: '更新时间', prop: 'updatedAt', align: 'right', width: 120 },

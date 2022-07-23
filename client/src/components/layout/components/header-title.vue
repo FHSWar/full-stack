@@ -36,7 +36,7 @@ const showHeaderTitle = computed(() => {
 </template>
 
 <style lang="scss" scoped>
-@use "@/assets/style/rotate-animation.scss";
+@use "@/assets/style/rotate-animation.css";
 
 .side-bar {
   &__header {

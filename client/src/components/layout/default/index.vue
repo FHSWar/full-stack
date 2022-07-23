@@ -38,7 +38,7 @@ const asideWidth = useAsideWidth();
 </template>
 
 <style lang="scss" scoped>
-@use "@/assets/style/fade-transition.scss";
+@use "@/assets/style/fade-transition.css";
 
 .common-layout {
   height: 100%;

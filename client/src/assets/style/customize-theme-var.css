@@ -1,5 +1,6 @@
-html.light {
-  --customize-background-color: #fff;
+/* 默认是浅色，也就是默认没有light类，这里应该写html，而不是html.light */
+html {
+  --customize-background-color: white;
 }
 
 html.dark {

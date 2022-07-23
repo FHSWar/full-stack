@@ -12,7 +12,7 @@ const roleList = ref([] as any);
 const tableData = ref([] as any[]);
 
 const columns: FhsTableColumn[] = [
-	{ fixed: true, label: '角色', prop: 'role', width: 160 },
+	{ fixed: true, label: '角色', prop: 'role', width: 80 },
 	{ editable: true, label: '描述', prop: 'description' },
 	{ label: '更新时间', prop: 'updatedAt', align: 'right', width: 120 },
 	{ label: '创建时间', prop: 'createdAt', align: 'right', width: 120 },
