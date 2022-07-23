@@ -87,7 +87,7 @@ getRoles();
       flex: 1;
       padding: 4px;
       margin-top: 16px;
-      background-color: var(--el-fill-color-blank);
+      background-color: var(--customize-background-color);
       border-radius: var(--el-border-radius-base);
     }
   }

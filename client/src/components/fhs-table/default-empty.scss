@@ -7,6 +7,7 @@
   flex: 1;
   flex-direction: column;
   overflow: auto;
+  background-color: var(--customize-background-color);
 }
 
 :deep(.el-table__body-wrapper) {

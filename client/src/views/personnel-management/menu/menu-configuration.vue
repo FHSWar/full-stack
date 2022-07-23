@@ -187,8 +187,9 @@ export default {
 <style lang="scss" scoped>
 .tree {
   &__wrapper {
+    height: 100%;
     overflow: hidden;
-    background-color: var(--el-fill-color-blank);
+    background-color: var(--customize-background-color);
     border-radius: var(--el-border-radius-base);
   }
 

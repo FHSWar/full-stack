@@ -16,8 +16,9 @@ export const fallbackRoutes:MenuTree = [
 		icon: 'SetUp',
 		children: [
 			{ id: '101', page: 'role', pid: '100', title: '角色', icon: 'User', children: [] },
-			{ id: '102', page: 'user', pid: '100', title: '用户', icon: 'UserFilled', children: [] },
-			{ id: '103', page: 'menu', pid: '100', title: '菜单', icon: 'Rank', children: [] }
+			{ id: '102', page: 'menu', pid: '100', title: '菜单', icon: 'Rank', children: [] },
+			{ id: '103', page: 'api-restriction', pid: '100', title: '接口', icon: 'Link', children: [] },
+			{ id: '104', page: 'user', pid: '100', title: '用户', icon: 'UserFilled', children: [] }
 		]
 	}
 ];
