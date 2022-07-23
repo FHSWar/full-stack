@@ -20,7 +20,8 @@ themeConfig = getLocal('themeConfig') as ThemeConfig;
 if (themeConfig === null) {
 	themeConfig = {
 		isAsideMenuCollapse: false,
-		layout: 'default'
+		layout: 'default',
+		themeColor: 'light'
 	};
 	setLocal('themeConfig', themeConfig);
 }

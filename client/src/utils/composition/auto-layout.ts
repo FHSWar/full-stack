@@ -21,7 +21,9 @@ export const useAutoLayout = () => {
 				store.themeConfig.isAsideMenuCollapse = true;
 				break;
 			case !isNarrow.value && isCollapse.value:
-				store.themeConfig.isAsideMenuCollapse = false;
+				store.init
+					? store.init = false
+					: store.themeConfig.isAsideMenuCollapse = false;
 				break;
 			default:
 				// do nothing

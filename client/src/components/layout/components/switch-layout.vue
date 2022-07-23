@@ -4,11 +4,9 @@ import { useStore } from '@/stores';
 const store = useStore();
 
 const switchLayout = () => {
-	if (store.themeConfig.layout === 'default') {
-		store.themeConfig.layout = 'single-column';
-	} else {
-		store.themeConfig.layout = 'default';
-	}
+	store.themeConfig.layout === 'default'
+		? store.themeConfig.layout = 'single-column'
+		: store.themeConfig.layout = 'default';
 };
 </script>
 
