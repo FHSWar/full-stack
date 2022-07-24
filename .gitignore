@@ -15,6 +15,7 @@ client/coverage
 client/dist
 client/dist-ssr
 client/*.local
+client/stats.html
 server/public
 
 # Editor directories and files
