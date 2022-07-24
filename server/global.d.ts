@@ -3,6 +3,7 @@
 /* eslint-disable vars-on-top */
 import type {
 	Logger,
+	KnexInstance,
 	KoaContext,
 	KoaRouter,
 	RedisType,
@@ -12,6 +13,7 @@ import type {
 } from '@/util';
 
 declare global {
+    var knex: KnexInstance; // knex实例
     var token: string; // 单测登陆态不知道放哪儿，只好丢到全局了
     var logger: Logger; // 全局日志打印，根据日期分文件夹，根据类型分文件
     var redis: RedisType; // redis实例

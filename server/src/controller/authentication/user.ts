@@ -1,4 +1,5 @@
 import { IUser, User } from '@/model/user';
+import { RoleSQL } from '@/model/role-mysql';
 import {
 	decryptPassword,
 	encryptBySHA512,
@@ -48,6 +49,9 @@ router.get('auth/userInfo', async (ctx) => {
 	const { um, username } = token as Omit<IUser, 'password'>;
 
 	const userInfo = await User.findOne({ um, username }).populate('roles');
+
+	const abcabc = await (await RoleSQL).builder.insert({ role: '搞一个！' });
+	console.log('abcabc', abcabc);
 
 	if (userInfo) {
 		const roleArr = userInfo.roles

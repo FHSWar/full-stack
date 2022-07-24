@@ -1,3 +1,4 @@
+export * from './case-convertor';
 export * from './db-tool-function';
 export * from './diy-middleware/guard-login-state';
 export * from './diy-middleware/guard-restricted-api';

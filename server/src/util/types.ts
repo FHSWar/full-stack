@@ -1,5 +1,6 @@
 import Koa, { Context, Next } from 'koa';
 import Router from '@koa/router';
+import type { Knex } from 'knex';
 import WebSocket from 'ws';
 import { model, Schema } from 'mongoose';
 import type { Job } from 'node-schedule';
@@ -12,6 +13,8 @@ export type KoaInstance = Koa<Koa.DefaultState, Koa.DefaultContext>
 export type KoaRouter = Router<Koa.DefaultState, Koa.DefaultContext>
 export type KoaContext = Context
 export type KoaNext = Next
+
+export type KnexInstance = Knex<any, unknown[]>
 
 export type RedisType = Redis
 export type SchemaType = typeof Schema
