@@ -7,6 +7,7 @@ import type {
 	KoaRouter,
 	RedisType,
 	ScheduleJob,
+	SequelizeInstance,
 	Status,
 	WebSocketServer
 } from '@/util';
@@ -18,6 +19,7 @@ declare global {
     var scheduler: { // 单测结束需要cancel掉定时器
         [key: string]: ScheduleJob | undefined
     };
+    var sequelize: Sequelize;
     var STATUS: Status; // 状态码
     var toCliect: ( // 返回给前端的格式统一封装
         ctx: KoaContext,

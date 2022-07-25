@@ -1,4 +1,6 @@
 import { IUser, User } from '@/model/user';
+// import { Role } from '@/model/role-mysql';
+
 import {
 	decryptPassword,
 	encryptBySHA512,
@@ -48,6 +50,11 @@ router.get('auth/userInfo', async (ctx) => {
 	const { um, username } = token as Omit<IUser, 'password'>;
 
 	const userInfo = await User.findOne({ um, username }).populate('roles');
+
+	/* await Role.create({ role: '路人甲', description: '王德发' });
+	await Role.destroy({
+		where: { role: '路人甲' }
+	}); */
 
 	if (userInfo) {
 		const roleArr = userInfo.roles

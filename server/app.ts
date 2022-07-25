@@ -9,6 +9,7 @@ import {
 	mountGlobal,
 	staticDir,
 	useJWT,
+	useMysql,
 	useMongo,
 	useRedis,
 	useRoutes,
@@ -18,6 +19,13 @@ import {
 
 // 这个不在最上方引入，就会有其他ts文件只有函数体内才能访问全局变量的问题
 mountGlobal();
+
+/* 同步的启用数据库等连接，应在初始化koa实例前进行 */
+useMysql(); // 使用mysql
+useRedis(); // 使用redis
+useSchedule(); // 启用定时任务
+useWebSocket(); // 启用web-socket
+if (!isTest) useMongo(); // 单测环境要另外启动，这和commonJS同步的文件导入策略有关
 
 const app = new Koa();
 app
@@ -29,9 +37,5 @@ app
 
 useJWT(app); // 使用JWT
 useRoutes(app); // 使用接口路由
-useRedis(); // 使用redis
-useSchedule(); // 启用定时任务
-useWebSocket(); // 启用web-socket
-if (!isTest) useMongo(); // 单测环境要另外启动，这和commonJS同步的文件导入策略有关
 
 export const server = app.listen(9000);
