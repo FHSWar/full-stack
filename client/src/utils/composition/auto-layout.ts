@@ -1,4 +1,4 @@
-import { computed, ref, watch, watchEffect } from 'vue';
+import { computed, ref, watch } from 'vue';
 import { useMediaQuery } from '@vueuse/core';
 import { useStore } from '@/stores';
 
@@ -7,27 +7,27 @@ export const useAutoLayout = () => {
 
 	const store = useStore();
 	const layout = computed(() => store.themeConfig.layout);
-	const isCollapse = computed(() => store.themeConfig.isAsideMenuCollapse);
 
 	const switchinglayout = ref(false);
 
-	watch(layout, (oldVal, newVal) => {
-		if (oldVal !== newVal) switchinglayout.value = true;
-		else switchinglayout.value = false;
-	});
-	watchEffect(() => {
+	// 从窄切到宽，把侧边栏展开，反之则反
+	watch(isNarrow, (oldVal, newVal) => {
 		switch (true) {
-			case isNarrow.value && !isCollapse.value:
-				store.themeConfig.isAsideMenuCollapse = true;
+			case !oldVal && newVal:
+				store.themeConfig.isAsideMenuCollapse = false;
 				break;
-			case !isNarrow.value && isCollapse.value:
-				store.init
-					? store.init = false
-					: store.themeConfig.isAsideMenuCollapse = false;
+			case oldVal && !newVal:
+				store.themeConfig.isAsideMenuCollapse = true;
 				break;
 			default:
 				// do nothing
 		}
+	});
+
+	// 控制切布局动画
+	watch(layout, (oldVal, newVal) => {
+		if (oldVal !== newVal) switchinglayout.value = true;
+		else switchinglayout.value = false;
 	});
 
 	return switchinglayout;

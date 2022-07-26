@@ -40,5 +40,5 @@ export default defineConfig({
 		legacy(),
 		visualizer()
 	],
-	test: {}
+	test: { coverage: { all: true } }
 });
