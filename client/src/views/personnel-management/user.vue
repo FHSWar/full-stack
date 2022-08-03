@@ -37,7 +37,7 @@ const getUsers = async () => {
 };
 const handleButtonClick = async (desc: string, row: any) => {
 	switch (desc) {
-		case '编辑':
+		case '编辑角色':
 			userEditing.value = row;
 			partialRoleList.value = row.roles;
 			assignRoleDialogVisible.value = true;

@@ -60,3 +60,7 @@ a:focus {
 .el-dialog {
   min-width: 480px;
 }
+
+.el-popper {
+  max-inline-size: 66ch;
+}
