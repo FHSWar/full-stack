@@ -22,6 +22,7 @@
   },
   "scripts": {
     "dev": "npm-run-all --parallel dev:*",
+    "dev:client": "cd client && npm run dev",
     "dev:server": "cd server && npm run dev",
     "dev:server-worker": "cd server-worker && npm run dev",
     "lint": "npm-run-all --parallel lint:*",
@@ -30,9 +31,11 @@
     "lint:chief": "cd server && npm run lint",
     "lint:worker": "cd server-worker && npm run lint",
     "lint:shared": "cd shared && npm run lint",
-    "prepare": "husky install"
+    "prepare": "husky install",
+    "dev-tab": "ttab 'npm run dev:client'&&ttab 'npm run dev:server'&&ttab 'npm run dev:server-worker'"
   },
   "dependencies": {
+    "@types/superagent": "^4.1.14",
     "apidoc": "^0.51.1",
     "dayjs": "^1.11.3",
     "deasync": "^0.1.26",
@@ -42,7 +45,8 @@
     "@types/apidoc": "^0.50.0",
     "husky": "^8.0.1",
     "lint-staged": "^13.0.1",
-    "npm-run-all": "^4.1.5"
+    "npm-run-all": "^4.1.5",
+    "ttab": "^0.7.3"
   },
   "lint-staged": {
     "client/**/*.{js,ts,vue}": [
