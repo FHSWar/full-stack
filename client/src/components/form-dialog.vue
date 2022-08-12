@@ -52,15 +52,17 @@ const closeDialog = () => { emit('update:modelValue'); };
 </template>
 
 <style lang="scss" scoped>
-/* stylelint-disable-next-line selector-class-pattern */
-:deep(.el-select-dropdown__list) {
-  display: flex;
-  flex-wrap: wrap;
-  width: 280px;
-}
+:deep(.el-select-dropdown) {
+  .el-select-dropdown {
+    &__list {
+      display: flex;
+      flex-wrap: wrap;
+      width: 280px;
+    }
 
-/* stylelint-disable-next-line selector-class-pattern */
-:deep(.el-select-dropdown__item) {
-  padding: 0 20px;
+    &__item {
+      padding: 0 20px;
+    }
+  }
 }
 </style>
